@@ -25,7 +25,7 @@ namespace ConsoleApp2_1
                 Console.WriteLine($"On the account: {EuroRubles} euro and {EuroCoins} coins");
             }
             else {
-                Console.WriteLine("Insufficient funds. Please top up your account.");
+                Console.WriteLine("Warning.Insufficient funds. Please top up your account.");
             }
         }
 
@@ -36,6 +36,17 @@ namespace ConsoleApp2_1
 
         public void BuyProduct(Product product, int quantity)
         {
+            if (product == null)
+            {
+                Console.WriteLine("Error: The product does not exist.");
+                return;
+            }
+
+            if (!product.IsValidProduct())
+            {
+                return;
+            }
+
             int totalPrice = (product.ProductPrice - product.ProductDiscount) * quantity;
             int totalMoney = EuroRubles * 100 + EuroCoins;
 
@@ -54,12 +65,12 @@ namespace ConsoleApp2_1
                 }
                 else
                 {
-                    Console.WriteLine($"Not enough {product.ProductName}(s) in stock.");
+                    Console.WriteLine($"Warning.Not enough {product.ProductName}(s) in stock.");
                 }
             }
             else
             {
-                Console.WriteLine("Insufficient funds. Please top up your account.");
+                Console.WriteLine("Warning.Insufficient funds. Please top up your account.");
             }
         }
     }
