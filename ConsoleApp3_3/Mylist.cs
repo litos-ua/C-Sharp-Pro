@@ -11,7 +11,7 @@ namespace ConsoleApp3_3
         {
             if (list == null || list.Count == 0)
             {
-                throw new ArgumentException("The list must not be empty or null.");
+                throw new ArgumentException("The list must not be empty or null.\n");
             }
 
             myList = list;
