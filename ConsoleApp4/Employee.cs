@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
+using System;
 
 namespace ConsoleApp4
 {
-    public class Employee
+    public class EmployeeBase
     {
         private string? name;
         private string? email;
         private string? department;
-        private int salary;
 
         public string Name
         {
@@ -50,6 +48,18 @@ namespace ConsoleApp4
             }
         }
 
+        public EmployeeBase(string name, string email, string department)
+        {
+            Name = name;
+            Email = email;
+            Department = department;
+        }
+    }
+
+    public class Employee : EmployeeBase
+    {
+        private int salary;
+
         public int Salary
         {
             get { return salary; }
@@ -64,10 +74,8 @@ namespace ConsoleApp4
         }
 
         public Employee(string name, string email, string department, int salary)
+            : base(name, email, department)  
         {
-            Name = name;
-            Email = email;
-            Department = department;
             Salary = salary;
         }
 
@@ -82,7 +90,7 @@ namespace ConsoleApp4
             empl.Salary -= decrease;
             if (empl.Salary < 0)
             {
-                empl.Salary = 0; 
+                empl.Salary = 0;
             }
             return empl;
         }

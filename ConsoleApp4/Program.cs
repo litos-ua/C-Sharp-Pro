@@ -131,9 +131,9 @@ namespace ConsoleApp4
                             Console.WriteLine($"Both cards have the same amount of money.");
 
                         Console.WriteLine(card3 == 871 ? $"CVC codes of the {card3.CardNumber} is correct" :
-                            $"CVC codes of the {card3.CardNumber} isn't correct");
+                            $"CVC codes of the {card3.CardNumber} doesn't match");
 
-                        Console.WriteLine(card1 != 871 ? $"CVC codes of the {card1.CardNumber} isn't correct" :
+                        Console.WriteLine(card1 != 871 ? $"CVC codes of the {card1.CardNumber} doesn't match" :
                             $"CVC codes of the {card1.CardNumber} is correct");
 
                     }

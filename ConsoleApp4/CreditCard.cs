@@ -1,16 +1,16 @@
-﻿using System;
+﻿
+using System;
 using System.Text.RegularExpressions;
 
 namespace ConsoleApp4
 {
-    public class CreditCard
+    public partial class CreditCard
     {
-        private string cardNumber;
-        private string cardOwner;
+        private string? cardNumber;
+        private string? cardOwner;
         private DateTime validDate;
-        public string PaymentSystem { get; set; }
+        public string? PaymentSystem { get; set; }
         private int cvcCode;
-        private int amountOfMoney;
 
 
         public string CardNumber
@@ -71,6 +71,25 @@ namespace ConsoleApp4
             }
         }
 
+       
+
+        public CreditCard(string cardNumber, string cardOwner, DateTime validDate, int cvcCode, string paymentSystem)
+        {
+            CardNumber = cardNumber;
+            CardOwner = cardOwner;
+            ValidDate = validDate;
+            CvcCode = cvcCode;
+            PaymentSystem = paymentSystem;
+        }
+
+        
+    }
+
+
+    public partial class CreditCard
+    {
+        private int amountOfMoney; 
+
         public int AmountOfMoney
         {
             get { return amountOfMoney; }
@@ -84,13 +103,9 @@ namespace ConsoleApp4
             }
         }
 
-        public CreditCard(string cardNumber, string cardOwner ,DateTime validDate, int cvcCode, string paymentSystem, int amountOfMoney)
+        public CreditCard(string cardNumber, string cardOwner, DateTime validDate, int cvcCode, string paymentSystem, int amountOfMoney)
+            : this(cardNumber, cardOwner, validDate, cvcCode, paymentSystem)
         {
-            CardNumber = cardNumber;
-            CardOwner = cardOwner;
-            ValidDate = validDate;
-            CvcCode = cvcCode;
-            PaymentSystem = paymentSystem;
             AmountOfMoney = amountOfMoney;
         }
 
@@ -105,7 +120,7 @@ namespace ConsoleApp4
             card.AmountOfMoney -= amount;
             if (card.AmountOfMoney < 0)
             {
-                card.AmountOfMoney = 0; 
+                card.AmountOfMoney = 0;
             }
             return card;
         }
@@ -151,5 +166,10 @@ namespace ConsoleApp4
                    $" Balance: {AmountOfMoney} GRN";
         }
     }
+
+
 }
+
+
+
 
