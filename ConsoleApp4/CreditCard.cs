@@ -1,26 +1,73 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp4
 {
     public class CreditCard
     {
-        public string CardNumber { get; set; }
-        public string CardOwner { get; set; }
-        public DateTime ValidDate { get; set; }
+        private string cardNumber;
+        private string cardOwner;
+        private DateTime validDate;
         public string PaymentSystem { get; set; }
         private int cvcCode;
         private int amountOfMoney;
+
+
+        public string CardNumber
+        {
+            get { return cardNumber; }
+            set
+            {
+                string trimNumber = new string(value.Where(char.IsDigit).ToArray());
+
+                if (trimNumber.Length != 16 || !long.TryParse(trimNumber, out _))
+                {
+                    throw new ArgumentException("Card number must contain only 16 digits.");
+                }
+
+                cardNumber = trimNumber;
+            }
+        }
+
+        public string CardOwner
+        {
+            get { return cardOwner; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Card owner cannot be empty.");
+                }
+                cardOwner = value;
+            }
+        }
 
         public int CvcCode
         {
             get { return cvcCode; }
             set
             {
-                if (value.ToString().Length != 3)
+                string trimCVC = new string(value.ToString().Where(char.IsDigit).ToArray());
+
+                if (trimCVC.Length != 3 || !int.TryParse(trimCVC, out int digCVC))
                 {
                     throw new ArgumentException("CVC code must be a 3-digit number.");
                 }
-                cvcCode = value;
+
+                cvcCode = digCVC;
+            }
+        }
+
+        public DateTime ValidDate
+        {
+            get { return validDate; }
+            set
+            {
+                if (value <= DateTime.Now)
+                {
+                    throw new ArgumentException("Card date is invalid.");
+                }
+                validDate = value;
             }
         }
 
@@ -82,6 +129,7 @@ namespace ConsoleApp4
         {
             return card1.AmountOfMoney > card2.AmountOfMoney;
         }
+
 
         public override bool Equals(object obj)
         {
