@@ -80,7 +80,7 @@ namespace ConsoleApp4
             city.Population -= decrease;
             if (city.Population < 0)
             {
-                city.Population = 0; // Численность не может быть меньше нуля
+                city.Population = 0; 
             }
             return city;
         }

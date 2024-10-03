@@ -104,6 +104,44 @@ namespace ConsoleApp4
                     break;
                 case 3:
                     Console.WriteLine("\n Task 4.3");
+
+                    try
+                    {
+                        CreditCard card1 = new CreditCard("1234 5678 9101 1121", "Marina", new DateTime(2025, 12, 22), 123, "Visa", 5021);
+                        CreditCard card2 = new CreditCard("4321 8765 0191 2111", "Dmiriy", new DateTime(2027, 06, 21), 456, "Mastercard", 3100);
+                        CreditCard card3 = new CreditCard("1234 7154 2201 1129", "Marina", new DateTime(2027, 07, 11), 871, "Visa", 1021);
+
+                        Console.WriteLine(card1);
+                        Console.WriteLine(card2);
+                        Console.WriteLine(card3);
+
+                        card1 += 2000;
+                        card2 -= 1500;
+                        card3 += 771;
+
+                        Console.WriteLine(card1);
+                        Console.WriteLine(card2);
+                        Console.WriteLine(card3);
+
+                        if (card1 > card2)
+                            Console.WriteLine($"{card1.CardNumber} has more money than {card2.CardNumber}");
+                        else if (card1 < card2)
+                            Console.WriteLine($"{card2.CardNumber} has more money than {card1.CardNumber}");
+                        else
+                            Console.WriteLine($"Both cards have the same amount of money.");
+
+                        Console.WriteLine(card3 == 871 ? $"CVC codes of the {card3.CardNumber} is correct" :
+                            $"CVC codes of the {card3.CardNumber} isn't correct");
+
+                        Console.WriteLine(card1 != 871 ? $"CVC codes of the {card1.CardNumber} isn't correct" :
+                            $"CVC codes of the {card1.CardNumber} is correct");
+
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+
                     break;
 
                 default:
