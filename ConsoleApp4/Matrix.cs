@@ -59,18 +59,45 @@ namespace ConsoleApp4
 
         public static Matrix operator *(Matrix mtr, int lyambda)
         {
-            Matrix mtrTmp = new Matrix(mtr.Rows, mtr.Cols);
+            Matrix mtrRes = new Matrix(mtr.Rows, mtr.Cols);
             for (int i = 0; i < mtr.Rows; i++)  
             {
                 for (int j = 0; j < mtr.Cols; j++)  
                 {
-                    mtrTmp[i, j] = lyambda * mtr[i, j];
+                    mtrRes[i, j] = lyambda * mtr[i, j];
                 }
             }
 
-            return mtrTmp;
+            return mtrRes;
         }
 
+
+
+        public static Matrix Multiply(Matrix m1, Matrix m2)
+        {
+            if (m1.Cols != m2.Rows)
+            {
+                throw new ArgumentException("Matrices cannot be multiplied. Columns of the first matrix must match rows of the second matrix.");
+            }
+
+            // Create a result matrix with dimensions (Rows of m1 x Cols of m2)
+            Matrix mtrRes = new Matrix(m1.Rows, m2.Cols);
+
+            // Perform the matrix multiplication
+            for (int i = 0; i < m1.Rows; i++)
+            {
+                for (int j = 0; j < m2.Cols; j++)
+                {
+                    mtrRes[i, j] = 0;
+                    for (int k = 0; k < m1.Cols; k++)
+                    {
+                        mtrRes[i, j] += m1[i, k] * m2[k, j];
+                    }
+                }
+            }
+
+            return mtrRes;
+        }
 
         public static bool operator ==(Matrix mtr1, Matrix mtr2)
         {

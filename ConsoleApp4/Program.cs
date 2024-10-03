@@ -186,7 +186,7 @@ namespace ConsoleApp4
                         matrix = matrix1 - matrix2;
                         matrix.PrintMatrix();
 
-                        Console.WriteLine();
+                        Console.WriteLine("Multiplying a matrix by a scalar");
                         matrix = matrix1 * 7;
                         matrix.PrintMatrix();
                         Console.WriteLine();
@@ -199,7 +199,12 @@ namespace ConsoleApp4
                         else
                         {
                             Console.WriteLine("The matrices are not equal");
+                            Console.WriteLine();
                         }
+
+                        Console.WriteLine("Multiplication of two matrix");
+                        matrix = Matrix.Multiply(matrix1, matrix2);
+                        matrix.PrintMatrix();
                     }
                     catch (ArgumentException ex)
                     {
