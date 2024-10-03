@@ -7,7 +7,7 @@ namespace ConsoleApp4
         static void Main()
         {
 
-            Console.WriteLine("Enter of the homework number ('1', '2', '3').");
+            Console.WriteLine("Enter of the homework number ('1', '2', '3', '4').");
             Int32.TryParse(Console.ReadLine(), out int taskNumber);
 
             switch (taskNumber)
@@ -143,7 +143,70 @@ namespace ConsoleApp4
                     }
 
                     break;
+                case 4:
+                    Console.WriteLine("\n Task 4.4");
 
+
+                    try
+                    {
+                        Matrix matrix1 = new Matrix(3, 3);
+
+                        matrix1[0, 0] = 1;
+                        matrix1[0, 1] = 2;
+                        matrix1[0, 2] = 3;
+                        matrix1[1, 0] = 4;
+                        matrix1[1, 1] = 5;
+                        matrix1[1, 2] = 6;
+                        matrix1[2, 0] = 7;
+                        matrix1[2, 1] = 8;
+                        matrix1[2, 2] = 9;
+
+                        matrix1.PrintMatrix();
+
+                        Matrix matrix2 = new Matrix(3, 3);
+                        Console.WriteLine();
+
+                        matrix2[0, 0] = 11;
+                        matrix2[0, 1] = 12;
+                        matrix2[0, 2] = 13;
+                        matrix2[1, 0] = 14;
+                        matrix2[1, 1] = 15;
+                        matrix2[1, 2] = 16;
+                        matrix2[2, 0] = 17;
+                        matrix2[2, 1] = 18;
+                        matrix2[2, 2] = 19;
+
+                        matrix2.PrintMatrix();
+                        Console.WriteLine();
+
+                        Matrix matrix = new Matrix(3, 3);
+                        matrix = matrix1 + matrix2;
+                        matrix.PrintMatrix();
+                        Console.WriteLine();
+                        matrix = matrix1 - matrix2;
+                        matrix.PrintMatrix();
+
+                        Console.WriteLine();
+                        matrix = matrix1 * 7;
+                        matrix.PrintMatrix();
+                        Console.WriteLine();
+
+                        if (matrix1 == matrix2)
+                        {
+                            Console.WriteLine("The matrices are equal");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("The matrices are not equal");
+                        }
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+
+                    break;
                 default:
                     Console.WriteLine("Invalid task number.");
                     return;
