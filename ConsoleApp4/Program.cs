@@ -186,11 +186,6 @@ namespace ConsoleApp4
                         matrix = matrix1 - matrix2;
                         matrix.PrintMatrix();
 
-                        Console.WriteLine("Multiplying a matrix by a scalar");
-                        matrix = matrix1 * 7;
-                        matrix.PrintMatrix();
-                        Console.WriteLine();
-
                         if (matrix1 == matrix2)
                         {
                             Console.WriteLine("The matrices are equal");
@@ -198,13 +193,57 @@ namespace ConsoleApp4
 
                         else
                         {
-                            Console.WriteLine("The matrices are not equal");
-                            Console.WriteLine();
+                            Console.WriteLine("The matrices are not equal\n");
                         }
 
-                        Console.WriteLine("Multiplication of two matrix");
-                        matrix = Matrix.Multiply(matrix1, matrix2);
-                        matrix.PrintMatrix();
+
+                        // ------------------------------------------------------------------------
+                        MatrixScMult matrixScMult = new MatrixScMult(matrix1.Rows, matrix1.Cols);
+
+                        for (int i = 0; i < matrix1.Rows; i++)
+                        {
+                            for (int j = 0; j < matrix1.Cols; j++)
+                            {
+                                matrixScMult[i, j] = matrix1[i, j];
+                            }
+                        }
+
+                        Console.WriteLine("Matrix before scalar multiplication:");
+                        matrixScMult.PrintMatrix();
+
+                        int scl = 7;
+                        MatrixScMult matrixResultScMult = matrixScMult * scl;
+
+                        Console.WriteLine($"\nMatrix after scalar multiplication by {scl}:");
+                        matrixResultScMult.PrintMatrix();
+
+
+                        // -----------------------------------------------------------------------------
+                        MatrixFullMult matrixFullMult1 = new MatrixFullMult(matrix1.Rows, matrix1.Cols);
+                        MatrixFullMult matrixFullMult2 = new MatrixFullMult(matrix2.Rows, matrix2.Cols);
+
+                        for (int i = 0; i < matrix1.Rows; i++)
+                        {
+                            for (int j = 0; j < matrix1.Cols; j++)
+                            {
+                                matrixFullMult1[i, j] = matrix1[i, j];
+                                matrixFullMult2[i, j] = matrix2[i, j];
+                            }
+                        }
+
+                        Console.WriteLine("\nFirst matrix for full multiplication:");
+                        matrixFullMult1.PrintMatrix();
+
+                        Console.WriteLine("\nSecond matrix for full multiplication:");
+                        matrixFullMult2.PrintMatrix();
+
+                        MatrixFullMult matrixResultFullMult = matrixFullMult1 * matrixFullMult2;
+
+                        Console.WriteLine("\nMatrix after full multiplication:");
+                        matrixResultFullMult.PrintMatrix();
+
+
+
                     }
                     catch (ArgumentException ex)
                     {
