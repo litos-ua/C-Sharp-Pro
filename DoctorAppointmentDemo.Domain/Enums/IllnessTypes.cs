@@ -3,13 +3,11 @@
     public enum IllnessTypes
     {
         EyeDisease = 1,
+        Infection = 2,
+        DentalDisease = 3,
+        SkinDisease = 4,
+        Ambulance = 5,
+        Insomnia = 7,
 
-        Infection,
-
-        DentalDisease,
-
-        SkinDisease,
-
-        Ambulance,
     }
 }

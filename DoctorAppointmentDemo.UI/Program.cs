@@ -1,4 +1,5 @@
 ﻿using MyDoctorAppointment.Domain.Entities;
+using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 using MyDoctorAppointment.Service.Services;
 
@@ -8,9 +9,13 @@ namespace MyDoctorAppointment
     {
         private readonly IDoctorService _doctorService;
 
+        private readonly IPatientService _patientService;
+
+
         public DoctorAppointment()
         {
             _doctorService = new DoctorService();
+            _patientService = new PatientService();
         }
 
         public void Menu()
@@ -28,19 +33,44 @@ namespace MyDoctorAppointment
                 Console.WriteLine(doc.Name);
             }
 
-            Console.WriteLine("Adding doctor: ");
+            //Console.WriteLine("Adding doctor: ");
 
-            var newDoctor = new Doctor
+            //var newDoctor = new Doctor
+            //{
+            //    Name = "Vasya",
+            //    Surname = "Petrov",
+            //    Experience = 20,
+            //    DoctorType = Domain.Enums.DoctorTypes.Dentist
+            //};
+
+            //_doctorService.Create(newDoctor);
+
+
+            var patientService = new PatientService();
+
+            Console.WriteLine("Adding patient: ");
+            var newPatient = new Patient
             {
-                Name = "Vasya",
-                Surname = "Petrov",
-                Experience = 20,
-                DoctorType = Domain.Enums.DoctorTypes.Dentist
+                Name = "Sergiy",
+                Surname = "Jarmolenko",
+                Phone = "333-77-111",
+                Email = "syarm@gmail.com",
+                IllnessType = IllnessTypes.Infection,
             };
 
-            _doctorService.Create(newDoctor);
 
-            Console.WriteLine("Current doctors list: ");
+            try
+            {
+                patientService.Create(newPatient);
+                Console.WriteLine("Patient added successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Patient don't created: {ex.Message}");
+            }
+
+
+            Console.WriteLine("Current patient list: ");
             docs = _doctorService.GetAll();
 
             foreach (var doc in docs)
@@ -56,23 +86,28 @@ namespace MyDoctorAppointment
     {
         public static void Main()
         {
-            // Создаем экземпляр DoctorService
-            var doctorService = new DoctorService();
+            //var doctorService = new DoctorService();
 
-            // Заполняем данные нового доктора
-            var newDoctor = new Doctor
-            {
-                Name = "Julia",
-                Surname = "Krasnowska",
-                Experience = 3,
-                DoctorType = Domain.Enums.DoctorTypes.FamilyDoctor,
-                Salary = 2500.0m
-            };
+            //Console.WriteLine("Adding doctor: ");
+            //var newDoctor = new Doctor
+            //{
+            //    Name = "Julia",
+            //    Surname = "Krasnowska",
+            //    Experience = 3,
+            //    DoctorType = Domain.Enums.DoctorTypes.FamilyDoctor,
+            //    Salary = 2500.0m
+            //};
 
-            // Добавляем нового доктора с помощью метода Create()
-            doctorService.Create(newDoctor);
 
-            Console.WriteLine("Doctor added successfully!");
+            //try
+            //{
+            //    doctorService.Create(newDoctor);
+            //    Console.WriteLine("Doctor added successfully!");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Doctor don't created: {ex.Message}");
+            //}
 
 
 

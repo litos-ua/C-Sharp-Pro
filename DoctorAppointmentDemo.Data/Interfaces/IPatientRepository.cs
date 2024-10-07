@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyDoctorAppointment.Domain.Entities;
 
-namespace DoctorAppointmentDemo.Data.Interfaces
+namespace MyDoctorAppointment.Data.Interfaces
 {
-    internal interface IPatientRepository
+    public interface IPatientRepository : IGenericRepository<Patient>
     {
+        // Можно добавить методы, специфичные для пациентов
     }
 }
+
