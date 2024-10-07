@@ -1,0 +1,98 @@
+[
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 2,
+    "CreatedAt": "2024-01-04T21:15:00.5742047+02:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 3,
+    "CreatedAt": "2024-01-04T21:15:10.6132587+02:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 4,
+    "CreatedAt": "2024-10-04T21:20:00.703857+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 5,
+    "CreatedAt": "2024-10-04T21:20:27.8391575+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 3,
+    "Experience": 10,
+    "Salary": 5000.0,
+    "Name": "Natan",
+    "Surname": "Doe",
+    "Phone": null,
+    "Email": null,
+    "Id": 6,
+    "CreatedAt": "2024-10-07T08:46:03.5027231+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 7,
+    "CreatedAt": "2024-10-07T08:46:03.686839+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 3,
+    "Experience": 3,
+    "Salary": 2500.0,
+    "Name": "Julia",
+    "Surname": "Krasnowska",
+    "Phone": null,
+    "Email": null,
+    "Id": 8,
+    "CreatedAt": "2024-10-07T08:47:49.8318549+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 9,
+    "CreatedAt": "2024-10-07T08:47:49.9980449+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  }
+]
