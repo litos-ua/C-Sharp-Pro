@@ -94,5 +94,29 @@
     "Id": 9,
     "CreatedAt": "2024-10-07T08:47:49.9980449+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 3,
+    "Experience": 3,
+    "Salary": 2500.0,
+    "Name": "Julia",
+    "Surname": "Krasnowska",
+    "Phone": null,
+    "Email": null,
+    "Id": 10,
+    "CreatedAt": "2024-10-07T13:59:41.8596243+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 11,
+    "CreatedAt": "2024-10-07T13:59:42.6523679+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]
