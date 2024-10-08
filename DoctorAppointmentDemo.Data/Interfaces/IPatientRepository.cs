@@ -9,7 +9,7 @@ namespace MyDoctorAppointment.Data.Interfaces
 {
     public interface IPatientRepository : IGenericRepository<Patient>
     {
-        // Можно добавить методы, специфичные для пациентов
+        // specific patient's methods
     }
 }
 
