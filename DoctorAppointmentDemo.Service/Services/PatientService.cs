@@ -8,6 +8,7 @@ using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Service.Interfaces;
+using MyDoctorAppointment.Domain.Enums;
 
 namespace MyDoctorAppointment.Service.Services
 {
@@ -17,12 +18,26 @@ namespace MyDoctorAppointment.Service.Services
 
         public PatientService()
         {
-            _patientRepository = new PatientRepository(); // или используйте внедрение зависимостей
+            _patientRepository = new PatientRepository(); 
         }
 
-        public Patient Create(Patient patient)
+        //public Patient Create(Patient patient)
+        //{
+        //    return _patientRepository.Create(patient);
+        //}
+
+        public Patient CreatePatient(string name, string surname, string phone, string email, IllnessTypes illnessType)
         {
-            return _patientRepository.Create(patient);
+            var newPatient = new Patient
+            {
+                Name = name,
+                Surname = surname,
+                Phone = phone,
+                Email = email,
+                IllnessType = illnessType
+            };
+
+            return _patientRepository.Create(newPatient);
         }
 
         public bool Delete(int id)

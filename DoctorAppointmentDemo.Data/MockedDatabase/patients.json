@@ -10,5 +10,17 @@
     "Id": 1,
     "CreatedAt": "2024-10-07T15:54:46.893108+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 2,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Irena",
+    "Surname": "Kolodzejska",
+    "Phone": "+480557772321",
+    "Email": "irenaKol@wp.pl",
+    "Id": 2,
+    "CreatedAt": "2024-10-08T21:34:00.8836305+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]

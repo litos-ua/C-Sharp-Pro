@@ -1,6 +1,7 @@
 ﻿using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
+using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 
 namespace MyDoctorAppointment.Service.Services
@@ -14,9 +15,22 @@ namespace MyDoctorAppointment.Service.Services
             _doctorRepository = new DoctorRepository();
         }
 
-        public Doctor Create(Doctor doctor)
+        //public Doctor Create(Doctor doctor)
+        //{
+        //    return _doctorRepository.Create(doctor);
+        //}
+
+        public Doctor Create(string name, string surname, DoctorTypes doctorType, byte experience)
         {
-            return _doctorRepository.Create(doctor);
+            var newDoctor = new Doctor
+            {
+                Name = name,
+                Surname = surname,
+                DoctorType = doctorType,
+                Experience = experience
+            };
+
+            return _doctorRepository.Create(newDoctor);
         }
 
         public bool Delete(int id)

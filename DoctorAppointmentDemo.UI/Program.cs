@@ -242,58 +242,120 @@ namespace MyDoctorAppointment
             }
         }
 
+        //private void AddDoctor()
+        //{
+        //    Console.WriteLine("Enter doctor's name:");
+        //    string name = Console.ReadLine();
+        //    Console.WriteLine("Enter doctor's surname:");
+        //    string surname = Console.ReadLine();
+
+        //    var newDoctor = new Doctor { Name = name, Surname = surname };
+        //    _doctorService.Create(newDoctor);
+        //    Console.WriteLine("Doctor added successfully.");
+        //}
+
         private void AddDoctor()
         {
             Console.WriteLine("Enter doctor's name:");
             string name = Console.ReadLine();
             Console.WriteLine("Enter doctor's surname:");
             string surname = Console.ReadLine();
-            // Add more fields as necessary...
-            var newDoctor = new Doctor { Name = name, Surname = surname };
-            _doctorService.Create(newDoctor);
+            Console.WriteLine("Enter doctor's type (1 for Dentist, 2 for Dermatologist, etc.):");
+            DoctorTypes doctorType = (DoctorTypes)int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter doctor's experience:");
+            byte experience = byte.Parse(Console.ReadLine());
+
+            _doctorService.Create(name, surname, doctorType, experience);
             Console.WriteLine("Doctor added successfully.");
         }
 
-        // Implement similar methods for adding/editing/deleting patients and appointments...
+        //private void AddPatient()
+        //{
+        //    Console.WriteLine("Enter patient's name:");
+        //    string name = Console.ReadLine();
+        //    Console.WriteLine("Enter patient's surname:");
+        //    string surname = Console.ReadLine();
+        //    Console.WriteLine("Enter patient's phone:");
+        //    string phone = Console.ReadLine();
+        //    Console.WriteLine("Enter patient's email:");
+        //    string email = Console.ReadLine();
+        //    Console.WriteLine("Enter patient's illness type (1 for EyeDisease, 2 for Infection, etc.):");
+        //    int illnessTypeId = int.Parse(Console.ReadLine());
+
+        //    var newPatient = new Patient
+        //    {
+        //        Name = name,
+        //        Surname = surname,
+        //        Phone = phone,
+        //        Email = email,
+        //        IllnessType = (IllnessTypes)illnessTypeId
+        //    };
+
+        //    _patientService.Create(newPatient);
+        //    Console.WriteLine("Patient added successfully.");
+        //}
 
         private void AddPatient()
         {
-            // Similar logic for adding a patient
+            Console.WriteLine("Enter patient's name:");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter patient's surname:");
+            string surname = Console.ReadLine();
+            Console.WriteLine("Enter patient's phone:");
+            string phone = Console.ReadLine();
+            Console.WriteLine("Enter patient's email:");
+            string email = Console.ReadLine();
+            Console.WriteLine("Enter patient's illness type (1 for EyeDisease, 2 for Infection, etc.):");
+            int illnessTypeId = int.Parse(Console.ReadLine());
+
+            // Используем метод CreatePatient из PatientService
+            var newPatient = _patientService.CreatePatient(name, surname, phone, email, (IllnessTypes)illnessTypeId);
+
+            Console.WriteLine("Patient added successfully.");
         }
+
+
 
         private void AddAppointment()
         {
-            // Similar logic for adding an appointment
+            // adding an appointment
         }
 
         private void EditDoctor()
         {
-            // Similar logic for editing a doctor
+            // editing a doctor
         }
 
         private void EditPatient()
         {
-            // Similar logic for editing a patient
+            // editing a patient
         }
 
         private void EditAppointment()
         {
-            // Similar logic for editing an appointment
+            // editing an appointment
         }
 
         private void DeleteDoctor()
         {
-            // Similar logic for deleting a doctor
+            // deleting a doctor
         }
 
         private void DeletePatient()
         {
-            // Similar logic for deleting a patient
+            Console.WriteLine("Enter patient's ID to delete:");
+            int id = int.Parse(Console.ReadLine());
+            bool isDeleted = _patientService.Delete(id);
+
+            if (isDeleted)
+                Console.WriteLine("Patient deleted successfully.");
+            else
+                Console.WriteLine("Patient not found.");
         }
 
         private void DeleteAppointment()
         {
-            // Similar logic for deleting an appointment
+            // deleting an appointment
         }
     }
 
