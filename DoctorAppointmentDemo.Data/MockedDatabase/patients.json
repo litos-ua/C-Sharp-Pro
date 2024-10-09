@@ -46,5 +46,17 @@
     "Id": 4,
     "CreatedAt": "2024-10-09T09:26:30.951861+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 7,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Boris",
+    "Surname": "Jermolenko",
+    "Phone": "+380558787333",
+    "Email": "borisErm@mail.ua",
+    "Id": 5,
+    "CreatedAt": "2024-10-09T23:15:20.1842686+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]
