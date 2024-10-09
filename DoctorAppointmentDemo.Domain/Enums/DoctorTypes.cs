@@ -2,12 +2,18 @@
 {
     public enum DoctorTypes
     {
-        Dentist = 1,
+        FamilyDoctor = 1,
 
-        Dermatologist,
+        Dermatologist = 2,
 
-        FamilyDoctor,
+        Dentist = 3,
 
-        Paramedic
+        Psychiatrist = 4,
+
+        Ophthalmologist = 5,
+
+        Neurosurgeon = 6,
+
+        Paramedic = 7, 
     }
 }

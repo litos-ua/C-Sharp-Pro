@@ -9,7 +9,7 @@ namespace MyDoctorAppointment.Data.Interfaces
 {
     public interface IPatientRepository : IGenericRepository<Patient>
     {
-        // specific patient's methods
+        // patient's methods
     }
 }
 

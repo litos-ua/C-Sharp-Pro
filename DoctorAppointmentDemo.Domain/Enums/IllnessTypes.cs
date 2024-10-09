@@ -7,7 +7,9 @@
         DentalDisease = 3,
         SkinDisease = 4,
         Ambulance = 5,
-        Insomnia = 7,
+        MentalDisorder = 6,
+        Neurotrauma  = 7,    
+        Insomnia = 8,
 
     }
 }

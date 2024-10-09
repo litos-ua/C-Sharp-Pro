@@ -22,5 +22,29 @@
     "Id": 2,
     "CreatedAt": "2024-10-08T21:34:00.8836305+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 3,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Alexander",
+    "Surname": "Sovbur",
+    "Phone": "+380973232111",
+    "Email": "alex77@gmail.com",
+    "Id": 3,
+    "CreatedAt": "2024-10-09T09:13:01.2233644+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 2,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Ilona",
+    "Surname": "Yablonska",
+    "Phone": "+480557311212",
+    "Email": "yabko07@onet.pl",
+    "Id": 4,
+    "CreatedAt": "2024-10-09T09:26:30.951861+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]
