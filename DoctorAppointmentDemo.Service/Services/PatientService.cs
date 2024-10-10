@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Repositories;
@@ -21,10 +18,6 @@ namespace MyDoctorAppointment.Service.Services
             _patientRepository = new PatientRepository(); 
         }
 
-        //public Patient Create(Patient patient)
-        //{
-        //    return _patientRepository.Create(patient);
-        //}
 
         public Patient CreatePatient(string name, string surname, string phone, string email, IllnessTypes illnessType)
         {

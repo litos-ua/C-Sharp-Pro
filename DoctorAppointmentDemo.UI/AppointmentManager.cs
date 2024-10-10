@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using MyDoctorAppointment.Domain.Entities;
-using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 
 
@@ -54,17 +51,6 @@ namespace MyDoctorAppointment
                 return;
             }
 
-            //    var newAppointment = new Appointment
-            //    {
-            //        Patient = patient,
-            //        Doctor = doctor,
-            //        DateTimeFrom = startDateTime,
-            //        DateTimeTo = endDateTime,
-            //        Description = description
-            //    };
-
-            //    _appointmentService.Create(newAppointment);
-            //    Console.WriteLine("Appointment created successfully.");
 
             _appointmentService.Create(patient, doctor, startDateTime, endDateTime, description);
             Console.WriteLine("Appointment added successfully.");
@@ -72,6 +58,8 @@ namespace MyDoctorAppointment
 
         public void EditAppointment()
         {
+            //enter changes from the console and transfer the modification logic to the service
+
             Console.WriteLine("Enter appointment ID:");
             int appointmentId = int.Parse(Console.ReadLine());
             var appointment = _appointmentService.Get(appointmentId);
@@ -80,10 +68,7 @@ namespace MyDoctorAppointment
             {
                 Console.WriteLine("Appointment not found.");
                 return;
-            }
-
-            // Update details as necessary, similar to CreateAppointment
-            // ...
+            } 
 
             _appointmentService.Update(appointmentId, appointment);
             Console.WriteLine("Appointment updated successfully.");

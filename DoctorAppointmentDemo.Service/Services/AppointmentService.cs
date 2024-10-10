@@ -17,10 +17,6 @@ namespace MyDoctorAppointment.Service.Services
             _appointmentRepository = new AppointmentRepository(); 
         }
 
-        //public Appointment Create(Appointment appointment)
-        //{
-        //    return _appointmentRepository.Create(appointment);
-        //}
 
         public Appointment Create(Patient patient, Doctor doctor, DateTime startDateTime, DateTime endDateTime, string description)
         {
