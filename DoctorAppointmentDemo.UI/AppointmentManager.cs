@@ -1,10 +1,10 @@
-﻿using MyDoctorAppointment.Domain.Entities;
-using MyDoctorAppointment.Service.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
+using MyDoctorAppointment.Domain.Entities;
+using MyDoctorAppointment.Domain.Enums;
+using MyDoctorAppointment.Service.Interfaces;
+
 
 namespace MyDoctorAppointment
 
@@ -54,17 +54,20 @@ namespace MyDoctorAppointment
                 return;
             }
 
-            var newAppointment = new Appointment
-            {
-                Patient = patient,
-                Doctor = doctor,
-                DateTimeFrom = startDateTime,
-                DateTimeTo = endDateTime,
-                Description = description
-            };
+            //    var newAppointment = new Appointment
+            //    {
+            //        Patient = patient,
+            //        Doctor = doctor,
+            //        DateTimeFrom = startDateTime,
+            //        DateTimeTo = endDateTime,
+            //        Description = description
+            //    };
 
-            _appointmentService.Create(newAppointment);
-            Console.WriteLine("Appointment created successfully.");
+            //    _appointmentService.Create(newAppointment);
+            //    Console.WriteLine("Appointment created successfully.");
+
+            _appointmentService.Create(patient, doctor, startDateTime, endDateTime, description);
+            Console.WriteLine("Appointment added successfully.");
         }
 
         public void EditAppointment()

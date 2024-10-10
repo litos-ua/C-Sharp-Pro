@@ -15,10 +15,6 @@ namespace MyDoctorAppointment.Service.Services
             _doctorRepository = new DoctorRepository();
         }
 
-        //public Doctor Create(Doctor doctor)
-        //{
-        //    return _doctorRepository.Create(doctor);
-        //}
 
         public Doctor Create(string name, string surname, DoctorTypes doctorType, byte experience)
         {

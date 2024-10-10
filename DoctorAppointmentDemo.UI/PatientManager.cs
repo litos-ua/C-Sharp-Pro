@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 
@@ -46,7 +43,7 @@ namespace MyDoctorAppointment
 
         private void EditPatient()
         {
-            // editing a patient
+            // To develop a patient editing. 
         }
 
         private void DeletePatient()

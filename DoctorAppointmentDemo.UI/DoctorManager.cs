@@ -44,7 +44,7 @@ namespace MyDoctorAppointment
 
         public void EditDoctor()
         {
-            // editing a doctor
+            // To develop a doctor editing. 
         }
 
         public void DeleteDoctor()

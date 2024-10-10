@@ -41,14 +41,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Configuration;
 
-//using MyDoctorAppointment.Data.Helpers; // Ensure you have the correct namespace for PathHelper
 
 namespace MyDoctorAppointment.Data.Repositories
 {

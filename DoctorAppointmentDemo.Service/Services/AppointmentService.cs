@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
+using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 
 namespace MyDoctorAppointment.Service.Services
@@ -20,10 +17,25 @@ namespace MyDoctorAppointment.Service.Services
             _appointmentRepository = new AppointmentRepository(); 
         }
 
-        public Appointment Create(Appointment appointment)
+        //public Appointment Create(Appointment appointment)
+        //{
+        //    return _appointmentRepository.Create(appointment);
+        //}
+
+        public Appointment Create(Patient patient, Doctor doctor, DateTime startDateTime, DateTime endDateTime, string description)
         {
-            return _appointmentRepository.Create(appointment);
+            var newAppointment = new Appointment
+            {
+                Patient = patient,
+                Doctor = doctor,
+                DateTimeFrom = startDateTime,
+                DateTimeTo = endDateTime,
+                Description = description
+            };
+
+            return _appointmentRepository.Create(newAppointment);
         }
+
 
         public bool Delete(int id)
         {
@@ -43,6 +55,11 @@ namespace MyDoctorAppointment.Service.Services
         public Appointment Update(int id, Appointment appointment)
         {
             return _appointmentRepository.Update(id, appointment);
+        }
+
+        void IAppointmentService.Create(Patient patient, Doctor doctor, DateTime startDateTime, DateTime endDateTime, string? description)
+        {
+            throw new NotImplementedException();
         }
     }
 }
