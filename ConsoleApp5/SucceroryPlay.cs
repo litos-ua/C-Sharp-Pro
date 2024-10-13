@@ -33,7 +33,7 @@ namespace ConsoleApp5
         ~SuccessorPlay()
         {
             Dispose(false);
-            Console.WriteLine($"Play '{Title}' has been destroyed.");
+            Console.WriteLine($"Play '{Title}' has been deleted.");
         }
     }
 }

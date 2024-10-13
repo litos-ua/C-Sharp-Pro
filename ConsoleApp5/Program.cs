@@ -49,6 +49,7 @@ namespace ConsoleApp5
 
                     using (Store groceryStore = new Store("Organic vegetables", "Nauki avenue, 31", "vegetable"))
                     {
+                        groceryStore.DisplayInfo();
                         groceryStore.OpenStore();
                         groceryStore.ServeCustomer("Sergey Drozdov");
                         groceryStore.CloseStore();
@@ -58,6 +59,7 @@ namespace ConsoleApp5
 
                     using (Store groceryStore = new Store("Winter clothes", "Kosmichna Street, 72", "clothing"))
                     {
+                        groceryStore.DisplayInfo() ;
                         groceryStore.OpenStore();
                         groceryStore.CloseStore();
                         groceryStore.ServeCustomer("Irena Lipinska");

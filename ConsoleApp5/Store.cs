@@ -56,6 +56,11 @@ namespace ConsoleApp5
             }
         }
 
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Name: {StoreName}, Address: {Address}, Type: {StoreType}");
+        }
+
         public void Dispose()
         {
             Dispose(true);
