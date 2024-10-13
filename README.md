@@ -194,11 +194,11 @@ IsOpen = (булеве значення чи відкритий магазин);
 
 ## Завдання 3:
 
-творено класи нащадки SuccessorPlay (Play) а SuccessorStore (Store)
+Створено класи нащадки SuccessorPlay (Play) а SuccessorStore (Store)
 
-Додао до класу SuccessorPlay  реалізацію інтерфейсу IDisposable.
+Додано до класу SuccessorPlay  реалізацію інтерфейсу IDisposable.
 
-Додао до класу SuccessorStore реалізацію деструктора.
+Додано до класу SuccessorStore реалізацію деструктора.
 
 
 
