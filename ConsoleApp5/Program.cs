@@ -7,12 +7,12 @@ namespace ConsoleApp5
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter of the homework number ('1', '2', '3').");
+            Console.WriteLine("Enter of the homework number ('1', '2', '3', '4').");
             Int32.TryParse(Console.ReadLine(), out int taskNumber);
 
             switch (taskNumber)
             {
-                case 1:
+                case 1: // Виклик кейса 1 (Play)
                     Console.WriteLine("Task 5.1");
                     
                     Play myPlay1 = new Play("Caesar and Cleopatra", "Bernard Shaw", "Drama", 1898);
@@ -44,7 +44,7 @@ namespace ConsoleApp5
 
                     Console.WriteLine("Garbage collection complete.");
                     break;
-                case 2:
+                case 2: //Виклик кейса 2 (Store)
                     Console.WriteLine("Task 5.2");
 
                     using (Store groceryStore = new Store("Organic vegetables", "Nauki avenue, 31", "vegetable"))
@@ -65,7 +65,26 @@ namespace ConsoleApp5
 
                     Console.WriteLine("Store operations completed.");
                     break ;
-            default:
+                case 3: // Виклик кейса 3 (SuccessorPlay)
+                    Console.WriteLine("Task 5.3.1");
+                    using (SuccessorPlay myPlay = new SuccessorPlay("An Ideal Husband", "Oscar Wilde", "Comedy", 1895))
+                    {
+                        myPlay.DisplayInfo();
+                    }
+                    GC.Collect();
+                    break;
+
+                case 4: // Виклик кейса 4 (SuccessorStore)
+                    Console.WriteLine("Task 5.3.2");
+                    SuccessorStore myStore = new SuccessorStore("Footwear", "Sumska Street, 20", "shoes");
+                    myStore.OpenStore();
+                    myStore.ServeCustomer("Vladimir Petrychenko");
+                    myStore.CloseStore();
+                   
+                    GC.Collect();
+                    
+                    break;
+                default:
                     Console.WriteLine("Invalid task number.");
                     return;
             }
