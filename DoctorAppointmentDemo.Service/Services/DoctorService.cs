@@ -1,4 +1,5 @@
-﻿using MyDoctorAppointment.Data.Interfaces;
+﻿
+using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Domain.Enums;
@@ -10,11 +11,10 @@ namespace MyDoctorAppointment.Service.Services
     {
         private readonly IDoctorRepository _doctorRepository;
 
-        public DoctorService()
+        public DoctorService(IDoctorRepository doctorRepository)
         {
-            _doctorRepository = new DoctorRepository();
+            _doctorRepository = doctorRepository;
         }
-
 
         public Doctor Create(string name, string surname, DoctorTypes doctorType, byte experience)
         {

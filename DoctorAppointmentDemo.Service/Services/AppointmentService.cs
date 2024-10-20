@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
@@ -11,10 +10,15 @@ namespace MyDoctorAppointment.Service.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public AppointmentService()
+
+        public AppointmentService(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository)
         {
-            _appointmentRepository = new AppointmentRepository(); 
+            _appointmentRepository = appointmentRepository;
+            _patientRepository = patientRepository;
+            _doctorRepository = doctorRepository;
         }
 
 
@@ -59,4 +63,3 @@ namespace MyDoctorAppointment.Service.Services
         }
     }
 }
-

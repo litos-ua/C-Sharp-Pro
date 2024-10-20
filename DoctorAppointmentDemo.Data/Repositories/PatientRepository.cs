@@ -2,25 +2,28 @@
 using MyDoctorAppointment.Data.Configuration;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Interfaces;
-using System;
-
+using DoctorAppointmentDemo.Data.Interfaces;
 
 namespace MyDoctorAppointment.Data.Repositories
 {
     public class PatientRepository : GenericRepository<Patient>, IPatientRepository
     {
         public override string Path { get; set; }
-
         public override int LastId { get; set; }
 
-        public PatientRepository()
+        public PatientRepository(IDataSerializerService patientSerializer)
+            : base(patientSerializer)
         {
-            dynamic result = ReadFromAppSettings();
+            //dynamic result = ReadFromAppSettings();
 
-            // Resolve the relative path to the solution directory
-            string relativePath = result.Database.Patients.Path;
-            Path = PathHelper.GetDatabaseFilePath(relativePath);
-            LastId = result.Database.Patients.LastId;
+            //// Get relative path and last ID from appsettings.json
+            //string relativePath = result.Database.Patients.Path;
+            //Path = PathHelper.GetDatabaseFilePath(relativePath);
+            //LastId = result.Database.Patients.LastId;
+            var config = ReadFromAppSettings();
+            Path = PathHelper.GetDatabaseFilePath(config.Database.Patients.Path);
+            LastId = config.Database.Patients.LastId;
+
         }
 
         public override void ShowInfo(Patient patient)
@@ -33,11 +36,8 @@ namespace MyDoctorAppointment.Data.Repositories
             dynamic result = ReadFromAppSettings();
             result.Database.Patients.LastId = LastId;
 
-            // Resolve the path to app settings file relative to solution directory
             string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath);
-            File.WriteAllText(appSettingsPath, result.ToString());
+            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
         }
     }
 }
-
-

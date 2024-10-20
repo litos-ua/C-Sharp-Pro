@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using MyDoctorAppointment.Service.Interfaces;
+using MyDoctorAppointment.Service.Services;
 
 
 namespace MyDoctorAppointment
@@ -18,6 +18,7 @@ namespace MyDoctorAppointment
             _patientService = patientService;
             _doctorService = doctorService;
         }
+
 
         public void ViewAppointments()
         {
@@ -58,7 +59,6 @@ namespace MyDoctorAppointment
 
         public void EditAppointment()
         {
-            //enter changes from the console and transfer the modification logic to the service
 
             Console.WriteLine("Enter appointment ID:");
             int appointmentId = int.Parse(Console.ReadLine());

@@ -58,5 +58,29 @@
     "Id": 5,
     "CreatedAt": "2024-10-09T23:15:20.1842686+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 3,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Edvard",
+    "Surname": "Nikolson",
+    "Phone": "+338552221451",
+    "Email": "nikolas@ya.com",
+    "Id": 6,
+    "CreatedAt": "2024-10-19T23:28:18.3880688+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 2,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Ivan",
+    "Surname": "Sirko",
+    "Phone": "+380673231221",
+    "Email": "sirko@bsb.ua",
+    "Id": 7,
+    "CreatedAt": "2024-10-20T09:08:45.8643873+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]
