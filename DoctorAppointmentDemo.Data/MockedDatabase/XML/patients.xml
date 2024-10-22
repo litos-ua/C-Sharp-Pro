@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPatient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Patient>
+    <Name>Sergiy</Name>
+    <Surname>Yarmolenko</Surname>
+    <Phone>+380678889911</Phone>
+    <Email>1</Email>
+  </Patient>
+  <Patient>
+    <Name>Alexander</Name>
+    <Surname>Sovbur</Surname>
+    <Phone>+380973232111</Phone>
+    <Email>2</Email>
+  </Patient>
+  <Patient>
+    <Name>Ilona</Name>
+    <Surname>Yablonska</Surname>
+    <Phone>+480557311212</Phone>
+    <Email>3</Email>
+  </Patient>
+</ArrayOfPatient>

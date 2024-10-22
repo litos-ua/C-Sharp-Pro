@@ -82,5 +82,17 @@
     "Id": 7,
     "CreatedAt": "2024-10-20T09:08:45.8643873+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "IllnessType": 5,
+    "AdditionalInfo": null,
+    "Address": null,
+    "Name": "Barbara",
+    "Surname": "Lutkevich",
+    "Phone": "+485773215788",
+    "Email": "basya79@onet.pl",
+    "Id": 8,
+    "CreatedAt": "2024-10-21T09:30:26.0664331+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]

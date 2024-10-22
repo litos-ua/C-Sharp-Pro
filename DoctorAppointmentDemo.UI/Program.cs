@@ -20,12 +20,6 @@ namespace MyDoctorAppointment
 
         public static void Main()
         {
-            //var doctorService = new DoctorService();
-            //var patientService = new PatientService();
-            //var appointmentService = new AppointmentService();
-            //var appointmentManager = new AppointmentManager(appointmentService, patientService, doctorService);
-            //var app = new DoctorAppointment(doctorService, patientService, appointmentService);
-            //app.Run();
 
             var doctorService = new DoctorService(doctorRepository);
             var patientService = new PatientService(patientRepository);

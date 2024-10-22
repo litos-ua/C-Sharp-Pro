@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDoctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Doctor>
+    <DoctorType>Dentist</DoctorType>
+    <Experience>12</Experience>
+    <Salary>1200</Salary>
+    <Name>Mark</Name>
+    <Surname>Serra</Surname>
+    <Phone>123-456-7890</Phone>
+    <Email>mark@yahoo.com</Email>
+  </Doctor>
+  <Doctor>
+    <DoctorType>Paramedic</DoctorType>
+    <Experience>7</Experience>
+    <Salary>120</Salary>
+    <Name>Julia</Name>
+    <Surname>Krasnowska</Surname>
+    <Phone>+485753332211</Phone>
+    <Email>july_k@wp.pl</Email>
+  </Doctor>
+  <Doctor>
+    <DoctorType>Dentist</DoctorType>
+    <Experience>5</Experience>
+    <Salary>100</Salary>
+    <Name>Mykyta</Name>
+    <Surname>Romanenko</Surname>
+    <Phone>+380675551122</Phone>
+    <Email>mykyta@ukr.net</Email>
+  </Doctor>
+</ArrayOfDoctor>

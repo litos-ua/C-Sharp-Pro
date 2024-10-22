@@ -1,4 +1,45 @@
 ﻿
+//using MyDoctorAppointment.Data.Configuration;
+//using MyDoctorAppointment.Domain.Entities;
+//using MyDoctorAppointment.Data.Interfaces;
+//using DoctorAppointmentDemo.Data.Interfaces;
+
+//namespace MyDoctorAppointment.Data.Repositories
+//{
+//    public class PatientRepository : GenericRepository<Patient>, IPatientRepository
+//    {
+//        public override string Path { get; set; }
+//        public override int LastId { get; set; }
+
+//        public override string DataFormat { get; set; }
+
+//        public PatientRepository(IDataSerializerService patientSerializer, string dataFormat)
+//            : base(patientSerializer)
+//        {
+
+//            var config = ReadFromAppSettings();
+//            Path = PathHelper.GetDatabaseFilePath(config.Database.Patients.Path);
+//            LastId = config.Database.Patients.LastId;
+//            DataFormat = dataFormat;
+//        }
+
+//        public override void ShowInfo(Patient patient)
+//        {
+//            Console.WriteLine($"{patient.Name} {patient.Surname} - {patient.IllnessType}");
+//        }
+
+//        protected override void SaveLastId()
+//        {
+//            dynamic result = ReadFromAppSettings();
+//            result.Database.Patients.LastId = LastId;
+
+//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(this.DataFormat));
+//            File.WriteAllText(appSettingsPath, result.ToString());  
+//        }
+//    }
+//}
+
+
 using MyDoctorAppointment.Data.Configuration;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Interfaces;
@@ -11,19 +52,33 @@ namespace MyDoctorAppointment.Data.Repositories
         public override string Path { get; set; }
         public override int LastId { get; set; }
 
-        public PatientRepository(IDataSerializerService patientSerializer)
+        public override string DataFormat { get; set; }
+
+        public PatientRepository(IDataSerializerService patientSerializer, string dataFormat)
             : base(patientSerializer)
         {
-            //dynamic result = ReadFromAppSettings();
 
-            //// Get relative path and last ID from appsettings.json
-            //string relativePath = result.Database.Patients.Path;
-            //Path = PathHelper.GetDatabaseFilePath(relativePath);
-            //LastId = result.Database.Patients.LastId;
+            DataFormat = dataFormat;
             var config = ReadFromAppSettings();
             Path = PathHelper.GetDatabaseFilePath(config.Database.Patients.Path);
+            //Path = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
             LastId = config.Database.Patients.LastId;
+            
+        }
 
+        public override IEnumerable<Patient> GetAll()
+        {
+            // Десериализация докторов из файла
+            if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
+            {
+                // Используем _dataSerializer для десериализации
+                var patientsCollection = _dataSerializer.Deserialize<PatientsCollection>(Path);
+                return patientsCollection?.Patients ?? new List<Patient>();
+            }
+            else
+            {
+                return base.GetAll();
+            }
         }
 
         public override void ShowInfo(Patient patient)
@@ -36,8 +91,8 @@ namespace MyDoctorAppointment.Data.Repositories
             dynamic result = ReadFromAppSettings();
             result.Database.Patients.LastId = LastId;
 
-            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath);
-            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
+            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
+            File.WriteAllText(appSettingsPath, result.ToString());
         }
     }
 }
