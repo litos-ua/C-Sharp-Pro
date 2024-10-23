@@ -118,5 +118,17 @@
     "Id": 11,
     "CreatedAt": "2024-10-07T13:59:42.6523679+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 7,
+    "Experience": 12,
+    "Salary": 0.0,
+    "Name": "Dmitry",
+    "Surname": "Datsuk",
+    "Phone": null,
+    "Email": null,
+    "Id": 12,
+    "CreatedAt": "2024-10-23T20:47:58.6637912+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]

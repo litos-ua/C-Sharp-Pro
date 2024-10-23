@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfPatient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Patient>
+    <Id>0</Id>
+    <CreatedAt>0001-01-01T00:00:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
     <Name>Sergiy</Name>
     <Surname>Yarmolenko</Surname>
     <Phone>+380678889911</Phone>
     <Email>1</Email>
+    <IllnessType>Infection</IllnessType>
   </Patient>
   <Patient>
+    <Id>0</Id>
+    <CreatedAt>0001-01-01T00:00:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
     <Name>Alexander</Name>
     <Surname>Sovbur</Surname>
     <Phone>+380973232111</Phone>
     <Email>2</Email>
+    <IllnessType>Ambulance</IllnessType>
   </Patient>
   <Patient>
+    <Id>0</Id>
+    <CreatedAt>0001-01-01T00:00:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
     <Name>Ilona</Name>
     <Surname>Yablonska</Surname>
     <Phone>+480557311212</Phone>
     <Email>3</Email>
+    <IllnessType>Insomnia</IllnessType>
+  </Patient>
+  <Patient>
+    <Id>8</Id>
+    <CreatedAt>2024-10-23T20:13:01.1522028+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Sandy</Name>
+    <Surname>Nikolson</Surname>
+    <Phone>+8979797897987</Phone>
+    <Email>sandy@wp.com</Email>
+    <IllnessType>DentalDisease</IllnessType>
   </Patient>
 </ArrayOfPatient>
