@@ -43,7 +43,7 @@ namespace MyDoctorAppointment
 
         private void EditPatient()
         {
-            // To develop a patient editing. 
+            // To develop. 
         }
 
         private void DeletePatient()

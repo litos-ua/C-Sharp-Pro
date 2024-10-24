@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyDoctorAppointment.Domain.Enums;
+﻿using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
 
 namespace MyDoctorAppointment
@@ -44,7 +39,7 @@ namespace MyDoctorAppointment
 
         public void EditDoctor()
         {
-            // To develop a doctor editing. 
+            // To do develop. 
         }
 
         public void DeleteDoctor()

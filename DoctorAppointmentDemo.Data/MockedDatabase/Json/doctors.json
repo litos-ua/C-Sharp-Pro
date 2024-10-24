@@ -130,5 +130,17 @@
     "Id": 12,
     "CreatedAt": "2024-10-23T20:47:58.6637912+03:00",
     "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 6,
+    "Experience": 3,
+    "Salary": 0.0,
+    "Name": "Iwonna",
+    "Surname": "Rutska",
+    "Phone": null,
+    "Email": null,
+    "Id": 12,
+    "CreatedAt": "2024-10-24T15:24:34.2100147+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
   }
 ]

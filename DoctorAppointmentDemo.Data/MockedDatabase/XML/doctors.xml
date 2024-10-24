@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDoctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Doctor>
-    <Id>0</Id>
+    <Id>1</Id>
     <CreatedAt>0001-01-01T00:00:00</CreatedAt>
     <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
     <Name>Mark</Name>
@@ -37,13 +37,33 @@
     <Salary>100</Salary>
   </Doctor>
   <Doctor>
-    <Id>2</Id>
+    <Id>1</Id>
     <CreatedAt>2024-10-24T10:48:21.3889356+03:00</CreatedAt>
     <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
     <Name>Valentina</Name>
     <Surname>Simenova</Surname>
     <DoctorType>FamilyDoctor</DoctorType>
     <Experience>17</Experience>
+    <Salary>0</Salary>
+  </Doctor>
+  <Doctor>
+    <Id>2</Id>
+    <CreatedAt>2024-10-24T15:26:36.6897647+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Boris</Name>
+    <Surname>Vinnikov</Surname>
+    <DoctorType>Ophthalmologist</DoctorType>
+    <Experience>2</Experience>
+    <Salary>0</Salary>
+  </Doctor>
+  <Doctor>
+    <Id>3</Id>
+    <CreatedAt>2024-10-24T15:27:55.0023005+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Karolina</Name>
+    <Surname>Mayarkievich</Surname>
+    <DoctorType>Paramedic</DoctorType>
+    <Experience>7</Experience>
     <Salary>0</Salary>
   </Doctor>
 </ArrayOfDoctor>

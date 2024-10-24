@@ -1,29 +1,19 @@
 ﻿
-using MyDoctorAppointment.Service.Services;
-using MyDoctorAppointment.Data.Repositories;
-using MyDoctorAppointment.Data.Interfaces;
 
-
-
+using DoctorAppointmentDemo.UI;
 
 namespace MyDoctorAppointment
 {
     public static class Program
     {
-        private static IDoctorRepository doctorRepository;
-        private static IPatientRepository patientRepository;
-        private static IAppointmentRepository appointmentRepository;
-
         public static void Main()
         {
+            // Creation UI menu menagers.
+            var menuManager = new MenuManager();
+            var dataFormatManager = new DataFormatManager();
 
-            var doctorService = new DoctorService(doctorRepository);
-            var patientService = new PatientService(patientRepository);
-            var appointmentService = new AppointmentService(appointmentRepository, patientRepository, doctorRepository);
-
-            var app = new DoctorAppointment(doctorService, patientService, appointmentService);
+            var app = new DoctorAppointment(menuManager, dataFormatManager);
             app.Run();
         }
     }
 }
-
