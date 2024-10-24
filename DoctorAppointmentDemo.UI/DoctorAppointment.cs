@@ -1,8 +1,10 @@
 ﻿
+
 using DoctorAppointmentDemo.Service.Services.Data;
 using MyDoctorAppointment.Data.Repositories;
 using DoctorAppointmentDemo.Data.Interfaces;
 using MyDoctorAppointment.Service.Services;
+using DoctorAppointmentDemo.UI.Enums;
 
 namespace MyDoctorAppointment
 {
@@ -12,7 +14,7 @@ namespace MyDoctorAppointment
         private PatientManager _patientManager;
         private DoctorManager _doctorManager;
         private AppointmentManager _appointmentManager;
-        public string DataFormat = "JSON";
+        public string? DataFormat = "JSON";
 
 
         public DoctorAppointment(DoctorManager doctorManager, PatientManager patientManager, AppointmentManager appointmentManager)
@@ -35,31 +37,39 @@ namespace MyDoctorAppointment
             string dataChoice = Console.ReadLine();
 
             // Set up serializers for doctor, patient, and appointment data
-            IDataSerializerService doctorSerializer;
-            IDataSerializerService patientSerializer;
-            IDataSerializerService appointmentSerializer;
+            IDataSerializerService doctorSerializer = null;
+            IDataSerializerService patientSerializer = null;
+            IDataSerializerService appointmentSerializer = null;
 
-            switch (dataChoice)
+            DataFormatEnum chosenFormat;
+
+            if (Enum.TryParse(dataChoice, out chosenFormat) && Enum.IsDefined(typeof(DataFormatEnum), chosenFormat))
             {
-                case "1":
-                    doctorSerializer = new JsonDataSerializerService();
-                    patientSerializer = new JsonDataSerializerService();
-                    appointmentSerializer = new JsonDataSerializerService();
+                switch (chosenFormat)
+                {
+                    case DataFormatEnum.JSON:
+                        doctorSerializer = new JsonDataSerializerService();
+                        patientSerializer = new JsonDataSerializerService();
+                        appointmentSerializer = new JsonDataSerializerService();
+                        this.DataFormat = "JSON";
+                        break;
 
-                    break;
-                case "2":
-                    doctorSerializer = new XmlDataSerializerService();
-                    patientSerializer = new XmlDataSerializerService();
-                    appointmentSerializer = new XmlDataSerializerService();
-
-                    this.DataFormat = "XML";
-                    break;
-                default:
-                    doctorSerializer = new JsonDataSerializerService();
-                    patientSerializer = new JsonDataSerializerService();
-                    appointmentSerializer = new JsonDataSerializerService();
-                    Console.WriteLine("By default, data is saved in the JSON format.");
-                    break;
+                    case DataFormatEnum.XML:
+                        doctorSerializer = new XmlDataSerializerService();
+                        patientSerializer = new XmlDataSerializerService();
+                        appointmentSerializer = new XmlDataSerializerService();
+                        this.DataFormat = "XML";
+                        break;
+                }
+            }
+            else
+            {
+                // if data not from enum use JSON
+                doctorSerializer = new JsonDataSerializerService();
+                patientSerializer = new JsonDataSerializerService();
+                appointmentSerializer = new JsonDataSerializerService();
+                this.DataFormat = "JSON";
+                Console.WriteLine("Invalid option. Defaulting to JSON format.");
             }
 
             // Pass the chosen serializer to the repositories
@@ -74,9 +84,7 @@ namespace MyDoctorAppointment
                 new AppointmentService(appointmentRepository, patientRepository, doctorRepository),
                 new PatientService(patientRepository),
                 new DoctorService(doctorRepository)
-);
-
-
+            );
 
             while (!exit)
             {
@@ -92,32 +100,40 @@ namespace MyDoctorAppointment
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
-                switch (choice)
+
+                if (Enum.TryParse(choice, out MenuAction action))
                 {
-                    case "1":
-                        _doctorManager.ViewDoctors();
-                        break;
-                    case "2":
-                        _patientManager.ViewPatients();
-                        break;
-                    case "3":
-                        _appointmentManager.ViewAppointments();
-                        break;
-                    case "4":
-                        _doctorManager.AddDoctor();
-                        break;
-                    case "5":
-                        _patientManager.AddPatient();
-                        break;
-                    case "6":
-                        _appointmentManager.AddAppointment();
-                        break;
-                    case "0":
-                        exit = true;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option. Try again.");
-                        break;
+                    switch (action)
+                    {
+                        case MenuAction.ViewDoctors:
+                            _doctorManager.ViewDoctors();
+                            break;
+                        case MenuAction.ViewPatients:
+                            _patientManager.ViewPatients();
+                            break;
+                        case MenuAction.ViewAppointments:
+                            _appointmentManager.ViewAppointments();
+                            break;
+                        case MenuAction.AddDoctor:
+                            _doctorManager.AddDoctor();
+                            break;
+                        case MenuAction.AddPatient:
+                            _patientManager.AddPatient();
+                            break;
+                        case MenuAction.AddAppointment:
+                            _appointmentManager.AddAppointment();
+                            break;
+                        case MenuAction.Exit:
+                            exit = true;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option. Try again.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid option. Please enter a number.");
                 }
 
                 if (!exit)
@@ -127,6 +143,6 @@ namespace MyDoctorAppointment
                 }
             }
         }
+
     }
 }
-

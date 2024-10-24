@@ -1,8 +1,4 @@
-﻿using System;
-using MyDoctorAppointment.Data.Repositories;
-using MyDoctorAppointment.Domain.Entities;
-using MyDoctorAppointment.Domain.Enums;
-using MyDoctorAppointment.Service.Interfaces;
+﻿
 using MyDoctorAppointment.Service.Services;
 using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Data.Interfaces;
