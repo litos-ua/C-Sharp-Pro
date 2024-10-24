@@ -10,4 +10,3 @@ namespace MyDoctorAppointment.Domain.Entities
         public List<Doctor> Doctors { get; set; } = new List<Doctor>();
     }
 }
-

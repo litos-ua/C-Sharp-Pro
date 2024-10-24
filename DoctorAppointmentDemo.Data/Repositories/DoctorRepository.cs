@@ -1,155 +1,5 @@
 ﻿
 
-//using DoctorAppointmentDemo.Data.Interfaces;
-//using MyDoctorAppointment.Data.Configuration;
-//using MyDoctorAppointment.Data.Interfaces;
-//using MyDoctorAppointment.Domain.Entities;
-
-
-//namespace MyDoctorAppointment.Data.Repositories
-//{
-//    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
-//    {
-//        public override string Path { get; set; }
-//        public override int LastId { get; set; }
-//        public override string DataFormat { get; set; }
-
-//        public DoctorRepository(IDataSerializerService doctorSerializer, string dataFormat)
-//            : base(doctorSerializer)
-//        {
-//            var config = ReadFromAppSettings();
-//            Path = PathHelper.GetDatabaseFilePath(config.Database.Doctors.Path);
-//            LastId = config.Database.Doctors.LastId;
-//            DataFormat = dataFormat;
-//        }
-
-//        public override void ShowInfo(Doctor doctor)
-//        {
-//            Console.WriteLine($"Doctor: {doctor.Name} {doctor.Surname}, Type: {doctor.DoctorType}, Experience: {doctor.Experience} years");
-//        }
-
-//        protected override void SaveLastId()
-//        {
-//            dynamic result = ReadFromAppSettings();
-//            result.Database.Doctors.LastId = LastId;
-
-//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(this.DataFormat));
-//            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
-//        }
-//    }
-//}
-
-//using DoctorAppointmentDemo.Data.Interfaces;
-//using MyDoctorAppointment.Data.Configuration;
-//using MyDoctorAppointment.Data.Interfaces;
-//using MyDoctorAppointment.Domain.Entities;
-
-//namespace MyDoctorAppointment.Data.Repositories
-//{
-//    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
-//    {
-//        public override string Path { get; set; }
-//        public override int LastId { get; set; }
-//        public override string DataFormat { get; set; }
-
-//        public DoctorRepository(IDataSerializerService doctorSerializer, string dataFormat)
-//            : base(doctorSerializer)
-//        {
-//            DataFormat = dataFormat;  // Сохраняем переданный параметр в поле
-//            var config = ReadFromAppSettings();
-//            //Path = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
-//            Path = PathHelper.GetDatabaseFilePath(config.Database.Doctors.Path);
-//            LastId = config.Database.Doctors.LastId;
-//        }
-
-//        public override void ShowInfo(Doctor doctor)
-//        {
-//            Console.WriteLine($"Doctor: {doctor.Name} {doctor.Surname}, Type: {doctor.DoctorType}, Experience: {doctor.Experience} years");
-//        }
-
-//        protected override void SaveLastId()
-//        {
-//            dynamic result = ReadFromAppSettings();
-//            result.Database.Doctors.LastId = LastId;
-
-//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));  // Используем сохраненное поле
-//            File.WriteAllText(appSettingsPath, result.ToString());
-//        }
-//    }
-//}
-
-
-
-//using DoctorAppointmentDemo.Data.Interfaces;
-//using MyDoctorAppointment.Data.Configuration;
-//using MyDoctorAppointment.Data.Interfaces;
-//using MyDoctorAppointment.Domain.Entities;
-
-//namespace MyDoctorAppointment.Data.Repositories
-//{
-//    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
-//    {
-//        public override string Path { get; set; }
-//        public override int LastId { get; set; }
-//        public override string DataFormat { get; set; }
-
-//        public DoctorRepository(IDataSerializerService doctorSerializer, string dataFormat)
-//            : base(doctorSerializer)
-//        {
-//            DataFormat = dataFormat;  // Сохраняем переданный параметр в поле
-//            var config = ReadFromAppSettings();
-//            Path = PathHelper.GetDatabaseFilePath(config.Database.Doctors.Path);
-//            LastId = config.Database.Doctors.LastId;
-//        }
-
-//        public override void ShowInfo(Doctor doctor)
-//        {
-//            Console.WriteLine($"Doctor: {doctor.Name} {doctor.Surname}, Type: {doctor.DoctorType}, Experience: {doctor.Experience} years");
-//        }
-
-//        protected override void SaveLastId()
-//        {
-//            dynamic result = ReadFromAppSettings();
-//            result.Database.Doctors.LastId = LastId;
-
-//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
-//            File.WriteAllText(appSettingsPath, result.ToString());
-//        }
-
-//        public override IEnumerable<Doctor> GetAll()
-//        {
-//            // Десериализация докторов из файла
-//            if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
-//            {
-//                // Используем _dataSerializer для десериализации
-//                var doctorsCollection = _dataSerializer.Deserialize<DoctorsCollection>(Path);
-//                return doctorsCollection?.Doctors ?? new List<Doctor>();
-//            }
-//            else
-//            {
-//                return base.GetAll(); 
-//            }
-//        }
-
-//        public override Doctor Create(Doctor doctor)
-//        {
-//            var createdDoctor = base.Create(doctor);
-//            // Сохраните обновленный список докторов после добавления нового
-//            SaveDoctors(GetAll(), Path);
-//            return createdDoctor;
-//        }
-
-//        private void SaveDoctors(IEnumerable<Doctor> doctors, string filePath)
-//        {
-//            var doctorsCollection = new DoctorsCollection { Doctors = doctors.ToList() };
-//            // Используем _dataSerializer для сериализации
-//            _dataSerializer.Serialize(doctorsCollection, filePath);
-//        }
-//    }
-//}
-
-
-
 using DoctorAppointmentDemo.Data.Interfaces;
 using MyDoctorAppointment.Data.Configuration;
 using MyDoctorAppointment.Data.Interfaces;
@@ -158,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace MyDoctorAppointment.Data.Repositories
 {
-    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
+    public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository 
     {
         public override string Path { get; set; }
         public override int LastId { get; set; }
@@ -167,11 +17,70 @@ namespace MyDoctorAppointment.Data.Repositories
         public DoctorRepository(IDataSerializerService doctorSerializer, string dataFormat)
             : base(doctorSerializer)
         {
-            DataFormat = dataFormat;  // Устанавливаем формат данных
+            DataFormat = dataFormat;  
             var config = ReadFromAppSettings();
             Path = PathHelper.GetDatabaseFilePath(config.Database.Doctors.Path);
             LastId = config.Database.Doctors.LastId;
         }
+
+        public override Doctor Create(Doctor source)
+        {
+            source.Id = ++LastId;
+            source.CreatedAt = DateTime.Now;
+
+            if (!File.Exists(Path))
+            {
+                if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
+                {
+                    var emptyCollection = CreateCollection(new List<Doctor>());
+                    _dataSerializer.Serialize(emptyCollection, Path);
+                }
+                else
+                {
+                    // For JSON
+                    _dataSerializer.Serialize(new List<Doctor>(), Path);
+                }
+            }
+
+            // Get the current data and append
+            var data = GetAll().Append(source);
+
+            if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
+            {
+
+                try
+                {
+                    // Explicit cast to PatientsCollection
+                    var collection = CreateCollection(data) as DoctorsCollection;
+
+                    if (collection != null && collection.Doctors != null)
+                    {
+                        _dataSerializer.Serialize(collection, Path);
+                        Console.WriteLine("Сериализация завершена успешно");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка: коллекция не содержит пациентов.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при сериализации: {ex.Message}");
+                    throw;
+                }
+
+            }
+            else
+            {
+                // For JSON
+                _dataSerializer.Serialize(data, Path);
+            }
+
+            SaveLastId();  
+
+            return source;
+        }
+
 
         public override IEnumerable<Doctor> GetAll()
         {
@@ -183,14 +92,13 @@ namespace MyDoctorAppointment.Data.Repositories
             }
             else
             {
-                // Для JSON возвращаем стандартную десериализацию через базовый метод
                 return base.GetAll();
             }
         }
 
         protected override object CreateCollection(IEnumerable<Doctor> data)
         {
-            // Создаем коллекцию для XML сериализации
+            // Create collection to  XML serialization
             return new DoctorsCollection { Doctors = data.ToList() };
         }
 
@@ -204,3 +112,6 @@ namespace MyDoctorAppointment.Data.Repositories
         }
     }
 }
+
+
+

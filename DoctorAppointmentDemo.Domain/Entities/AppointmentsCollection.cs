@@ -7,6 +7,6 @@ namespace MyDoctorAppointment.Domain.Entities
     public class AppointmentsCollection
     {
         [XmlElement("Appointment")]
-        public List<Appointment> Patients { get; set; } = new List<Appointment>();
+        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

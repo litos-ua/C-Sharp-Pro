@@ -6,7 +6,5 @@ namespace MyDoctorAppointment.Service.Interfaces
     public interface IDoctorService : IGenericService <Doctor>
     {
         Doctor Create(string name, string surname, DoctorTypes doctorType, byte experience);
-
-        // To develop specific methods for to AppointmentService here.
     }
 }

@@ -1,87 +1,10 @@
 ﻿
-//using MyDoctorAppointment.Data.Interfaces;
-//using MyDoctorAppointment.Domain.Entities;
-//using MyDoctorAppointment.Data.Configuration;
-//using DoctorAppointmentDemo.Data.Interfaces;
-
-//namespace MyDoctorAppointment.Data.Repositories
-//{
-//    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
-//    {
-//        public override string Path { get; set; }
-//        public override int LastId { get; set; }
-//        public override string DataFormat { get; set; }
-
-//        public AppointmentRepository(IDataSerializerService appointmentSerializer, string dataFormat)
-//            : base(appointmentSerializer)
-//        {
-
-//            var config = ReadFromAppSettings();
-//            Path = PathHelper.GetDatabaseFilePath(config.Database.Appointments.Path);
-//            LastId = config.Database.Appointments.LastId;
-//        }
-
-//        public override void ShowInfo(Appointment appointment)
-//        {
-//            Console.WriteLine($"Appointment from {appointment.DateTimeFrom} to {appointment.DateTimeTo} for patient {appointment.Patient?.Name} and doctor {appointment.Doctor?.Name}");
-//        }
-
-//        // Save the last used appointment ID to the appsettings.json file
-//        protected override void SaveLastId()
-//        {
-//            dynamic result = ReadFromAppSettings();
-//            result.Database.Appointments.LastId = LastId;
-
-//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(this.DataFormat));
-//            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
-//        }
-//    }
-//}
-
-
-//using MyDoctorAppointment.Data.Interfaces;
-//using MyDoctorAppointment.Domain.Entities;
-//using MyDoctorAppointment.Data.Configuration;
-//using DoctorAppointmentDemo.Data.Interfaces;
-
-//namespace MyDoctorAppointment.Data.Repositories
-//{
-//    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
-//    {
-//        public override string Path { get; set; }
-//        public override int LastId { get; set; }
-//        public override string DataFormat { get; set; }
-
-//        public AppointmentRepository(IDataSerializerService appointmentSerializer, string dataFormat)
-//            : base(appointmentSerializer)
-//        {
-//            DataFormat = dataFormat;
-//            var config = ReadFromAppSettings();
-//            Path = PathHelper.GetDatabaseFilePath(config.Database.Appointments.Path);
-//            LastId = config.Database.Appointments.LastId;
-//        }
-
-//        public override void ShowInfo(Appointment appointment)
-//        {
-//            Console.WriteLine($"Appointment from {appointment.DateTimeFrom} to {appointment.DateTimeTo} for patient {appointment.Patient?.Name} and doctor {appointment.Doctor?.Name}");
-//        }
-
-//        // Save the last used appointment ID to the appsettings.json file
-//        protected override void SaveLastId()
-//        {
-//            dynamic result = ReadFromAppSettings();
-//            result.Database.Appointments.LastId = LastId;
-
-//            string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
-//            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
-//        }
-//    }
-//}
 
 using MyDoctorAppointment.Data.Interfaces;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Data.Configuration;
 using DoctorAppointmentDemo.Data.Interfaces;
+using System.Linq;
 
 namespace MyDoctorAppointment.Data.Repositories
 {
@@ -100,25 +23,79 @@ namespace MyDoctorAppointment.Data.Repositories
             LastId = config.Database.Appointments.LastId;
         }
 
-        protected override object CreateCollection(IEnumerable<Appointment> data)
+
+        public override Appointment Create(Appointment source)
         {
-            // Создаем коллекцию для XML сериализации
-            return new AppointmentsCollection { Patients = data.ToList() };
+            source.Id = ++LastId;
+            source.CreatedAt = DateTime.Now;
+
+            if (!File.Exists(Path))
+            {
+                if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
+                {
+                    var emptyCollection = CreateCollection(new List<Appointment>());
+                    _dataSerializer.Serialize(emptyCollection, Path);
+                }
+                else
+                {
+                    // For JSON
+                    _dataSerializer.Serialize(new List<Appointment>(), Path);
+                }
+            }
+
+            // Get the current data and append
+            var data = GetAll().Append(source);
+
+            if (DataFormat.Equals("XML", StringComparison.OrdinalIgnoreCase))
+            {
+
+                try
+                {
+                    // Explicit cast to PatientsCollection
+                    var collection = CreateCollection(data) as AppointmentsCollection;
+
+                    if (collection != null && collection.Appointments != null)
+                    {
+                        _dataSerializer.Serialize(collection, Path);
+                        Console.WriteLine("Сериализация завершена успешно");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка: коллекция не содержит пациентов.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при сериализации: {ex.Message}");
+                    throw;
+                }
+
+            }
+            else
+            {
+                // For JSON
+                _dataSerializer.Serialize(data, Path);
+            }
+
+            SaveLastId();  
+
+            return source;
         }
 
-        //public override void ShowInfo(Appointment appointment)
-        //{
-        //    Console.WriteLine($"Appointment from {appointment.DateTimeFrom} to {appointment.DateTimeTo} for patient {appointment.Patient?.Name} and doctor {appointment.Doctor?.Name}");
-        //}
+        protected override object CreateCollection(IEnumerable<Appointment> data)
+        {
+            return new AppointmentsCollection { Appointments = data.ToList() };
+        }
 
-        // Save the last used appointment ID to the appsettings.json file
+        
         protected override void SaveLastId()
         {
             dynamic result = ReadFromAppSettings();
             result.Database.Appointments.LastId = LastId;
 
             string appSettingsPath = PathHelper.GetDatabaseFilePath(Constants.AppSettingsPath(DataFormat));
-            File.WriteAllText(appSettingsPath, result.ToString());  // Save the updated last ID
+            File.WriteAllText(appSettingsPath, result.ToString());  
         }
     }
 }
+

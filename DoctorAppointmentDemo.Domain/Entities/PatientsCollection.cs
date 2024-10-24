@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using System.Collections.Generic;
 
 namespace MyDoctorAppointment.Domain.Entities
 {
@@ -10,3 +9,5 @@ namespace MyDoctorAppointment.Domain.Entities
         public List<Patient> Patients { get; set; } = new List<Patient>();
     }
 }
+
+

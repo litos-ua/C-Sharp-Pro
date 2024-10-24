@@ -40,4 +40,34 @@
     <Email>sandy@wp.com</Email>
     <IllnessType>DentalDisease</IllnessType>
   </Patient>
+  <Patient>
+    <Id>9</Id>
+    <CreatedAt>2024-10-24T09:45:32.6236128+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Katerina</Name>
+    <Surname>Voykova</Surname>
+    <Phone>+099876585856</Phone>
+    <Email>katya33@ukr.net</Email>
+    <IllnessType>DentalDisease</IllnessType>
+  </Patient>
+  <Patient>
+    <Id>10</Id>
+    <CreatedAt>2024-10-24T10:34:22.7663143+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Leonid</Name>
+    <Surname>Vinnikov</Surname>
+    <Phone>+3898797898</Phone>
+    <Email>leonid@rio.com</Email>
+    <IllnessType>DentalDisease</IllnessType>
+  </Patient>
+  <Patient>
+    <Id>3</Id>
+    <CreatedAt>2024-10-24T11:00:30.6520798+03:00</CreatedAt>
+    <UpdatedAt>0001-01-01T00:00:00</UpdatedAt>
+    <Name>Anna</Name>
+    <Surname>Sokalska</Surname>
+    <Phone>+485675554411</Phone>
+    <Email>sokalska@wp.pl</Email>
+    <IllnessType>Ambulance</IllnessType>
+  </Patient>
 </ArrayOfPatient>

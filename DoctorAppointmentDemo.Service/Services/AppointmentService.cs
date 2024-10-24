@@ -4,6 +4,8 @@ using MyDoctorAppointment.Data.Repositories;
 using MyDoctorAppointment.Domain.Entities;
 using MyDoctorAppointment.Domain.Enums;
 using MyDoctorAppointment.Service.Interfaces;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace MyDoctorAppointment.Service.Services
 {
@@ -59,7 +61,23 @@ namespace MyDoctorAppointment.Service.Services
 
         void IAppointmentService.Create(Patient patient, Doctor doctor, DateTime startDateTime, DateTime endDateTime, string? description)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var newAppointment = new Appointment
+                {
+                    Patient = patient,
+                    Doctor = doctor,
+                    DateTimeFrom = startDateTime,
+                    DateTimeTo = endDateTime, 
+                    Description = description
+                };
+
+                _appointmentRepository.Create(newAppointment);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
