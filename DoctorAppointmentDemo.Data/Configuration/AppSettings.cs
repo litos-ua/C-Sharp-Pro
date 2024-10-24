@@ -4,9 +4,6 @@ namespace DoctorAppointmentDemo.Data.Configuration
 {
     public class AppSettings
     {
-        //public string? DoctorFilePath { get; set; }
-        //public string? PatientFilePath { get; set; }
-        //public string? AppointmentFilePath { get; set; }
         public DatabaseSettings? Database { get; set; }
         public class DatabaseSettings
         {
