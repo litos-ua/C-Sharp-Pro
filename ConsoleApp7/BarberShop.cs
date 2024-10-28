@@ -1,207 +1,125 @@
 ﻿
-///* Работает нормально без Id в очереди */
-//class BarberShop
-//{
-//    private static readonly object locker = new();
-//    private static int waiting = 0; // Количество ожидающих клиентов
-//    private static int chairs = 3; // Количество кресел в приемной
-//    private static bool barberSleeping = true; // Булево значение, спит ли парикмахер
-//    private static int haircutedClientCount = 0; // Счетчик обслуженных клиентов
-
-//    public static void Main()
-//    {
-//        Console.WriteLine("The barber shop is open for the day!");
-
-//        Thread.Sleep(5000); // Ожидание первого клиента
-//        Console.WriteLine("The barber falls asleep.");
-
-//        new Thread(Barber).Start();
-
-//        // Приход первых 5 клиентов
-//        for (int i = 1; i <= 5; i++)
-//        {
-//            Thread.Sleep(new Random().Next(500, 1000));
-//            new Thread(Customer).Start(i);
-//        }
-
-//        Thread.Sleep(5000); // Временной разрыв после первых 5-ти клиентов
-//        Console.WriteLine("The barber falls asleep again.");
-
-//        // Приход остальных 5 клиентов
-//        for (int i = 6; i <= 10; i++)
-//        {
-//            Thread.Sleep(new Random().Next(1000, 3000));
-//            new Thread(Customer).Start(i);
-//        }
-//    }
-
-//    static void Barber()
-//    {
-//        while (true)
-//        {
-//            lock (locker)
-//            {
-//                // Проверка: если клиентов нет и обслужено кратно 5, парикмахер засыпает
-//                if (waiting == 0 && barberSleeping == false && haircutedClientCount % 5 == 0)
-//                {
-//                    barberSleeping = true;
-//                    Console.WriteLine("The barber falls asleep.");
-//                }
-//            }
-
-//            lock (locker)
-//            {
-//                if (waiting > 0)
-//                {
-//                    // Если парикмахер спит, клиент его будит
-//                    if (barberSleeping)
-//                    {
-//                        barberSleeping = false;
-//                        Console.WriteLine("The barber wakes up to serve a customer.");
-//                    }
-
-//                    waiting--; // Уменьшение числа ожидающих клиентов
-//                    Console.WriteLine("The barber prepares the chair. Waiting clients: " + waiting);
-//                    Console.WriteLine("The barber cuts the client's hair.");
-//                    Thread.Sleep(2000); // Имитация процесса стрижки 
-
-//                    haircutedClientCount++;
-//                }
-//            }
-
-//            // Завершение рабочего дня после 10 клиентов
-//            if (haircutedClientCount == 10)
-//            {
-//                Console.WriteLine("The barber shop closes for the day.");
-//                break;
-//            }
-//        }
-//    }
-
-//    static void Customer(object num)
-//    {
-//        int customerId = (int)num;
-
-//        lock (locker)
-//        {
-//            // Проверка на свободные места
-//            if (waiting < chairs)
-//            {
-//                waiting++;
-//                Console.WriteLine("Client " + customerId + " is waiting in line. There are " + waiting + " clients waiting.");
-//            }
-//            else
-//            {
-//                Console.WriteLine("Client " + customerId + " leaves because there are no vacancies.");
-//            }
-//        }
-//    }
-//}
-
-
-
-
-
 class BarberShop
 {
-    private static readonly object locker = new();
-    private static int waiting = 0; // Количество ожидающих клиентов
-    private static int chairs = 3; // Количество кресел в приемной
-    private static bool barberSleeping = true; // Булево значение, спит ли парикмахер
-    private static int haircutedClientCount = 0; // Счетчик обслуженных клиентов
-
-    private static Queue<int> customerQueue = new(); 
+    private static Semaphore customerSemaphore = new(0, int.MaxValue); 
+    private static Semaphore barberSemaphore = new(0, 1); 
+    private static Semaphore waitingRoomSemaphore = new(3, 3); 
+    private static Queue<int> customerQueue = new(); // Черга клієнтів у залі очікування
+    private static readonly object locker = new(); 
+    private static bool lastCustomer = false; 
+    private static bool isSleeping = true; 
 
     public static void Main()
     {
-        Console.WriteLine("The barber shop is open for the day!");
-
-        Thread.Sleep(5000); // Ожидание первого клиента
-        Console.WriteLine("The barber falls asleep.");
+        Console.WriteLine("The barber shop is open!");
 
         new Thread(Barber).Start();
 
-        // Приход первых 5 клиентов
+        // Приходять перші п'ять клієнтів
         for (int i = 1; i <= 5; i++)
         {
+            int customerId = i;
             Thread.Sleep(new Random().Next(500, 1000));
-            new Thread(Customer).Start(i);
+            new Thread(() => Customer(customerId)).Start();
         }
 
-        Thread.Sleep(5000); // Временной разрыв после первых 5 клиентов
-        Console.WriteLine("The barber falls asleep again.");
+        Thread.Sleep(7000); // Пауза після перших 5 клієнтів
 
-        // Приход клиентов последних 5 клиентов
+        // Приходять клієнти 6-10
         for (int i = 6; i <= 10; i++)
         {
-            Thread.Sleep(new Random().Next(1000, 3000));
-            new Thread(Customer).Start(i);
+            int customerId = i;
+            Thread.Sleep(new Random().Next(500, 1000));
+            new Thread(() => Customer(customerId)).Start();
         }
+        lastCustomer = true;
     }
 
     static void Barber()
     {
         while (true)
         {
-            int currentCustomer = -1;
-
             lock (locker)
             {
-                // При отсутствии клиентов, когда обслужено уже 5, парикмахер засыпает
-                if (waiting == 0 && !barberSleeping && haircutedClientCount == 5)
+                // Якщо перукар вже не спить, то за відсутності клієнтів він засинає
+                if (customerQueue.Count == 0 && isSleeping == false)
                 {
-                    barberSleeping = true;
                     Console.WriteLine("The barber falls asleep.");
-                }
-
-                if (waiting > 0)
-                {
-                    // Если парикмахер спит, клиент его будит
-                    if (barberSleeping)
-                    {
-                        barberSleeping = false;
-                        Console.WriteLine("The barber wakes up to serve a customer.");
-                    }
-
-                    currentCustomer = customerQueue.Dequeue();
-                    waiting--;
-
-                    Console.WriteLine($"The barber prepares the chair for client {currentCustomer}. Waiting clients: {waiting}");
-                    Console.WriteLine($"The barber cuts the hair of client {currentCustomer}.");
-                    Thread.Sleep(2000); // Стрижка 
-
-                    haircutedClientCount++;
+                    isSleeping = true;
                 }
             }
 
-            // 10 клиентов в день, потом парикмахерская закрывается
-            if (haircutedClientCount == 10)
+            customerSemaphore.WaitOne(); 
+
+            int customerToServe;
+            lock (locker)
             {
-                Console.WriteLine("The barber shop closes for the day.");
-                break;
+                if (customerQueue.Count == 0) continue;
+
+                // Якщо перукар спить, його будять
+                if (isSleeping)
+                {
+                    Console.WriteLine("The barber wakes up.");
+                    isSleeping = false;
+                }
+
+                customerToServe = customerQueue.Dequeue();
+                Console.WriteLine($"The barber starts serving client {customerToServe}.");
+            }
+
+            barberSemaphore.Release(); // Перукар сідає у крісло для стрижки клієнта
+
+            lock (locker)
+            {
+                Console.WriteLine($"The barber cuts the hair of client {customerToServe}.");
+            }
+
+            Thread.Sleep(2000); // Імітація процесу стрижки
+
+            // Перевіряємо після стрижки, чи є клієнти; якщо ні і вже створить останній - зачиняємо перукарню
+            lock (locker)
+            {
+                if (customerQueue.Count == 0 && lastCustomer)
+                {
+                    Console.WriteLine("The barber shop closes.");
+                    break;
+                }
             }
         }
     }
 
-    static void Customer(object num)
+    static void Customer(int customerId)
     {
-        int customerId = (int)num;
-
-        lock (locker)
+        if (waitingRoomSemaphore.WaitOne(0)) // Перевіряємо наявність місць у залі очікування
         {
-            // Если есть места для ожидания, заходит иначе уходит 
-            if (waiting < chairs)
+            lock (locker)
             {
-                waiting++;
                 customerQueue.Enqueue(customerId);
-                Console.WriteLine($"Client {customerId} is waiting in line. There are {waiting} clients waiting.");
+                Console.WriteLine($"Client {customerId} is waiting in the waiting room. Waiting clients: {customerQueue.Count}");
             }
-            else
+
+            customerSemaphore.Release(); // Повідомляємо перукаря про прихід нового клієнта
+            barberSemaphore.WaitOne(); // Клієнт чекає дозволу на стрижку
+
+            lock (locker)
+            {
+                Console.WriteLine($"Client {customerId} sits in the barber's chair.");
+            }
+
+            waitingRoomSemaphore.Release(); // Місце у залі очікування звільняється
+        }
+        else
+        {
+            lock (locker)
             {
                 Console.WriteLine($"Client {customerId} leaves because there are no vacancies.");
             }
         }
     }
 }
+
+
+
+
 
 
