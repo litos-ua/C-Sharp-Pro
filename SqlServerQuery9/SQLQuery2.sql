@@ -128,8 +128,6 @@ END;
 
 GO
 
--- Временная задержка 2 секунды
-WAITFOR DELAY '00:00:02';
 
 -- Генерация данных для таблицы Examinations
 INSERT INTO Examinations (Name, DayOfWeek, StartTime, EndTime)
