@@ -15,11 +15,11 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Вставляем нового барбера
+    -- Вставляем нового парикмахера
     INSERT INTO dbo.Barbers (FirstName, Surname, Patronymic, Gender, PhoneNumber, Email, DateOfBirth, HiringDate, Position)
     VALUES (@FirstName, @Surname, @Patronymic, @Gender, @PhoneNumber, @Email, @DateOfBirth, @HiringDate, @Position);
 
-    -- Получаем ID нового барбера
+    -- Получаем ID нового парикмахера
     DECLARE @BarberId INT = SCOPE_IDENTITY();
 
     -- Генерация услуг
