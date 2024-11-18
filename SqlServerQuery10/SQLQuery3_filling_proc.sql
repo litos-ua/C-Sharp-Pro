@@ -31,7 +31,7 @@ BEGIN
             -- Chief Barber и Senior Barber могут предоставлять все услуги
             @Position IN ('Chief Barber', 'Senior Barber')
             OR
-            -- Junior Barber: ограничения по услугам
+            -- Ограничения по услугам для джунов
             (
                 @Position = 'Junior Barber'
                 AND
@@ -40,19 +40,19 @@ BEGIN
                     OR
                     (ServiceName LIKE '%man%' AND @Gender = 'Male') -- мужчинам Junior Barber доступны только мужские услуги 
                     OR
-                    ServiceId = 1 -- "Детская стрижка" доступна всем
+                    ServiceId = 1 --  доступна всем
                 )
                 AND ServiceId NOT IN ( -- Исключить недоступные услуги для юниоров
                     CASE 
-                        WHEN @Gender = 'Female' THEN 2 -- "Women Scalp Massage"
-                        WHEN @Gender = 'Male' THEN 4 -- "Men Scalp Massage"
+                        WHEN @Gender = 'Female' THEN 2 
+                        WHEN @Gender = 'Male' THEN 4 
                     END,
                     3 -- "Свадебная укладка волос"
                 )
             )
         )
         OR
-        -- Услуги "Классическое бритье" и "Коррекция бровей" доступны только Chief и Senior
+        -- Услуги доступны только Chief и Senior
         (ServiceId IN (5, 6) AND @Position IN ('Chief Barber', 'Senior Barber'))
         AND NOT EXISTS (
             SELECT 1

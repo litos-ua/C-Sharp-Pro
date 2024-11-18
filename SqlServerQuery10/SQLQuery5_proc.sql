@@ -137,4 +137,4 @@ EXEC dbo.CharacterLine 32, 3;
 
 EXEC dbo.Factorial 7;
 
-EXEC dbo.RaisingToPower 5, 3;
+EXEC dbo.RaisingToPower 5, 3; --Процедура возводит число встепень

@@ -151,8 +151,8 @@ BEGIN
             INSERT INTO dbo.BarberServices (BarberId, ServiceId)
             SELECT @BarberId, ServiceId 
             FROM dbo.Services
-            WHERE (ServiceName LIKE '%woman%' OR ServiceId = 1) -- 1 = 'Детская стрижка'
-              AND ServiceId NOT IN (2, 3) -- Исключить услуги: 2 = 'Женский массаж кожи головы', 3 = 'Свадебная укладка волос'
+            WHERE (ServiceName LIKE '%woman%' OR ServiceId = 1) 
+              AND ServiceId NOT IN (2, 3) -- Исключить услуги: 2, 3 
               AND NOT EXISTS (
                   SELECT 1 
                   FROM dbo.BarberServices 
@@ -164,8 +164,8 @@ BEGIN
             INSERT INTO dbo.BarberServices (BarberId, ServiceId)
             SELECT @BarberId, ServiceId 
             FROM dbo.Services
-            WHERE (ServiceName LIKE '%man%' OR ServiceId = 1) -- 1 = 'Детская стрижка'
-              AND ServiceId NOT IN (4) -- Исключить услугу: 4 = 'Мужской массаж кожи головы'
+            WHERE (ServiceName LIKE '%man%' OR ServiceId = 1) 
+              AND ServiceId NOT IN (4) -- Исключить услугу 4
               AND NOT EXISTS (
                   SELECT 1 
                   FROM dbo.BarberServices 
@@ -180,7 +180,7 @@ BEGIN
         INSERT INTO dbo.BarberServices (BarberId, ServiceId)
         SELECT @BarberId, ServiceId
         FROM dbo.Services
-        WHERE ServiceId IN (5, 6) -- 5 = 'Классическое бритье', 6 = 'Коррекция бровей'
+        WHERE ServiceId IN (5, 6) 
           AND NOT EXISTS (
               SELECT 1 
               FROM dbo.BarberServices 
@@ -294,7 +294,7 @@ BEGIN
     )
     ORDER BY NEWID();
 
-    -- Выбираем услуги, доступные этому барберу
+    -- Выбираем услуги, доступные барберу
     SELECT @ServiceIds = STRING_AGG(ServiceId, ',')
     FROM dbo.BarberServices
     WHERE BarberId = @BarberId;
