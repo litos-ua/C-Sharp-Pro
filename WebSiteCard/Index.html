@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт-визитка</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="./changeColor.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+                <div class="header-content_img">
+                <img src="myphoto.jpg" alt="Мое фото" class="profile-photo">
+                </div>
+            <div class="header-content_text">
+                <h1>Welcome to my page!</h1>
+                <h2>I am a web developer Andrey Litkevich, and this is my card site</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#about">About me</a></li>
+                <li>
+                    <a href="#my_projects">My projects</a>
+                    <ul class="submenu">
+                        <li><a href="#project1">Project 1</a></li>
+                        <li><a href="#project2">Project 2</a></li>
+                        <li><a href="#project3">Project 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">Contacts</a></li>
+            </ul>
+        </nav>
+
+        <main id="main">
+            <section id="about">
+                <h2 class="about_header">About me</h2>
+                <p class="about_text responsive-block" >
+                    I am a passionate Full Stack developer who specializes in building high-quality web applications and websites.
+                    My work combines creativity and engineering approaches, which allows me to develop functional, reliable and
+                    scalable solutions. On the frontend side, I use ReactJS to create responsive and modern user
+                    interfaces. On the backend side, I use .NET technologies, including ASP.NET Core, to build high-performance
+                    server solutions.
+                    I have extensive experience in integrating client and server parts, as well as working with relational
+                    and NoSQL databases.
+                    I pay great attention to testing and code quality, applying advanced approaches such as TDD and CI/CD.
+                    In addition, I actively use Git and other version control tools for collaborative development and change control.
+                    My projects cover various areas, from e-commerce to management systems and business process automation.
+                    Confidence in my work is supported by experience in implementing and supporting ready-made solutions
+                    that already help clients achieve their goals.
+                </p>
+            </section>
+
+            <section id="my_projects">
+                <h2 class="my_projects_h2">My projects</h2>
+                <p class="my_projects_p responsive-block">Here you will find examples of my work:</p>
+                <ul class="my_projects_list responsive-block">
+                    <li id="project1">
+                        <strong>Project 1:</strong> Pizzeria service and remote ordering system.
+                        This project is aimed at automating pizza ordering via a web interface.
+                        I developed a user-friendly interface using ReactJS, which allows customers to quickly
+                        find and order their favorite dishes. On the server side, an order processing system was implemented
+                        using ASP.NET Core, including order status management (new, in progress, delivered).
+                        The key feature is support for a discount system, integration with payment gateways and
+                        customer notifications via email and SMS. An admin panel was implemented to manage the menu, promotions and
+                        statistics. Particular attention was paid to performance, which allowed us to serve up to 1000 users
+                        simultaneously.
+                        In addition, the system supports flexible delivery settings and integration with mapping services
+                        to calculate delivery time. The database is built on SQL Server for reliable storage of information
+                        about customers, orders and products.
+                    </li>
+                    <li id="project2">
+                        <strong>Project 2:</strong> Online store of electrical and electronic goods.
+                        This project is a powerful e-commerce solution with support for a wide range of products.
+                        The frontend is implemented in ReactJS using Redux for state management. The application is adapted
+                        to work on all devices, including mobile and tablets.
+                        The backend on ASP.NET Core provides flexible management of products, customers and orders.
+                        A special feature of the store is the module of the recommendation system, which analyzes the
+                        preferences of users and offers them relevant products.
+                        The project supports various payment methods, including cards, e-wallets and installments.
+                        The promotion management system allows you to conduct sales and maintain customer loyalty.
+                        The database is built on MS SQL Server, which ensures reliability and scalability.
+                    </li>
+                    <li id="project3">
+                        <strong>Project 3:</strong> This website is designed to automate the operation of a network of gas stations.
+                        The project includes a client part made in ReactJS, which provides users with information about gas stations,
+                        prices and promotions.
+                        The server part is built on ASP.NET Core and provides fuel logistics management, as well as support for loyalty programs.
+                        The project has implemented integration with the fuel accounting system, which allows you to track balances
+                        and supplies in real time.
+                        The ability to register for vehicle maintenance online through the website was added. A map was developed showing
+                        the nearest gas stations with route calculations to them. The administration system allows you to manage data for
+                        each station, promotions and analytics.
+                        This project demonstrated my ability to solve complex problems, such as synchronizing data in real time
+                        and developing interfaces that are convenient for both users and administrators.
+                    </li>
+                </ul>
+            </section>
+
+            <section id="contact">
+                <h2 class="contact_h2">Contacts</h2>
+                <p class="contact_text">Email: andrew0906@gmail1.com</p>
+                <p class="contact_text">Phone number: +380670000000</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 [Andrey Litkevich]. All rights reserved.</p>
+    </footer>
+</body>
+</html>
