@@ -1,0 +1,82 @@
+﻿@model WebApplicationNotes.Models.Note
+
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Add Note</h2>
+    </div>
+
+    <form method="post" id="createNoteForm" asp-controller="Note" asp-action="Create">
+         <div asp-validation-summary="All"></div>
+
+         <div class="form-row">
+             <div class="form-group col-md-6">
+                 <label asp-for="Title">Title</label>
+                 <input type="text" class="form-control mb-3" asp-for="Title" placeholder="Enter Title" required>
+                 <span asp-validation-for="Title" class="alert-danger"></span>
+             </div>
+             <div class="form-group col-md-6">
+                 <label asp-for="Tags">Tags</label>
+                 <input type="text" class="form-control mb-3" asp-for="Tags" placeholder="Enter Tags">
+                 <span asp-validation-for="Tags" class="alert-danger"></span>
+             </div>
+         </div>
+
+         <div class="form-row">
+             <div class="form-group col-md-6">
+                 <label asp-for="Content">Content</label>
+                 <textarea class="form-control mb-3" asp-for="Content" placeholder="Enter Content" rows="4"></textarea>
+                 <span asp-validation-for="Content" class="alert-danger"></span>
+             </div>
+             <div class="form-group col-md-6">
+                 <label asp-for="ContactId">Contact ID</label>
+                 <input type="number" class="form-control mb-3" asp-for="ContactId" placeholder="Enter Contact ID">
+                 <span asp-validation-for="ContactId" class="alert-danger"></span>
+             </div>
+         </div>
+
+         <button type="submit" class="btn btn-lg btn-primary p-2">Submit</button>
+         <a asp-controller="Note" asp-action="Index" class="btn btn-lg btn-warning p-2">Back To List</a>
+     </form>
+
+</div>
+
+<script>
+    document.getElementById("createNoteForm").addEventListener("submit", async function (e) {
+        e.preventDefault(); 
+
+        
+        const formData = {
+            Title: document.getElementById("Title").value,
+            Content: document.getElementById("Content").value,
+            Tags: document.getElementById("Tags").value,
+            ContactId: document.getElementById("ContactId").value
+        };
+
+        try {
+            const response = await fetch("/note/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message);
+                window.location.href = "/note/index";
+            } else {
+                // Ошибка: показываем сообщение и оставляем на форме
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred.");
+        }
+    });
+</script>
+
+
+

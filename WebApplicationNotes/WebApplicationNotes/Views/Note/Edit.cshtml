@@ -1,0 +1,54 @@
+﻿@model WebApplicationNotes.Models.Note
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Edit Note</h2>
+    </div>
+
+    <form method="post" asp-action="Edit">
+        <div asp-validation-summary="All"></div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Title">Title</label>
+                <input type="text" class="form-control mb-3" asp-for="Title" placeholder="Enter Title" required>
+                <span asp-validation-for="Title" class="alert-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Tags">Tags</label>
+                <input type="text" class="form-control mb-3" asp-for="Tags" placeholder="Enter Tags">
+                <span asp-validation-for="Tags" class="alert-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Content">Content</label>
+                <textarea class="form-control mb-3" asp-for="Content" placeholder="Enter Content" rows="4"></textarea>
+                <span asp-validation-for="Content" class="alert-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="ContactId">Contact ID</label>
+                <input type="number" class="form-control mb-3" asp-for="ContactId" placeholder="Enter Contact ID">
+                <span asp-validation-for="ContactId" class="alert-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary p-2">Update</button>
+        <a asp-controller="Notes" asp-action="Index" class="btn btn-lg btn-warning p-2">Back To List</a>
+    </form>
+</div>
+
+@*  
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+*@
+

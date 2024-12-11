@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<WebApplicationNotes.Models.Note>
 @{
-    ViewData["Title"] = "Notes";
+    ViewData["Title"] = "Note";
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Notes</h2>
-<a class="btn btn-success mb-3" href="@Url.Action("Create", "Notes")">+ Add Note</a>
+
+<a asp-controller="Note" asp-action="Create" class="btn btn-success"><i class="bi bi-file-plus-fill"></i>Add Note</a>
+
 <table class="table table-bordered color_t table table-warning table table-hover">
     <thead class="table-primary">
         <tr>
@@ -27,8 +29,9 @@
                 <td class="vertical_centered">@note.Tags</td>
                 <td class="centered">@note.ContactId</td>
                 <td class="centered">
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Notes", new { id = note.Id })">Edit</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Notes", new { id = note.Id })">Delete</a>
+                    <!--<a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Note", new { id = note.Id })">Edit</a>-->
+                    <a asp-controller="Note" asp-action="Edit" asp-route-id="@note.Id" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Note", new { id = note.Id })">Delete</a>
                 </td>
             </tr>
         }
