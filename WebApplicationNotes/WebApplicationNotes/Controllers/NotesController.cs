@@ -4,9 +4,9 @@ using WebApplicationNotes.Services;
 
 namespace WebApplicationNotes.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class NotesController : ControllerBase
+    //[ApiController]
+    //[Route("api/[controller]")]
+    public class NotesController : Controller
     {
         private readonly INoteService _noteService;
 
@@ -15,14 +15,23 @@ namespace WebApplicationNotes.Controllers
             _noteService = noteService;
         }
 
+        //// Метод для API
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllNotes(CancellationToken cancellationToken)
+        //{
+        //    var notes = await _noteService.GetAllNotesAsync(cancellationToken);
+        //    return Ok(notes);
+        //}
+
+        
         [HttpGet]
-        public async Task<IActionResult> GetAllNotes(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             var notes = await _noteService.GetAllNotesAsync(cancellationToken);
-            return Ok(notes);
+            return View(notes); 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetNoteById(int id, CancellationToken cancellationToken)
         {
             try

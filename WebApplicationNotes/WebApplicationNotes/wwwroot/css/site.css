@@ -1,22 +1,100 @@
+﻿
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Общие стили для кнопок */
+.btn {
+    display: inline-block;
+    margin: 0.25rem; /* Интервал между кнопками */
+    padding: 0.5rem 1rem; /* Отступы внутри кнопок */
+    font-size: 1rem; /* Зависит от базового размера шрифта */
+    text-align: center;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }
 
+.color_t {
+    background-color: #FFFACD; 
+}
+
+
+td.centered {
+    text-align: center;
+    vertical-align: middle;
+    *gap: 3vw;
+}
+
+td.vertical_centered {
+    vertical-align: middle;
+}
+
+/* Стили кнопок для маленьких экранов */
+@media (max-width: 576px) {
+    .btn {
+        font-size: 0.875rem; /* Уменьшаем текст на кнопках */
+        padding: 0.4rem 0.8rem; /* Уменьшаем отступы */
+    }
+}
+
+/* Стили кнопок для средних экранов */
+@media (min-width: 576px) and (max-width: 992px) {
+    .btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Стили кнопок для больших экранов */
+@media (min-width: 992px) {
+    .btn {
+        font-size: 1.125rem; /* Чуть больше текста */
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* Стили для активных и фокусированных кнопок */
+.btn:focus,
+.btn:active:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Стили для фокуса элементов */
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Основные стили страницы */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+main {
+    margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    background-color: azure;
 }
+
+aside {
+    height: 150vh;
+    background-color: Wheat;
+    color: #0000FF;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/*.aside_l {
+    color: #0000FF;
+    font-size: 1.5rem; 
+    font-weight: bold;
+}*/
+
