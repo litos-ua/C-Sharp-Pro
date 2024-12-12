@@ -1,96 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using WebApplicationNotes.Models;
-//using WebApplicationNotes.Services;
-
-//namespace WebApplicationNotes.Controllers
-//{
-//    //[ApiController]
-//    //[Route("api/[controller]")]
-//    public class NotesController : Controller
-//    {
-//        private readonly INoteService _noteService;
-
-//        public NotesController(INoteService noteService)
-//        {
-//            _noteService = noteService;
-//        }
-
-
-//        [HttpGet]
-//        public async Task<IActionResult> Index(CancellationToken cancellationToken)
-//        {
-//            var notes = await _noteService.GetAllNotesAsync(cancellationToken);
-//            return View(notes); 
-//        }
-
-//        [HttpGet("{id:int}")]
-//        public async Task<IActionResult> GetNoteById(int id, CancellationToken cancellationToken)
-//        {
-//            try
-//            {
-//                var note = await _noteService.GetNoteByIdAsync(id, cancellationToken);
-//                return Ok(note);
-//            }
-//            catch (KeyNotFoundException ex)
-//            {
-//                return NotFound(new { message = ex.Message });
-//            }
-//        }
-
-//        [HttpPost]
-//        public async Task<IActionResult> AddNote([FromBody] Note note, CancellationToken cancellationToken)
-//        {
-//            if (!ModelState.IsValid)
-//                return BadRequest(ModelState);
-
-//            // Сохранение заметки
-//            var createdNote = await _noteService.AddNoteAsync(note, cancellationToken);
-
-//            // Возврат только необходимых данных
-//            return CreatedAtAction(nameof(GetNoteById), new { id = createdNote.Id }, new
-//            {
-//                createdNote.Title,
-//                createdNote.Content,
-//                createdNote.Tags,
-//                createdNote.ContactId,
-//            });
-//        }
-
-
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> UpdateNote(int id, [FromBody] Note note, CancellationToken cancellationToken)
-//        {
-//            if (!ModelState.IsValid)
-//                return BadRequest(ModelState);
-
-//            if (id != note.Id)
-//                return BadRequest(new { message = "ID mismatch." });
-
-//            try
-//            {
-//                var updatedNote = await _noteService.UpdateNoteAsync(note, cancellationToken);
-//                return Ok(updatedNote);
-//            }
-//            catch (KeyNotFoundException ex)
-//            {
-//                return NotFound(new { message = ex.Message });
-//            }
-//        }
-
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> DeleteNote(int id, CancellationToken cancellationToken)
-//        {
-//            var (success, message) = await _noteService.DeleteNoteAsync(id, cancellationToken);
-
-//            if (!success)
-//                return NotFound(new { message });
-
-//            return NoContent();
-//        }
-//    }
-//}
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using WebApplicationNotes.Models;
@@ -137,18 +45,6 @@ namespace WebApplicationNotes.Controllers
             return View();
         }
 
-
-        //[HttpPost("create")]
-        //public async Task<IActionResult> Create(Note note, CancellationToken cancellationToken)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-
-        //    var createdNote = await _noteService.AddNoteAsync(note, cancellationToken);
-
-        //    return CreatedAtAction(nameof(Details), new { id = createdNote.Id }, createdNote);
-        //}
-
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Note note, CancellationToken cancellationToken)
         {
@@ -190,61 +86,79 @@ namespace WebApplicationNotes.Controllers
         //public async Task<IActionResult> Edit([FromBody] Note note, CancellationToken cancellationToken)
         //{
         //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
-
-        //    //if (id != note.Id)
-        //    //    return BadRequest(new { message = "ID mismatch." });
+        //        return BadRequest(new { success = false, message = "Invalid data." });
 
         //    try
         //    {
         //        var updatedNote = await _noteService.UpdateNoteAsync(note, cancellationToken);
-        //        return View(updatedNote);
+        //        return Ok(new { success = true, message = "Note updated successfully.", data = updatedNote });
         //    }
         //    catch (KeyNotFoundException ex)
         //    {
-        //        return NotFound(new { message = ex.Message });
+        //        return NotFound(new { success = false, message = ex.Message });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new { success = false, message = "An internal server error occurred.", error = ex.Message });
         //    }
         //}
-
 
         [HttpPost("edit")]
         public async Task<IActionResult> Edit([FromBody] Note note, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new { success = false, message = "Invalid data." });
+            {
+                return BadRequest(new
+                {success = false, message = "Invalid data.",
+                    errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
+                });
+            }
 
             try
             {
                 var updatedNote = await _noteService.UpdateNoteAsync(note, cancellationToken);
-                return Ok(new { success = true, message = "Note updated successfully.", data = updatedNote });
+                return Ok(new {success = true,message = "Note updated successfully.",data = updatedNote});
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { success = false, message = ex.Message });
+                return NotFound(new {success = false,message = ex.Message});
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = "An internal server error occurred.", error = ex.Message });
+                return StatusCode(500, new {success = false,message = "An internal server error.",error = ex.Message});
             }
         }
 
 
 
+        [HttpGet("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var note = await _noteService.GetNoteByIdAsync(id.Value, cancellationToken);
 
-        [HttpDelete("{id}")]
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            return View(note);
+        }
+
+        [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             var (success, message) = await _noteService.DeleteNoteAsync(id, cancellationToken);
 
             if (!success)
-                return NotFound(new { message });
+            {
+                return Json(new { success = false, message }); 
+            }
 
-            return NoContent();
-        }
-        [HttpPost("test-template")]
-        public IActionResult TestTemplate()
-        {
-            return View();
+            return Json(new { success = true, message = "Note deleted successfully." });
         }
 
     }
