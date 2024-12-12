@@ -1,18 +1,14 @@
 ﻿@model WebApplicationNotes.Models.Note
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
 <div class="container shadow p-5">
     <div class="row pb-2">
         <h2>Edit Note</h2>
     </div>
 
-    <form method="post" asp-action="Edit">
+    <form method="post" id="editNoteForm" asp-controller="Note"  asp-action="Edit">
         <div asp-validation-summary="All"></div>
 
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+        
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Title">Title</label>
@@ -44,11 +40,56 @@
     </form>
 </div>
 
-@*  
+
+<script>
+    document.getElementById("editNoteForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+
+        const formData = {
+            Id: document.getElementById("Id").value,
+            Title: document.getElementById("Title").value,
+            Content: document.getElementById("Content").value,
+            Tags: document.getElementById("Tags").value,
+            ContactId: document.getElementById("ContactId").value
+        };
+
+        console.log("Form data:", formData);
+
+        try {
+            const response = await fetch("/note/edit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message);
+                window.location.href = "/note/index";
+            } else {
+                // Ошибка: показываем сообщение и оставляем на форме
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred.");
+        }
+    });
+</script>
+<!--
+<script src="~/js/noteActions.js"></script>
+<script>
+    initializeNoteForm("editNoteForm", `/note/edit`, "/note/index");
+</script>
+-->
+@*
 @section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
 }
 *@
-

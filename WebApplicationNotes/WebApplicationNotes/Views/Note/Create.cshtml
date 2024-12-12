@@ -53,6 +53,8 @@
             ContactId: document.getElementById("ContactId").value
         };
 
+        console.log("Form data:", formData);
+
         try {
             const response = await fetch("/note/create", {
                 method: "POST",
@@ -68,7 +70,6 @@
                 alert(result.message);
                 window.location.href = "/note/index";
             } else {
-                // Ошибка: показываем сообщение и оставляем на форме
                 alert(result.message);
             }
         } catch (error) {
