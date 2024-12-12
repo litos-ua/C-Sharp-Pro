@@ -4,22 +4,21 @@ using WebApplicationNotes.Services;
 
 namespace WebApplicationNotes.Controllers
 {
-    [Route("note")]
-    public class NoteController : Controller
+    [Route("contact")]
+    public class ContactController : Controller
     {
-        private readonly INoteService _noteService;
+        private readonly IContactService _contactService;
 
-        public NoteController(INoteService noteService)
+        public ContactController(IContactService contactService)
         {
-            _noteService = noteService;
+            _contactService = contactService;
         }
 
-        
         [HttpGet("index")]
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var notes = await _noteService.GetAllNotesAsync(cancellationToken);
-            return View(notes);
+            var contacts = await _contactService.GetAllContactsAsync(cancellationToken);
+            return View(contacts);
         }
 
         [HttpGet("{id:int}")]
@@ -27,15 +26,14 @@ namespace WebApplicationNotes.Controllers
         {
             try
             {
-                var note = await _noteService.GetNoteByIdAsync(id, cancellationToken);
-                return View(note); 
+                var contact = await _contactService.GetContactByIdAsync(id, cancellationToken);
+                return View(contact);
             }
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
             }
         }
-
 
         [HttpGet("create")]
         public IActionResult Create()
@@ -44,7 +42,7 @@ namespace WebApplicationNotes.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] Note note, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create([FromBody] Contact contact, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -53,8 +51,8 @@ namespace WebApplicationNotes.Controllers
 
             try
             {
-                var createdNote = await _noteService.AddNoteAsync(note, cancellationToken);
-                return Json(new { success = true, message = "Note created successfully." });
+                var createdContact = await _contactService.AddContactAsync(contact, cancellationToken);
+                return Json(new { success = true, message = "Contact created successfully." });
             }
             catch (Exception ex)
             {
@@ -69,44 +67,49 @@ namespace WebApplicationNotes.Controllers
             {
                 return NotFound();
             }
-            var note = await _noteService.GetNoteByIdAsync(id.Value, cancellationToken);
 
-            if (note == null)
+            var contact = await _contactService.GetContactByIdAsync(id.Value, cancellationToken);
+
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            return View(note);
+            return View(contact);
         }
 
-
         [HttpPost("edit")]
-        public async Task<IActionResult> Edit([FromBody] Note note, CancellationToken cancellationToken)
+        public async Task<IActionResult> Edit([FromBody] Contact contact, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new
-                {success = false, message = "Invalid data.",
+                {
+                    success = false,
+                    message = "Invalid data.",
                     errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
                 });
             }
 
             try
             {
-                var updatedNote = await _noteService.UpdateNoteAsync(note, cancellationToken);
-                return Ok(new {success = true,message = "Note updated successfully.",data = updatedNote});
+                var updatedContact = await _contactService.UpdateContactAsync(contact, cancellationToken);
+                return Ok(new
+                {
+                    success = true,
+                    message = "Contact updated successfully.",
+                    data = updatedContact
+                });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new {success = false,message = ex.Message});
+                return NotFound(new { success = false, message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new {success = false,message = "An internal server error.",error = ex.Message});
+                return StatusCode(500, new { success = false, message = "An internal server error.", error = ex.Message });
             }
         }
-
-
 
         [HttpGet("delete/{id:int}")]
         public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
@@ -115,30 +118,29 @@ namespace WebApplicationNotes.Controllers
             {
                 return NotFound();
             }
-            var note = await _noteService.GetNoteByIdAsync(id.Value, cancellationToken);
 
-            if (note == null)
+            var contact = await _contactService.GetContactByIdAsync(id.Value, cancellationToken);
+
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            return View(note);
+            return View(contact);
         }
 
         [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var (success, message) = await _noteService.DeleteNoteAsync(id, cancellationToken);
+            var (success, message) = await _contactService.DeleteContactAsync(id, cancellationToken);
 
             if (!success)
             {
-                return Json(new { success = false, message }); 
+                return Json(new { success = false, message });
             }
 
-            return Json(new { success = true, message = "Note deleted successfully." });
+            return Json(new { success = true, message = "Contact deleted successfully." });
         }
-
     }
-
 }
 

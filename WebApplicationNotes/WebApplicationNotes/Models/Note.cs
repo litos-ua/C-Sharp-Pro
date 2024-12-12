@@ -6,7 +6,7 @@ namespace WebApplicationNotes.Models
     public class Note
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Указывает автоинкремент
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
 
         [Required, MaxLength(100)]
@@ -18,9 +18,8 @@ namespace WebApplicationNotes.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [MaxLength(500)]
-        public string Tags { get; set; } // Теги через запятую
+        public string Tags { get; set; }
 
-        // Внешний ключ для связи с Contact
         [Required]
         public int ContactId { get; set; }
 

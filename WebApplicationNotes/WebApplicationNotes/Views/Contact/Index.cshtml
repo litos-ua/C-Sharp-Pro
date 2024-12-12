@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebApplicationNotes.Models.Contact>
+@{
+    ViewData["Title"] = "Contact";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Notes</h2>
+
+<a asp-controller="Contact" asp-action="Create" class="btn btn-success"><i class="bi bi-file-plus-fill"></i>Add Note</a>
+
+<table class="table table-bordered color_t table table-warning table table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>AlternatePhone</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model)
+        {
+            <tr>
+                <td class="centered">@contact.Id</td>
+                <td class="vertical_centered color_t">@contact.Name</td>
+                <td class="vertical_centered">@contact.Phone</td>
+                <td class="vertical_centered">@contact.Email</td>
+                <td class="centered">@contact.AlternatePhone</td>
+                <td class="centered">@contact.Description</td>
+                <td class="centered">
+                    <a asp-controller="Contact" asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>
+                    <a asp-controller="Contact" asp-action="Delete" asp-route-id="@contact.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

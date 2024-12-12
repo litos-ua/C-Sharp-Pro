@@ -1,8 +1,8 @@
 ﻿/**
- * Отправка AJAX-запроса для создания или редактирования заметки.
- * @param {string} url - URL для отправки данных.
- * @param {object} formData - Данные формы.
- * @param {string} redirectUrl - URL для переадресации при успехе.
+ * Отправка запроса c formData
+ * @param {string} url 
+ * @param {object} formData 
+ * @param {string} redirectUrl 
  */
 async function submitNoteForm(url, formData, redirectUrl) {
     console.log("Submitting to:", url);
@@ -24,14 +24,12 @@ async function submitNoteForm(url, formData, redirectUrl) {
         
 
         if (result.success) {
-            // Успешное выполнение
-            alert(result.message); // Вы можете заменить на SweetAlert, если нужно
+            alert(result.message); 
             if (redirectUrl) {
                 window.location.href = redirectUrl;
             }
         } else {
-            // Ошибка
-            alert(result.message); // Вы можете заменить на SweetAlert, если нужно
+            alert(result.message); 
         }
     } catch (error) {
         console.error("Error:", error);
@@ -40,16 +38,16 @@ async function submitNoteForm(url, formData, redirectUrl) {
 }
 
 /**
- * Инициализация обработки формы.
- * @param {string} formId - ID формы.
- * @param {string} actionUrl - URL для обработки формы.
- * @param {string} redirectUrl - URL для переадресации при успехе.
+ * Инициализация формы.
+ * @param {string} formId 
+ * @param {string} actionUrl 
+ * @param {string} redirectUrl 
  */
 function initializeNoteForm(formId, actionUrl, redirectUrl) {
     const form = document.getElementById(formId);
     if (form) {
         form.addEventListener("submit", function (e) {
-            e.preventDefault(); // Отключаем стандартное поведение формы
+            e.preventDefault(); 
 
             const formData = {
                 Id: form.dataset.id || null,
@@ -60,9 +58,6 @@ function initializeNoteForm(formId, actionUrl, redirectUrl) {
             };
 
             //console.log(actionUrl, formData, redirectUrl);
-
-
-
             submitNoteForm(actionUrl, formData, redirectUrl);
         });
     }

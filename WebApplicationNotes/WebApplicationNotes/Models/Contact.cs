@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplicationNotes.Models
@@ -24,7 +25,7 @@ namespace WebApplicationNotes.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
-        // Коллекция связанных заметок
+        [ValidateNever]
         public virtual IEnumerable<Note> Notes { get; set; }
     }
 }
