@@ -7,7 +7,7 @@ namespace WebApplicationNotes.Models
     public class Contact
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Указывает автоинкремент
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int Id { get; set; }
 
         [Required, MaxLength(100)]

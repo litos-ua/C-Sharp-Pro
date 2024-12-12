@@ -4,22 +4,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - My MVC App</title>
+    <title>@ViewData["Title"] - Notes MVC App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header class="bg-primary text-white p-3">
-        <h1 class="container">My MVC App</h1>
+        <h1 class="container">Notes MVC Application</h1>
     </header>
     <div class="d-flex ">
         <aside class="bg-light border-end p-3 left_menu bg-info" style="width: 200px;">
             <nav>
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link aside_l" href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="nav-item"><a class="nav-link aside_l" href="@Url.Action("Index", "Contact")">Contacts</a></li>
-                    <!--<li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Note")">Notes</a></li>-->
-                    <!--<li class="nav-item"><a class="nav-link aside_l" href="/Note/Index">Note</a></li>-->
+                    <li class="nav-item"><a asp-controller="Home" asp-action="Index"  class="nav-link aside_l">Home</a></li>
+                    <li class="nav-item"><a asp-controller="Contact" asp-action="Index" class="nav-link aside_l")">Contacts</a></li>
                     <li class="nav-item"><a asp-controller="Note" asp-action="Index"  class="nav-link")">Notes</a></li>
 
                 </ul>
@@ -30,7 +28,7 @@
         </main>
     </div>
     <footer class="bg-dark text-white text-center p-3">
-        &copy; @DateTime.Now.Year - My MVC App
+        &copy; @DateTime.Now.Year - Notes MVC Application
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

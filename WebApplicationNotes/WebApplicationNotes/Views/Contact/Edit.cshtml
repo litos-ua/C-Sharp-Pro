@@ -1,0 +1,98 @@
+﻿@model WebApplicationNotes.Models.Contact
+
+<div class="container shadow p-5">
+    <div class="row pb-2">
+        <h2>Edit Contact</h2>
+    </div>
+
+    <form method="post" id="editContactForm" asp-controller="Contact" asp-action="Edit">
+        <div asp-validation-summary="All"></div>
+
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Name">Name</label>
+                <input type="text" class="form-control mb-3" asp-for="Name" placeholder="Enter Name" required>
+                <span asp-validation-for="Name" class="alert-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Phone">Phone</label>
+                <input type="text" class="form-control mb-3" asp-for="Phone" placeholder="Enter Phone" required>
+                <span asp-validation-for="Phone" class="alert-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Email">Email</label>
+                <input type="email" class="form-control mb-3" asp-for="Email" placeholder="Enter Email">
+                <span asp-validation-for="Email" class="alert-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="AlternatePhone">Alternate Phone</label>
+                <input type="text" class="form-control mb-3" asp-for="AlternatePhone" placeholder="Enter Alternate Phone">
+                <span asp-validation-for="AlternatePhone" class="alert-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Description">Description</label>
+                <textarea class="form-control mb-3" asp-for="Description" placeholder="Enter Description" rows="4"></textarea>
+                <span asp-validation-for="Description" class="alert-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary p-2">Submit</button>
+        <a asp-controller="Contact" asp-action="Index" class="btn btn-lg btn-warning p-2">Back To List</a>
+    </form>
+</div>
+
+
+<script>
+    document.getElementById("editContactForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+
+        const formData = {
+            Id: document.getElementById("Id").value,
+            Name: document.querySelector("[name='Name']").value,
+            Phone: document.querySelector("[name='Phone']").value,
+            Email: document.querySelector("[name='Email']").value,
+            AlternatePhone: document.querySelector("[name='AlternatePhone']").value,
+            Description: document.querySelector("[name='Description']").value
+        };
+
+        console.log("Form data:", formData);
+
+        try {
+            const response = await fetch("/contact/edit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message);
+                window.location.href = "/contact/index";
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred.");
+        }
+    });
+</script>
+<!--
+<script src="~/js/noteActions.js"></script>
+<script>
+    initializeNoteForm("editNoteForm", `/note/edit`, "/note/index");
+</script>
+-->
+

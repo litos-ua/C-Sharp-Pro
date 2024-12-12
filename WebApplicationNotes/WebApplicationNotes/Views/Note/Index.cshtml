@@ -29,9 +29,8 @@
                 <td class="vertical_centered">@note.Tags</td>
                 <td class="centered">@note.ContactId</td>
                 <td class="centered">
-                    <!--<a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Note", new { id = note.Id })">Edit</a>-->
                     <a asp-controller="Note" asp-action="Edit" asp-route-id="@note.Id" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Note", new { id = note.Id })">Delete</a>
+                    <a asp-controller="Note" asp-action="Delete" asp-route-id="@note.Id" class="btn btn-danger btn-sm")">Delete</a>
                 </td>
             </tr>
         }
