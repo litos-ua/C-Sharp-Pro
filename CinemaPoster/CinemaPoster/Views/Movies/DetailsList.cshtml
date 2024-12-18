@@ -1,0 +1,34 @@
+﻿@model List<CinemaPoster.VM.ViewModels.MovieViewModel>
+
+<h1>Список фильмов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Movie title</th>
+            <th>Director</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>Sessions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.DirectorName</td>
+                <td>@movie.Genre</td>
+                <td>@movie.Description</td>
+                <td>
+                    <ul>
+                        @foreach (var session in movie.Sessions)
+                        {
+                            <li>@session.StartTime.ToString("dd.MM.yyyy HH:mm") </li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

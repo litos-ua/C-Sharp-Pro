@@ -1,0 +1,21 @@
+﻿@model List<CinemaPoster.Domain.Models.Movie>
+
+<h1>List of movies</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Movie title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
