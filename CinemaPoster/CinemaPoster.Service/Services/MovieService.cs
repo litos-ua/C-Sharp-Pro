@@ -22,42 +22,13 @@ namespace CinemaPoster.Service.Services
         public async Task<List<MovieViewModel>> GetMovieViewModelsAsync()
         {
             var movies = await _movieRepository.GetAllAsync();
-            return movies.Select(m => new MovieViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Description = m.Description,
-                DirectorName = m.Director?.Name ?? "Unknown",
-                Genre = m.Genre.ToString(),
-                Sessions = m.Sessions.Select(s => new SessionViewModel
-                {
-                    Id = s.Id,
-                    StartTime = s.StartTime
-                }).ToList()
-            }).ToList();
+            return movies.Select(MapToMovieViewModel).ToList();
         }
 
         public async Task<MovieViewModel?> GetByIdAsync(int id)
         {
             var movie = await _movieRepository.GetByIdAsync(id);
-            if (movie == null)
-            {
-                return null; // Если фильм не найден, возвращаем null
-            }
-
-            return new MovieViewModel
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                Description = movie.Description,
-                DirectorName = movie.Director?.Name ?? "Unknown", 
-                Genre = movie.Genre.ToString(),
-                Sessions = movie.Sessions.Select(s => new SessionViewModel
-                {
-                    Id = s.Id,
-                    StartTime = s.StartTime
-                }).ToList()
-            };
+            return movie == null ? null : MapToMovieViewModel(movie);
         }
 
         public async Task<Movie> AddAsync(Movie movie)
@@ -74,6 +45,49 @@ namespace CinemaPoster.Service.Services
         {
             await _movieRepository.DeleteAsync(id);
         }
+
+        public async Task<List<MovieViewModel>> SearchMoviesAsync(string? title, string? director, string? genre, string? description)
+        {
+            var movies = await _movieRepository.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                movies = movies.Where(m => m.Title.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(director))
+            {
+                movies = movies.Where(m => m.Director?.Name.Contains(director, StringComparison.OrdinalIgnoreCase) == true).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(genre))
+            {
+                movies = movies.Where(m => m.Genre.ToString().Contains(genre, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                movies = movies.Where(m => m.Description.Contains(description, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            return movies.Select(MapToMovieViewModel).ToList();
+        }
+
+        // Преобразует Movie в MovieViewModel.
+        private static MovieViewModel MapToMovieViewModel(Movie movie)
+        {
+            return new MovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Description = movie.Description,
+                DirectorName = movie.Director?.Name ?? "Unknown",
+                Genre = movie.Genre.ToString(),
+                Sessions = movie.Sessions.Select(s => new SessionViewModel
+                {
+                    Id = s.Id,
+                    StartTime = s.StartTime
+                }).ToList()
+            };
+        }
     }
 }
+
 

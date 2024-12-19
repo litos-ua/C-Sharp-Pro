@@ -1,0 +1,63 @@
+﻿@model List<CinemaPoster.VM.ViewModels.MovieViewModel>
+
+<h1>Search Movies</h1>
+
+
+<form asp-action="Index" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="mb-3">
+        <label for="director" class="form-label">Director</label>
+        <input type="text" class="form-control" id="director" name="director">
+    </div>
+    <div class="mb-3">
+        <label for="genre" class="form-label">Genre</label>
+        <input type="text" class="form-control" id="genre" name="genre">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<!-- Результаты -->
+@if (Model != null && Model.Any())
+{
+    <h2>Search Results</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Genre</th>
+                <th>Sessions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.DirectorName</td>
+                    <td>@movie.Genre</td>
+                    <td>
+                        <ul>
+                            @foreach (var session in movie.Sessions)
+                            {
+                                <li>@session.StartTime.ToString("g")</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>No movies found matching the search criteria.</p>
+}
+
