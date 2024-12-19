@@ -5,17 +5,38 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Movie title</th>
+            <th>Movie Title</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var movie in Model)
         {
             <tr>
-                <td>@movie.Title</td>
+                <td>
+                    <a href="#" class="movie-title" data-id="@movie.Id" data-bs-toggle="modal" data-bs-target="#movieDetailsModal">
+                        @movie.Title
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- Модальное окно-->
+<div class="modal fade" id="movieDetailsModal" tabindex="-1" aria-labelledby="movieDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="movieDetailsModalLabel">Movie Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="movieDetailsContent">
+                <!-- MovieDetails -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

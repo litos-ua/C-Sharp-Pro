@@ -1,64 +1,57 @@
-﻿using CinemaPoster.Data.Interfaces;
-using CinemaPoster.Data.Context;
+﻿using CinemaPoster.Data.Context;
 using CinemaPoster.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaPoster.Data.Repositories
+public class DirectorRepository : IDirectorRepository
 {
-    public class DirectorRepository : IDirectorRepository
+    private readonly CinemaDbContext _context;
+
+    public DirectorRepository(CinemaDbContext context)
     {
-        private readonly CinemaDbContext _context;
+        _context = context;
+    }
 
-        public DirectorRepository(CinemaDbContext context)
+    public async Task<List<Director>> GetAllAsync()
+    {
+        return await _context.Directors
+            .Include(d => d.Movies)
+            .ToListAsync();
+    }
+
+    public async Task<Director?> GetByIdAsync(int id)
+    {
+        return await _context.Directors
+            .Include(d => d.Movies)
+            .FirstOrDefaultAsync(d => d.Id == id);
+    }
+
+    public async Task<Director> AddAsync(Director director)
+    {
+        _context.Directors.Add(director);
+        await _context.SaveChangesAsync();
+        return director;
+    }
+
+    public async Task<Director?> EditAsync(Director director)
+    {
+        var existingDirector = await _context.Directors.FindAsync(director.Id);
+        if (existingDirector != null)
         {
-            _context = context;
+            existingDirector.Name = director.Name;
+            await _context.SaveChangesAsync();
         }
+        return existingDirector;
+    }
 
-        public List<Director> GetAll()
+    public async Task DeleteAsync(int id)
+    {
+        var director = await _context.Directors.FindAsync(id);
+        if (director != null)
         {
-            return _context.Directors
-                           .Include(d => d.Movies) // фильмы режиссера
-                           .ToList();
-        }
-
-        public Director GetById(int id)
-        {
-            return _context.Directors
-                           .Include(d => d.Movies) // фильмы режиссера
-                           .FirstOrDefault(d => d.Id == id);
-        }
-
-        public Director Add(Director director)
-        {
-            if (director != null)
-            {
-                _context.Directors.Add(director);
-                _context.SaveChanges();
-            }
-            return director;
-        }
-
-        public Director Edit(Director director)
-        {
-            var existingDirector = _context.Directors.Find(director.Id);
-            if (existingDirector != null)
-            {
-                existingDirector.Name = director.Name;
-
-                _context.SaveChanges();
-            }
-            return existingDirector;
-        }
-
-        public void Delete(int id)
-        {
-            var director = _context.Directors.Find(id);
-            if (director != null)
-            {
-                _context.Directors.Remove(director);
-                _context.SaveChanges();
-            }
+            _context.Directors.Remove(director);
+            await _context.SaveChangesAsync();
         }
     }
 }
+
 

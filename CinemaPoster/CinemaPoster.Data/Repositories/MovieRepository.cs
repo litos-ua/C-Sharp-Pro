@@ -1,74 +1,4 @@
-﻿//using CinemaPoster.Data.Interfaces;
-//using CinemaPoster.Data.Context;
-//using CinemaPoster.Domain.Models;
-//using Microsoft.EntityFrameworkCore;
-
-//namespace CinemaPoster.Data.Repositories
-//{
-//    public class MovieRepository : IMovieRepository
-//    {
-//        private readonly CinemaDbContext _context;
-
-//        public MovieRepository(CinemaDbContext context)
-//        {
-//            _context = context;
-//        }
-
-//        // Получить все фильмы 
-//        public List<Movie> GetAll()
-//        {
-//            return _context.Movies
-//                .Include(m => m.Director) // Загрузка связанной сущности Director
-//                .Include(m => m.Sessions) // Загрузка сеансов
-//                .ToList();
-//        }
-
-//        // Получить фильм по идентификатору
-//        public Movie? GetById(int id)
-//        {
-//            return _context.Movies
-//                .Include(m => m.Sessions)
-//                .FirstOrDefault(m => m.Id == id);
-//        }
-
-//        // Добавить фильм
-//        public Movie AddCategory(Movie movie)
-//        {
-//            _context.Movies.Add(movie);
-//            _context.SaveChanges();
-//            return movie;
-//        }
-
-//        // Редактировать фильм
-//        public Movie Edit(Movie movie)
-//        {
-//            var existingMovie = _context.Movies.Find(movie.Id);
-//            if (existingMovie != null)
-//            {
-//                existingMovie.Title = movie.Title;
-//                existingMovie.Director = movie.Director;
-//                existingMovie.Genre = movie.Genre;
-//                existingMovie.Description = movie.Description;
-
-//                _context.SaveChanges();
-//            }
-//            return existingMovie;
-//        }
-
-//        // Удалить фильм
-//        public void Delete(int id)
-//        {
-//            var movie = _context.Movies.Find(id);
-//            if (movie != null)
-//            {
-//                _context.Movies.Remove(movie);
-//                _context.SaveChanges();
-//            }
-//        }
-//    }
-//}
-
-using CinemaPoster.Data.Context;
+﻿using CinemaPoster.Data.Context;
 using CinemaPoster.Data.Interfaces;
 using CinemaPoster.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -95,6 +25,7 @@ namespace CinemaPoster.Data.Repositories
         public async Task<Movie?> GetByIdAsync(int id)
         {
             return await _context.Movies
+                .Include(m => m.Director)
                 .Include(m => m.Sessions)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }

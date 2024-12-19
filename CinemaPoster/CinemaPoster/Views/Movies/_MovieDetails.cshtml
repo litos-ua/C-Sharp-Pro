@@ -1,0 +1,19 @@
+﻿@model CinemaPoster.VM.ViewModels.MovieViewModel
+
+<div>
+    <h4>@Model.Title</h4>
+    <p><strong>Director:</strong> @(!string.IsNullOrEmpty(Model.DirectorName) ? Model.DirectorName : "Unknown")</p>
+    <p><strong>Genre:</strong> @Model.Genre</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <h5>Sessions:</h5>
+    <ul>
+        @foreach (var session in Model.Sessions)
+        {
+            <li>@session.StartTime.ToString("g")</li>
+        }
+    </ul>
+</div>
+
+
+
+

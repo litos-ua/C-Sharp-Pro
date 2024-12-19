@@ -12,12 +12,11 @@ public class MoviesController : Controller
         _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
     }
 
-    // Получить список фильмов
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
         var movies = await _movieService.GetAllAsync();
-        return View(movies); // Представление "Index"
+        return View(movies); 
     }
 
     // Полный список с подробной информацией
@@ -25,11 +24,24 @@ public class MoviesController : Controller
     public async Task<IActionResult> DetailsList()
     {
         var movies = await _movieService.GetMovieViewModelsAsync();
-        return View(movies); // Представление "DetailsList"
+        return View(movies); 
+    }
+
+    [HttpGet("details/{id}")]
+    public async Task<IActionResult> GetMovieDetails(int id)
+    {
+        var movie = await _movieService.GetByIdAsync(id);
+        if (movie == null)
+        {
+            return NotFound();
+        }
+
+        return PartialView("_MovieDetails", movie); 
     }
 
 
-    [HttpGet("create")] // Форма для добавления фильма
+
+    [HttpGet("create")] 
     public IActionResult Create()
     {
         return View();
@@ -46,7 +58,7 @@ public class MoviesController : Controller
         return View(movie);
     }
 
-    [HttpGet("edit/{id}")] // Форма для редактирования фильма
+    [HttpGet("edit/{id}")] 
     public async Task<IActionResult> Edit(int id)
     {
         var movie = await _movieService.GetByIdAsync(id);

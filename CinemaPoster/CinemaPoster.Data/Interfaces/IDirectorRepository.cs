@@ -1,14 +1,12 @@
 ﻿using CinemaPoster.Domain.Models;
 
-namespace CinemaPoster.Data.Interfaces
+public interface IDirectorRepository
 {
-    public interface IDirectorRepository
-    {
-        List<Director> GetAll();
-        Director GetById(int id);
-        Director Add(Director director);
-        Director Edit(Director director);
-        void Delete(int id);
-    }
+    Task<List<Director>> GetAllAsync();
+    Task<Director?> GetByIdAsync(int id);
+    Task<Director> AddAsync(Director director);
+    Task<Director?> EditAsync(Director director);
+    Task DeleteAsync(int id);
 }
+
 

@@ -1,19 +1,4 @@
-﻿//using CinemaPoster.Domain.Models;
-
-//namespace CinemaPoster.Data.Interfaces
-//{
-//    public interface IMovieRepository
-//    {
-//        List<Movie> GetAll();
-//        Movie GetById(int id);
-//        Movie AddCategory(Movie category);
-//        public Movie Edit(Movie category);
-//        void Delete(int id);
-
-//    }
-//}
-
-using CinemaPoster.Domain.Models;
+﻿using CinemaPoster.Domain.Models;
 
 namespace CinemaPoster.Data.Interfaces
 {

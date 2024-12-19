@@ -27,7 +27,7 @@ namespace CinemaPoster.Service.Services
                 Id = m.Id,
                 Title = m.Title,
                 Description = m.Description,
-                DirectorName = m.Director?.Name,
+                DirectorName = m.Director?.Name ?? "Unknown",
                 Genre = m.Genre.ToString(),
                 Sessions = m.Sessions.Select(s => new SessionViewModel
                 {
@@ -37,9 +37,27 @@ namespace CinemaPoster.Service.Services
             }).ToList();
         }
 
-        public async Task<Movie?> GetByIdAsync(int id)
+        public async Task<MovieViewModel?> GetByIdAsync(int id)
         {
-            return await _movieRepository.GetByIdAsync(id);
+            var movie = await _movieRepository.GetByIdAsync(id);
+            if (movie == null)
+            {
+                return null; // Если фильм не найден, возвращаем null
+            }
+
+            return new MovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Description = movie.Description,
+                DirectorName = movie.Director?.Name ?? "Unknown", 
+                Genre = movie.Genre.ToString(),
+                Sessions = movie.Sessions.Select(s => new SessionViewModel
+                {
+                    Id = s.Id,
+                    StartTime = s.StartTime
+                }).ToList()
+            };
         }
 
         public async Task<Movie> AddAsync(Movie movie)
