@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CinemaPoster.Domain.Models.Director>
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<h2>Directors</h2>
+<a class="btn btn-primary mb-3" asp-controller="Directors" asp-action="Create">Create New Director</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var director in Model)
+        {
+            <tr>
+                <td>@director.Name</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-controller="Directors" asp-action="Edit" asp-route-id="@director.Id">Edit</a>
+                    <form method="post" asp-controller="Directors" asp-action="Delete" asp-route-id="@director.Id" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

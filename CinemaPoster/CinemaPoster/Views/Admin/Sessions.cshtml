@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CinemaPoster.Domain.Models.Session>
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<h2>Sessions</h2>
+<a class="btn btn-primary mb-3" asp-controller="Sessions" asp-action="Create">Create New Session</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>StartTime</th>
+            <th>Price</th>
+            <th>RoomName</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr>
+                <td>@session.Movie.Title</td>
+                <td>@session.StartTime</td>
+                <td>@session.Price</td>
+                <td>@session.RoomName</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-controller="Sessions" asp-action="Edit" asp-route-id="@session.Id">Edit</a>
+                    <form method="post" asp-controller="Sessions" asp-action="Delete" asp-route-id="@session.Id" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
