@@ -1,0 +1,43 @@
+﻿@model CinemaPoster.Domain.Models.Session
+
+@{
+    Layout = "_AdminPanelLayout";
+    var roomNames = Enum.GetValues(typeof(CinemaPoster.Domain.Enums.RoomName)).Cast<CinemaPoster.Domain.Enums.RoomName>();
+}
+
+<h2>Edit Session</h2>
+
+<form method="post" asp-controller="Sessions" asp-action="Edit" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label for="StartTime">Start Time</label>
+        <input type="datetime-local" class="form-control" id="StartTime" name="StartTime" value="@Model.StartTime.ToString("yyyy-MM-ddTHH:mm")" required />
+    </div>
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" id="Price" name="Price" step="1"
+               value="@(Convert.ToInt32(Model.Price).ToString(System.Globalization.CultureInfo.InvariantCulture))" required />
+    </div>
+    <div class="form-group">
+        <label for="RoomName">Room Name</label>
+        <select class="form-control" id="RoomName" name="RoomName">
+            @foreach (var room in roomNames)
+            {
+                <option value="@room" selected="@(room == Model.RoomName ? "selected" : null)">@room</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="MovieId">Movie</label>
+        <input type="number" class="form-control" id="MovieId" name="MovieId" value="@Model.MovieId" required />
+    </div>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Save</button>
+        <a asp-controller="Sessions" asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

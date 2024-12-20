@@ -1,0 +1,20 @@
+﻿@model CinemaPoster.Domain.Models.Director
+
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<form method="post" asp-controller="Directors" asp-action="Delete" asp-route-id="@Model.Id">
+    <div class="alert alert-danger" role="alert">
+        Are you sure you want to delete the director <strong>@Model.Name</strong>?
+    </div>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+        <a asp-controller="Directors" asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

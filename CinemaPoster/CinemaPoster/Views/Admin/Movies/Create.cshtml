@@ -1,0 +1,24 @@
+﻿@model CinemaPoster.VM.ViewModels.MovieViewModel
+
+<h2>Create New Movie</h2>
+
+<form method="post" asp-controller="Movies" asp-action="Create">
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" />
+    </div>
+    <div class="form-group">
+        <label for="DirectorName">Director</label>
+        <input type="text" class="form-control" id="DirectorName" name="DirectorName" value="@Model.DirectorName" />
+    </div>
+    <div class="form-group">
+        <label for="Genre">Genre</label>
+        <input type="text" class="form-control" id="Genre" name="Genre" value="@Model.Genre" />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+

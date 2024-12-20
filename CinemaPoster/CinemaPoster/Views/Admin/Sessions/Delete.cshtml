@@ -1,0 +1,23 @@
+﻿@model CinemaPoster.Domain.Models.Session
+
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<h2>Delete Session</h2>
+
+<p>Are you sure you want to delete the session with the following details?</p>
+<ul>
+    <li><strong>Start Time:</strong> @Model.StartTime.ToString("f")</li>
+    <li><strong>Price:</strong> @Model.Price</li>
+    <li><strong>Room Name:</strong> @Model.RoomName</li>
+    <li><strong>Movie ID:</strong> @Model.MovieId</li>
+</ul>
+
+<form method="post" asp-controller="Sessions" asp-action="Delete" asp-route-id="@Model.Id">
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+        <a asp-controller="Sessions" asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+    </div>
+</form>
+

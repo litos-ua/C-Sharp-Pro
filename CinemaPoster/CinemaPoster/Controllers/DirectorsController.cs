@@ -16,13 +16,13 @@ public class DirectorsController : Controller
     public async Task<IActionResult> Index()
     {
         var directors = await _directorService.GetAllAsync();
-        return View(directors); 
+        return View("~/Views/Admin/Directors.cshtml", directors); 
     }
 
     [HttpGet("create")]
     public IActionResult Create()
     {
-        return View();
+        return View("~/Views/Admin/Directors/Create.cshtml");
     }
 
     [HttpPost("create")]
@@ -33,7 +33,7 @@ public class DirectorsController : Controller
             await _directorService.AddAsync(director);
             return RedirectToAction("Index");
         }
-        return View(director);
+        return View("~/Views/Admin/Directors/Create.cshtml", director);
     }
 
     [HttpGet("edit/{id}")]
@@ -44,7 +44,7 @@ public class DirectorsController : Controller
         {
             return NotFound();
         }
-        return View(director);
+        return View("~/Views/Admin/Directors/Edit.cshtml", director);
     }
 
     [HttpPost("edit/{id}")]
@@ -55,7 +55,7 @@ public class DirectorsController : Controller
             await _directorService.EditAsync(director);
             return RedirectToAction("Index");
         }
-        return View(director);
+        return View("~/ Views/Admin/Directors/Edit.cshtml", director);
     }
 
     // Удаление режиссёра

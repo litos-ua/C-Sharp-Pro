@@ -1,0 +1,9 @@
+﻿@model CinemaPoster.VM.ViewModels.MovieViewModel
+
+<h2>Delete Movie</h2>
+
+<form method="post" asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id">
+    <p>Are you sure you want to delete the movie "@Model.Title"?</p>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-controller="Movies" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

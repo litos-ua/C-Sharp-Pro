@@ -1,5 +1,7 @@
-﻿using CinemaPoster.Domain.Models;
+﻿using CinemaPoster.Domain.Enums;
+using CinemaPoster.Domain.Models;
 using CinemaPoster.Service.Interfaces;
+using CinemaPoster.VM.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("movies")]
@@ -44,7 +46,8 @@ public class MoviesController : Controller
     [HttpGet("create")] 
     public IActionResult Create()
     {
-        return View();
+        var model = new MovieViewModel(); 
+        return View("~/Views/Admin/Movies/Create.cshtml", model);
     }
 
     [HttpPost("create")]
@@ -58,16 +61,49 @@ public class MoviesController : Controller
         return View(movie);
     }
 
-    [HttpGet("edit/{id}")] 
+    //[HttpGet("edit/{id}")]
+    //public async Task<IActionResult> Edit(int id)
+    //{
+    //    var movie = await _movieService.GetByIdAsync(id);
+    //    if (movie == null)
+    //    {
+    //        return NotFound();
+    //    }
+
+    //    return View("~/Views/Admin/Movies/Edit.cshtml", movie);
+    //}
+
+
+
+    [HttpGet("edit/{id}")]
     public async Task<IActionResult> Edit(int id)
     {
-        var movie = await _movieService.GetByIdAsync(id);
-        if (movie == null)
+        var movieViewModel = await _movieService.GetByIdAsync(id); // Получаем ViewModel
+        if (movieViewModel == null)
         {
             return NotFound();
         }
-        return View(movie);
+
+        if (!Enum.TryParse<Genre>(movieViewModel.Genre, true, out var genre))
+        {
+            return BadRequest("Invalid genre value.");
+        }
+
+        // Маппим ViewModel в Model
+        var movie = new Movie
+        {
+            Id = movieViewModel.Id,
+            Title = movieViewModel.Title,
+            Description = movieViewModel.Description,
+            Genre = genre, 
+            Director = new Director { Name = movieViewModel.DirectorName }
+        };
+
+        return View("~/Views/Admin/Movies/Edit.cshtml", movie);
     }
+
+
+
 
     [HttpPost("edit/{id}")]
     public async Task<IActionResult> Edit(Movie movie)
@@ -77,7 +113,7 @@ public class MoviesController : Controller
             await _movieService.EditAsync(movie);
             return RedirectToAction("Index");
         }
-        return View(movie);
+        return View("~/Views/Admin/Movies/Edit.cshtml", movie);
     }
 
     [HttpPost("delete/{id}")]

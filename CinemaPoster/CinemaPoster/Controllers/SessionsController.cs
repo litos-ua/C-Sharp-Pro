@@ -16,13 +16,13 @@ public class SessionsController : Controller
     public async Task<IActionResult> Index()
     {
         var sessions = await _sessionService.GetAllAsync();
-        return View(sessions); 
+        return View("~/Views/Admin/Sessions.cshtml", sessions); 
     }
 
     [HttpGet("create")]
     public IActionResult Create()
     {
-        return View();
+        return View("~/Views/Admin/Sessions/Create.cshtml");
     }
 
     [HttpPost("create")]
@@ -33,7 +33,7 @@ public class SessionsController : Controller
             await _sessionService.AddAsync(session);
             return RedirectToAction("Index");
         }
-        return View(session);
+        return View("~/Views/Admin/Sessions.cshtml", session);
     }
 
     [HttpGet("edit/{id}")]
@@ -44,7 +44,7 @@ public class SessionsController : Controller
         {
             return NotFound();
         }
-        return View(session);
+        return View("~/Views/Admin/Sessions/Edit.cshtml", session);
     }
 
     [HttpPost("edit/{id}")]
@@ -55,7 +55,16 @@ public class SessionsController : Controller
             await _sessionService.EditAsync(session);
             return RedirectToAction("Index");
         }
-        return View(session);
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error); 
+            }
+            return View("~/Views/Admin/Sessions/Edit.cshtml", session);
+        }
+        return View("~/Views/Admin/Sessions/Edit.cshtml", session);
     }
 
     [HttpPost("delete/{id}")]
