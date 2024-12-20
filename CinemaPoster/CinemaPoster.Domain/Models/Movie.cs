@@ -9,7 +9,7 @@ namespace CinemaPoster.Domain.Models
         public string Description { get; set; } = string.Empty; 
         public Genre Genre { get; set; } // Enum
         public int DirectorId { get; set; } // FK
-        public Director Director { get; set; } = null!; // Техническое свойство
+        public Director? Director { get; set; } = null!; // Техническое свойство
         public ICollection<Session>? Sessions { get; set; } = new List<Session>(); // Сеансы
     }
 }

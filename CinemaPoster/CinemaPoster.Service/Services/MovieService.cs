@@ -25,10 +25,16 @@ namespace CinemaPoster.Service.Services
             return movies.Select(MapToMovieViewModel).ToList();
         }
 
-        public async Task<MovieViewModel?> GetByIdAsync(int id)
+        public async Task<MovieViewModel?> GetByIdViewAsync(int id)
         {
             var movie = await _movieRepository.GetByIdAsync(id);
             return movie == null ? null : MapToMovieViewModel(movie);
+        }
+
+
+        public async Task<Movie?> GetByIdAsync(int id)
+        {
+            return await _movieRepository.GetByIdAsync(id);
         }
 
         public async Task<Movie> AddAsync(Movie movie)

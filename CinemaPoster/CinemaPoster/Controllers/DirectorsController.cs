@@ -58,7 +58,6 @@ public class DirectorsController : Controller
         return View("~/ Views/Admin/Directors/Edit.cshtml", director);
     }
 
-    // Удаление режиссёра
     [HttpPost("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {

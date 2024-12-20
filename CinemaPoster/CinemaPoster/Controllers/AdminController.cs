@@ -24,8 +24,8 @@ public class AdminController : Controller
     [HttpGet("movies")]
     public async Task<IActionResult> Movies()
     {
-        var movies = await _movieService.GetMovieViewModelsAsync(); 
-        //var movies = await _movieService.GetAllAsync();
+        //var movies = await _movieService.GetMovieViewModelsAsync(); 
+        var movies = await _movieService.GetAllAsync();
         return View(movies); // Передаем List<MovieViewModel> в представление Movies.cshtml
     }
 

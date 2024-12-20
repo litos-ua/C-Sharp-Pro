@@ -22,6 +22,11 @@ namespace CinemaPoster.Service.Services
             return await _directorRepository.GetByIdAsync(id);
         }
 
+        public async Task<int?> GetDirectorIdByNameAsync(string name)
+        {
+            return await _directorRepository.GetDirectorIdByNameAsync(name);
+        }
+
         public async Task AddAsync(Director director)
         {
             await _directorRepository.AddAsync(director);

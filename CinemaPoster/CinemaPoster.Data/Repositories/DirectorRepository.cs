@@ -25,6 +25,13 @@ public class DirectorRepository : IDirectorRepository
             .FirstOrDefaultAsync(d => d.Id == id);
     }
 
+    public async Task<int?> GetDirectorIdByNameAsync(string name)
+    {
+        var director = await _context.Directors
+            .FirstOrDefaultAsync(d => d.Name == name);
+        return director?.Id;
+    }
+
     public async Task<Director> AddAsync(Director director)
     {
         _context.Directors.Add(director);

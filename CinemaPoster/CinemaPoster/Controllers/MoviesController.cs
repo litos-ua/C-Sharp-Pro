@@ -1,5 +1,4 @@
-﻿using CinemaPoster.Domain.Enums;
-using CinemaPoster.Domain.Models;
+﻿using CinemaPoster.Domain.Models;
 using CinemaPoster.Service.Interfaces;
 using CinemaPoster.VM.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +17,7 @@ public class MoviesController : Controller
     public async Task<IActionResult> Index()
     {
         var movies = await _movieService.GetAllAsync();
-        return View(movies); 
+        return View(movies);
     }
 
     // Полный список с подробной информацией
@@ -26,27 +25,27 @@ public class MoviesController : Controller
     public async Task<IActionResult> DetailsList()
     {
         var movies = await _movieService.GetMovieViewModelsAsync();
-        return View(movies); 
+        return View(movies);
     }
 
     [HttpGet("details/{id}")]
     public async Task<IActionResult> GetMovieDetails(int id)
     {
-        var movie = await _movieService.GetByIdAsync(id);
+        var movie = await _movieService.GetByIdViewAsync(id);
         if (movie == null)
         {
             return NotFound();
         }
 
-        return PartialView("_MovieDetails", movie); 
+        return PartialView("_MovieDetails", movie);
     }
 
 
 
-    [HttpGet("create")] 
+    [HttpGet("create")]
     public IActionResult Create()
     {
-        var model = new MovieViewModel(); 
+        var model = new Movie();
         return View("~/Views/Admin/Movies/Create.cshtml", model);
     }
 
@@ -61,48 +60,17 @@ public class MoviesController : Controller
         return View(movie);
     }
 
-    //[HttpGet("edit/{id}")]
-    //public async Task<IActionResult> Edit(int id)
-    //{
-    //    var movie = await _movieService.GetByIdAsync(id);
-    //    if (movie == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    return View("~/Views/Admin/Movies/Edit.cshtml", movie);
-    //}
-
-
-
     [HttpGet("edit/{id}")]
     public async Task<IActionResult> Edit(int id)
     {
-        var movieViewModel = await _movieService.GetByIdAsync(id); // Получаем ViewModel
-        if (movieViewModel == null)
+        var movie = await _movieService.GetByIdAsync(id);
+        if (movie == null)
         {
             return NotFound();
         }
 
-        if (!Enum.TryParse<Genre>(movieViewModel.Genre, true, out var genre))
-        {
-            return BadRequest("Invalid genre value.");
-        }
-
-        // Маппим ViewModel в Model
-        var movie = new Movie
-        {
-            Id = movieViewModel.Id,
-            Title = movieViewModel.Title,
-            Description = movieViewModel.Description,
-            Genre = genre, 
-            Director = new Director { Name = movieViewModel.DirectorName }
-        };
-
         return View("~/Views/Admin/Movies/Edit.cshtml", movie);
     }
-
-
 
 
     [HttpPost("edit/{id}")]
@@ -113,8 +81,9 @@ public class MoviesController : Controller
             await _movieService.EditAsync(movie);
             return RedirectToAction("Index");
         }
-        return View("~/Views/Admin/Movies/Edit.cshtml", movie);
+        return View("~/Views/Admin/Movies.cshtml", movie);
     }
+
 
     [HttpPost("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
@@ -123,7 +92,6 @@ public class MoviesController : Controller
         return RedirectToAction("Index");
     }
 }
-
 
 
 
