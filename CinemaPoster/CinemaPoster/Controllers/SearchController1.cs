@@ -22,10 +22,9 @@ namespace CinemaPoster.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string? title, string? director, string? genre, string? description)
         {
-            // Выполняем поиск фильмов
+            // Поиск фильмов
             var movies = await _movieService.SearchMoviesAsync(title, director, genre, description);
 
-            // Возвращаем результаты в то же представление
             return View(movies);
         }
     }

@@ -12,8 +12,7 @@ namespace CinemaPoster.Domain.Models
         [Required]
         public RoomName RoomName { get; set; } = RoomName.Blue; 
 
-        // Внешний ключ для Movie
-        public int MovieId { get; set; }
-        public Movie? Movie { get; set; } = null!;
+        public int MovieId { get; set; } // FK
+        public Movie? Movie { get; set; } = null!;  // Техническое свойство
     }
 }

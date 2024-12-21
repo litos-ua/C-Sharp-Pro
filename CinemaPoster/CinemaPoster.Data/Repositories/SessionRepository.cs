@@ -15,6 +15,7 @@ public class SessionRepository : ISessionRepository
     {
         return await _context.Sessions
             .Include(s => s.Movie)
+            .AsNoTracking()
             .ToListAsync();
     }
 

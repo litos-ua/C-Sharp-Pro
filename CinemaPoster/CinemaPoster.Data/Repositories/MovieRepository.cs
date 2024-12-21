@@ -19,6 +19,7 @@ namespace CinemaPoster.Data.Repositories
             return await _context.Movies
                 .Include(m => m.Director)
                 .Include(m => m.Sessions)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

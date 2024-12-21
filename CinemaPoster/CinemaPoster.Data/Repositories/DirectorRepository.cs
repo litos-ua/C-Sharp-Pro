@@ -15,6 +15,7 @@ public class DirectorRepository : IDirectorRepository
     {
         return await _context.Directors
             .Include(d => d.Movies)
+            .AsNoTracking()
             .ToListAsync();
     }
 
