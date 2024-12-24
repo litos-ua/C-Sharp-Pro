@@ -18,6 +18,11 @@ namespace InternetShopApp.Services
         {
             return await _productRepository.GetProductsByCategoryAsync(categoryId);
         }
+
+        public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name)
+        {
+            return await _productRepository.GetProductsByNameAsync(name);
+        }
     }
 }
 

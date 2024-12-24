@@ -15,7 +15,7 @@ namespace InternetShopApp.Data.Entities
         public decimal Amount { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Требования к доставке: true или false, по умолчанию false
         public bool DeliveryRequirement { get; set; } = false;
@@ -31,6 +31,7 @@ namespace InternetShopApp.Data.Entities
         [MaxLength(50)]
         public string PaymentStatus { get; set; } = "not paid";
 
+        [ForeignKey("UserId")]
         public User? User { get; set; }
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

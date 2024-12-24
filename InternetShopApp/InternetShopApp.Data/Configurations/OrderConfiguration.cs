@@ -4,52 +4,45 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InternetShopApp.Data.Configurations
 {
-    public class ConfigureOrder : IEntityTypeConfiguration<Order>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            // Настройка первичного ключа
+            builder.ToTable("Orders");
+
             builder.HasKey(o => o.Id);
 
-            // Связь с User
             builder.HasOne(o => o.User)
                    .WithMany(u => u.Orders)
                    .HasForeignKey(o => o.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            // Настройка поля Amount
             builder.Property(o => o.Amount)
                    .IsRequired()
                    .HasColumnType("decimal(18,2)");
 
-            // Настройка поля CreatedAt
             builder.Property(o => o.CreatedAt)
                    .IsRequired()
                    .HasColumnType("datetime2");
 
-            // Поле DeliveryRequirement (булевое)
-            builder.Property(o => o.DeliveryRequirement)
+            builder.Property(o => o.DeliveryRequirement) // boolean
                    .IsRequired()
                    .HasDefaultValue(false);
 
-            // Поле ReceivedStatus (булевое)
-            builder.Property(o => o.ReceivedStatus)
+            builder.Property(o => o.ReceivedStatus) //boolean
                    .IsRequired()
                    .HasDefaultValue(false);
 
-            // Поле TypeOfPayment
             builder.Property(o => o.TypeOfPayment)
                    .IsRequired()
                    .HasMaxLength(20)
                    .HasDefaultValue("Card");
 
-            // Поле PaymentStatus
             builder.Property(o => o.PaymentStatus)
                    .IsRequired()
                    .HasMaxLength(50)
                    .HasDefaultValue("not paid");
 
-            // Связь с OrderItems
             builder.HasMany(o => o.OrderItems)
                    .WithOne(oi => oi.Order)
                    .HasForeignKey(oi => oi.OrderId)

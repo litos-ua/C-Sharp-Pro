@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace InternetShopApp.Data.Entities
@@ -16,13 +17,16 @@ namespace InternetShopApp.Data.Entities
 
         [Required]
         [Range(0, int.MaxValue)]
-        public int Quantity { get; set; } 
+        public int Quantity { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime CreatedAt { get; set; } // Дата добавления в корзину
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public Cart? Cart { get; set; } 
+        [ForeignKey("CartId")]
+        public Cart? Cart { get; set; }
+
+        [ForeignKey("ProductId")]
         public Product? Product { get; set; } 
     }
 }

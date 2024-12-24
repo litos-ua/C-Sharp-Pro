@@ -11,7 +11,7 @@ namespace InternetShopApp.Domain.Entities
 
         public int Quantity { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         public Product? Product { get; set; }
     }

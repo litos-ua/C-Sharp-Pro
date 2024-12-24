@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace InternetShopApp.Data.Entities
 {
@@ -16,11 +14,12 @@ namespace InternetShopApp.Data.Entities
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; 
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow; 
 
         [Required]
-        public bool IsActive { get; set; } = true; // Активна ли корзина (может быть завершена при оформлении заказа)
+        public bool IsActive { get; set; } = true;
 
+        [ForeignKey("UserId")]
         public User? User { get; set; }
 
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>(); 

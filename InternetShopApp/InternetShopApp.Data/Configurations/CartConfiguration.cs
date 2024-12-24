@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternetShopApp.Data.Configurations
 {
-    public class ConfigureCart : IEntityTypeConfiguration<Cart>
+    public class CartConfiguration : IEntityTypeConfiguration<Cart>
     {
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
+            builder.ToTable("Carts");
+
             builder.HasKey(c => c.Id);
 
             builder.HasOne(c => c.User) // Связь с пользователем

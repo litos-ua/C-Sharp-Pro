@@ -32,10 +32,12 @@ namespace InternetShopApp.Data.Entities
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
+        [ForeignKey("OrderId")]
         public Order? Order { get; set; }
 
+        [ForeignKey("ProductId")]
         public Product? Product { get; set; }
     }
 }

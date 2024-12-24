@@ -1,5 +1,4 @@
 ﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -38,12 +37,21 @@ namespace InternetShopApp.Data.Repositories
             return entity;
         }
 
+        //public async Task<T> UpdateAsync(T entity)
+        //{
+        //    _dbSet.Update(entity);
+        //    await _context.SaveChangesAsync();
+        //    return entity;
+        //}
+
         public async Task<T> UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified; 
             await _context.SaveChangesAsync();
             return entity;
         }
+
 
         public async Task<bool> DeleteAsync(int id)
         {

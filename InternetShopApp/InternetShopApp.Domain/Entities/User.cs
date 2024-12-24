@@ -16,7 +16,7 @@ namespace InternetShopApp.Domain.Entities
 
         public string? Address { get; set; }
 
-        public DateTime CreatedAt { get; set; } 
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         public ICollection<Cart> Carts { get; set; } = new List<Cart>(); 
         public ICollection<Order> Orders { get; set; } = new List<Order>(); 

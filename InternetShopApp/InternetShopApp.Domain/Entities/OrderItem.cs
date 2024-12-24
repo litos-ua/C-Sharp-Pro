@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-
+﻿
 namespace InternetShopApp.Domain.Entities
 {
     public class OrderItem
@@ -18,7 +15,7 @@ namespace InternetShopApp.Domain.Entities
 
         public decimal Total { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         public Order? Order { get; set; }
 
