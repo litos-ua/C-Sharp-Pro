@@ -32,11 +32,24 @@ namespace InternetShopApp.API.Controllers
             return Ok(category);
         }
 
-        [HttpGet("with-products")] // GET: api/Category/with-products
-        public async Task<IActionResult> GetCategoriesWithProducts()
+        //[HttpGet("with-products")] // GET: api/Category/with-products
+        //public async Task<IActionResult> GetCategoriesWithProducts()
+        //{
+        //    var categories = await _categoryService.GetCategoriesWithProductsAsync();
+        //    return Ok(categories);
+        //}
+
+        [HttpGet("{categoryId:int}/with-products")] // GET: api/Category/{categoryId}/with-products
+        public async Task<IActionResult> GetCategoryWithProductsById(int categoryId)
         {
-            var categories = await _categoryService.GetCategoriesWithProductsAsync();
-            return Ok(categories);
+            var category = await _categoryService.GetCategoryWithProductsByIdAsync(categoryId);
+
+            if (category == null)
+            {
+                return NotFound(new { Message = $"Category with ID {categoryId} not found." });
+            }
+
+            return Ok(category);
         }
 
         [HttpPost] // POST: api/Category

@@ -16,11 +16,18 @@ namespace InternetShopApp.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Category>> GetCategoriesWithProductsAsync()
+        //public async Task<IEnumerable<Category>> GetCategoriesWithProductsAsync()
+        //{
+        //    return await _context.Categories
+        //        .Include(c => c.Products)
+        //        .ToListAsync();
+        //}
+
+        public async Task<Category?> GetCategoryWithProductsByIdAsync(int categoryId)
         {
             return await _context.Categories
                 .Include(c => c.Products)
-                .ToListAsync();
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
         }
     }
 }

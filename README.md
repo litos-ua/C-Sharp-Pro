@@ -439,6 +439,85 @@ Comment: Коментар клієнта.
 
 
 
+
+## Д.З. 13  Internet-shop Web API.
+
+Ниже приведено описание основных возможностей API:
+
+### Категории (Categories) Методы:
+- GET /api/categories  Получить список всех категорий.
+- GET /api/categories/{id} Получить информацию о категорию по ее идентификатору.
+- POST /api/categories  Добавить новой категории.
+- PUT /api/categories/{id}  Обновить информацию о категории.
+- DELETE /api/categories/{id} Удалить категорию по ID.
+- GET api/Category/{categoryId}/with-products Возвращает категорию (categoryId), со всеми ее продуктами.
+
+### Склад (Stocks) Методы:
+- GET /api/stocks  Получить список всех товаров на складе.
+- GET /api/stocks/{id} Получить информацию о товаре по его идентификатору.
+- POST /api/stocks  Добавить новый товар на складе.
+- PUT /api/stocks/{id}  Обновить информацию о товаре на складе.
+- DELETE /api/stocks/{id} Удалить товар на складе по ID.
+
+### Продукты (Products) Методы:
+- GET /api/products  Получить список всех продуктов.
+- GET /api/products/{id} Получить информацию о продукте по его идентификатору.
+- POST /api/products  Добавить новый продукт.
+- PUT /api/products/{id}  Обновить информацию о продукте.
+- DELETE /api/products/{id} Удалить продукт по ID.
+- GET api/Product/ByCategory/{categoryId} Возвращает список продуктов, указанной категории (categoryId (int)).
+- GET api/Product/ByName/{name}  Возвращает список продуктов, по имени (name(string)) точно или содержит его.
+
+### Пользователи (Users) Методы:
+
+- GET /api/users Получить список всех пользователей.
+- GET /api/users/{id} Получить информацию о пользователе по ID.
+- POST /api/users Создать нового пользователя.
+- PUT /api/users/{id} Изменить информацию о пользователе.
+- DELETE /api/users/{id} Удалить пользователя.
+- GET api/Product/ByCategory/{categoryId} Возвращает список продуктов, принадлежащих указанной категории (categoryId (int)).
+
+### Корзина (Cart) Методы:
+- GET /api/Cart Получить список всех корзин.
+- GET: api/Cart/carts-by-product/{productId} Возвращает все корзины, в которых есть указанный продукт
+  (Product по его Id).
+- GET: api/Cart/{id} Возвращает корзину (Cart) по её идентификатору (id).
+- POST: api/Cart/find Этот метод позволяет выполнять поиск корзин (Cart) по заданному условию,
+  переданному в теле запроса в виде выражения.
+- CreateCart
+- POST: api/Cart Создаёт новую корзину (Cart).
+- PUT: api/Cart/{id} Обновляет корзину с указанным идентификатором (id).
+- DELETE: api/Cart/{id} Удаляет корзину по её идентификатору (id).
+
+### Элементы корзины (CartItem) Методы:
+- GET: api/CartItem Возвращает список всех элементов корзины, содержащихся в системе.
+- GET: api/CartItem/{id} Возвращает элемент корзины с указанным идентификатором.
+- POST: api/CartItem Добавляет новый элемент в корзину, используя данные из тела запроса.
+- PUT: api/CartItem/{id} Обновляет данные элемента корзины с указанным идентификатором.
+- DELETE: api/CartItem/{id} Удаляет элемент корзины с указанным идентификатором из системы.
+- GET: api/CartItem/items-in-cart/{cartId} Получение всех элементов корзины для определённой корзины (по id)
+
+### Заказы (Orders) Методы:
+- GET /api/orders Получить список всех заказов.
+- GET /api/orders/{id} Получить информацию о заказе по ID.
+- POST /api/orders Создать новый заказ.
+- PUT /api/orders/{id} Обновить информацию о заказе.
+- DELETE /api/orders/{id} Удалить заказ.
+- GET: api/Order/{id}/items-in-order Этот метод получает подробную информацию о заказе с указанным id,
+  отдает список элементов заказа (OrderItems).
+
+### Элементы заказа (Order Items) Методы:
+- GET /api/order-items Получить список всех элементов всех заказов.
+- GET /api/order-items/{id} Получить информацию о элементе заказа по ID.
+- POST /api/order-items Добавить новый элемент в заказ.
+- PUT /api/order-items/{id} Обновить элемент заказа.
+- DELETE /api/order-items/{id} Удалить элемент заказа.
+
+
+
+
+
+
 ## Д.З. 14   Web site card.
 
 ### Структура проекту:

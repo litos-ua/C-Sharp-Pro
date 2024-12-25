@@ -5,7 +5,8 @@ namespace InternetShopApp.Services
 {
     public interface ICategoryService : IGenericService<Category>
     {
-        Task<IEnumerable<Category>> GetCategoriesWithProductsAsync();
+        // Task<IEnumerable<Category>> GetCategoriesWithProductsAsync();
+        Task<Category?> GetCategoryWithProductsByIdAsync(int categoryId);
     }
 }
 
