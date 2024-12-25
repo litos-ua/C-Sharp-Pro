@@ -15,14 +15,14 @@ namespace InternetShopApp.API.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet]
+        [HttpGet] //GET: api/Category
         public async Task<IActionResult> GetAll()
         {
             var categories = await _categoryService.GetAllAsync();
             return Ok(categories);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] // GET: api/Category/{id}
         public async Task<IActionResult> GetById(int id)
         {
             var category = await _categoryService.GetByIdAsync(id);
@@ -32,21 +32,21 @@ namespace InternetShopApp.API.Controllers
             return Ok(category);
         }
 
-        [HttpGet("with-products")]
+        [HttpGet("with-products")] // GET: api/Category/with-products
         public async Task<IActionResult> GetCategoriesWithProducts()
         {
             var categories = await _categoryService.GetCategoriesWithProductsAsync();
             return Ok(categories);
         }
 
-        [HttpPost]
+        [HttpPost] // POST: api/Category
         public async Task<IActionResult> Create(Category category)
         {
             await _categoryService.AddAsync(category);
             return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] // PUT: api/Category/{id}
         public async Task<IActionResult> Update(int id, Category category)
         {
             if (id != category.Id)
@@ -56,7 +56,7 @@ namespace InternetShopApp.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] // DELITE: api/Category/{id}
         public async Task<IActionResult> Delete(int id)
         {
             await _categoryService.DeleteAsync(id);

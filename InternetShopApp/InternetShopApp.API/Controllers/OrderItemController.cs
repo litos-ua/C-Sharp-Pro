@@ -45,33 +45,6 @@ namespace InternetShopApp.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = createdOrderItem.Id }, createdOrderItem);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, [FromBody] OrderItem orderItem)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != orderItem.Id)
-        //    {
-        //        return BadRequest("ID mismatch.");
-        //    }
-
-        //    var updatedOrderItem = await _orderItemService.UpdateAsync(orderItem);
-        //    return Ok(updatedOrderItem);
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var result = await _orderItemService.DeleteAsync(id);
-        //    if (!result)
-        //    {
-        //        return NotFound(new { Message = $"OrderItem with ID {id} not found." });
-        //    }
-        //    return NoContent();
-        //}
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, OrderItem orderItem)

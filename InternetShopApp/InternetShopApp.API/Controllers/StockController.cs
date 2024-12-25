@@ -66,6 +66,33 @@ namespace InternetShopApp.API.Controllers
             await _stockService.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpPut("{id}/change-quantity")]
+        public async Task<IActionResult> ChangeQuantity(int id, [FromBody] int quantityChange)
+        {
+            if (quantityChange == 0)
+            {
+                return BadRequest("The quantity change cannot be zero.");
+            }
+
+            var stock = await _stockService.GetByIdAsync(id);
+            if (stock == null)
+            {
+                return NotFound($"Stock with ID {id} not found.");
+            }
+
+            stock.Quantity += quantityChange;
+
+            if (stock.Quantity < 0)
+            {
+                return BadRequest("The resulting stock quantity cannot be negative.");
+            }
+
+            await _stockService.UpdateAsync(stock);
+
+            return Ok(stock);
+        }
+
     }
 }
 

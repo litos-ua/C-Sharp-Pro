@@ -15,16 +15,14 @@ namespace InternetShopApp.API.Controllers
             _productService = productService;
         }
 
-        // GET: api/Product
-        [HttpGet]
+        [HttpGet] // GET: api/Product
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllAsync();
             return Ok(products);
         }
 
-        // GET: api/Product/{id}
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}")] // GET: api/Product/{id}
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetByIdAsync(id);
@@ -34,8 +32,7 @@ namespace InternetShopApp.API.Controllers
             return Ok(product);
         }
 
-        // POST: api/Product
-        [HttpPost]
+        [HttpPost] // POST: api/Product
         public async Task<IActionResult> Add([FromBody] Product product)
         {
             if (!ModelState.IsValid)
@@ -45,16 +42,12 @@ namespace InternetShopApp.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
-        // PUT: api/Product/{id}
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}")] // PUT: api/Product/{id}
         public async Task<IActionResult> Update(int id, [FromBody] Product product)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //var existingProduct = await _productService.GetByIdAsync(id);
-            //if (existingProduct == null)
-            //    return NotFound($"Product with ID {id} not found.");
 
             // Update the product
             product.Id = id;
@@ -63,8 +56,7 @@ namespace InternetShopApp.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Product/{id}
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}")] // DELETE: api/Product/{id}
         public async Task<IActionResult> Delete(int id)
         {
             var existingProduct = await _productService.GetByIdAsync(id);
@@ -75,8 +67,7 @@ namespace InternetShopApp.API.Controllers
             return NoContent();
         }
 
-        // GET: api/Product/ByCategory/{categoryId}
-        [HttpGet("ByCategory/{categoryId:int}")]
+        [HttpGet("ByCategory/{categoryId:int}")] // GET: api/Product/ByCategory/{categoryId}
         public async Task<IActionResult> GetProductsByCategory(int categoryId)
         {
             var products = await _productService.GetProductsByCategoryAsync(categoryId);
@@ -86,8 +77,7 @@ namespace InternetShopApp.API.Controllers
             return Ok(products);
         }
 
-        // GET: api/Product/ByName/{name}
-        [HttpGet("ByName/{name}")]
+        [HttpGet("ByName/{name}")] // GET: api/Product/ByName/{name}
         public async Task<IActionResult> GetProductsByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
