@@ -7,7 +7,7 @@ namespace InternetShopApp.Domain.Entities
 
         public int UserId { get; set; }
 
-        public decimal Amount { get; set; }
+        public decimal Amount { get; set; } = decimal.Zero;
 
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 

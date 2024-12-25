@@ -19,7 +19,8 @@ namespace InternetShopApp.Data.Configurations
 
             builder.Property(o => o.Amount)
                    .IsRequired()
-                   .HasColumnType("decimal(18,2)");
+                   .HasColumnType("decimal(18,2)")
+                   .HasDefaultValue(0m);
 
             builder.Property(o => o.CreatedAt)
                    .IsRequired()

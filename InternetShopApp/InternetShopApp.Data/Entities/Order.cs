@@ -12,7 +12,7 @@ namespace InternetShopApp.Data.Entities
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Amount { get; set; }
+        public decimal Amount { get; set; } = decimal.Zero;
 
         [DataType(DataType.DateTime)]
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;

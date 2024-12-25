@@ -18,7 +18,7 @@ namespace InternetShopApp.Data.Repositories
         {
             return await _context.Carts
                 .Include(c => c.CartItems) 
-                .Where(c => c.CartItems.Any(ci => ci.ProductId == productId)) // Фильтруем по ProductId
+                .Where(c => c.CartItems.Any(ci => ci.ProductId == productId)) // Filter by ProductId
                 .ToListAsync();
         }
     }

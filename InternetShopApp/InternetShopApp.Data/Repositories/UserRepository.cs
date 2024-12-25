@@ -17,8 +17,8 @@ namespace InternetShopApp.Data.Repositories
         public async Task<Cart?> GetCartByUserIdAsync(int userId)
         {
             return await _context.Carts
-                .Include(c => c.CartItems) // Подгружаем элементы корзины
-                .ThenInclude(ci => ci.Product) // Если в CartItem есть ссылка на Product, подгружаем его
+                .Include(c => c.CartItems) 
+                .ThenInclude(ci => ci.Product) 
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
@@ -26,7 +26,7 @@ namespace InternetShopApp.Data.Repositories
         {
             return await _context.Orders
                 .Where(o => o.UserId == userId)
-                .Include(o => o.OrderItems) // Если заказы содержат товары, подгружаем их
+                .Include(o => o.OrderItems) 
                 .ToListAsync();
         }
     }

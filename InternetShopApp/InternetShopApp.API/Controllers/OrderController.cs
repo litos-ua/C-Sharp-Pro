@@ -39,7 +39,7 @@ namespace InternetShopApp.API.Controllers
             return Ok(order);
         }
 
-        [HttpGet("{id}/with-items")]
+        [HttpGet("{id}/items-in-order")]
         public async Task<IActionResult> GetOrderWithDetailsById(int id)
         {
             var order = await _orderService.GetOrderWithItemsByIdAsync(id);

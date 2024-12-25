@@ -19,7 +19,7 @@ namespace InternetShopApp.Data.Repositories
             var categoryExists = await _context.Categories.AnyAsync(c => c.Id == categoryId);
             if (!categoryExists)
             {
-                return Enumerable.Empty<Product>(); // Пустой список, если категории нет
+                return Enumerable.Empty<Product>(); // Empty list if there is no category
             }
 
             return await _context.Products

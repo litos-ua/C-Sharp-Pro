@@ -37,13 +37,6 @@ namespace InternetShopApp.Data.Repositories
             return entity;
         }
 
-        //public async Task<T> UpdateAsync(T entity)
-        //{
-        //    _dbSet.Update(entity);
-        //    await _context.SaveChangesAsync();
-        //    return entity;
-        //}
-
         public async Task<T> UpdateAsync(T entity)
         {
             _dbSet.Attach(entity);
