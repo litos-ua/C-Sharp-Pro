@@ -48,8 +48,6 @@ namespace InternetShopApp.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
-            // Update the product
             product.Id = id;
             await _productService.UpdateAsync(product);
 

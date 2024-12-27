@@ -17,11 +17,11 @@ namespace InternetShopApp.API.Middleware
         {
             try
             {
-                await _next(context); // Если есть, следующее Middleware
+                await _next(context); 
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Что-то пошло не так: {ex.Message}");
+                _logger.LogError($"Something has go on wrong: {ex.Message}");
                 await HandleExceptionAsync(context, ex);
             }
         }

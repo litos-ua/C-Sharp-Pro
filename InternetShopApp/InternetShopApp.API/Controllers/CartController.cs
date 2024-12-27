@@ -91,7 +91,7 @@ namespace InternetShopApp.API.Controllers
             var carts = await _cartService.GetCartsByProductIdAsync(productId);
             if (!carts.Any())
             {
-                return NotFound($"No carts found with product ID {productId}.");
+                return NotFound($"No carts found with product ID {productId}."); //{"predicate": "cart => cart.IsActive == true"}
             }
             return Ok(carts);
         }

@@ -5,7 +5,6 @@ using InternetShopApp.Data.Repositories.Interfaces;
 using InternetShopApp.Services;
 using InternetShopApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-//using InternetShopApp.Service.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,8 +37,6 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-//builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 var app = builder.Build();
