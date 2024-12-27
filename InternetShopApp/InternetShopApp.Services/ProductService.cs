@@ -1,11 +1,10 @@
 ﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Domain.Entities;
 using InternetShopApp.Services.Interfaces;
-using InternetShopApp.Services;
+using InternetShopApp.Services.Mapping;
 
 namespace InternetShopApp.Services
 {
-    public class ProductService : GenericService<Product>, IProductService
+    public class ProductService : GenericService<Domain.Entities.Product, Data.Entities.Product>, IProductService
     {
         private readonly IProductRepository _productRepository;
 
@@ -14,15 +13,28 @@ namespace InternetShopApp.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
+        public async Task<IEnumerable<Domain.Entities.Product>> GetProductsByCategoryAsync(int categoryId)
         {
-            return await _productRepository.GetProductsByCategoryAsync(categoryId);
+            var dataProducts = await _productRepository.GetProductsByCategoryAsync(categoryId);
+            return dataProducts.Select(ProductMapper.MapToDomain);
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name)
+        public async Task<IEnumerable<Domain.Entities.Product>> GetProductsByNameAsync(string name)
         {
-            return await _productRepository.GetProductsByNameAsync(name);
+            var dataProducts = await _productRepository.GetProductsByNameAsync(name);
+            return dataProducts.Select(ProductMapper.MapToDomain);
+        }
+
+        protected override Domain.Entities.Product MapToDomain(Data.Entities.Product dataEntity)
+        {
+            return ProductMapper.MapToDomain(dataEntity);
+        }
+
+        protected override Data.Entities.Product MapToData(Domain.Entities.Product domainEntity)
+        {
+            return ProductMapper.MapToData(domainEntity);
         }
     }
 }
+
 

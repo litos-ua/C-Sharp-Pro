@@ -2,16 +2,12 @@
 
 namespace InternetShopApp.Services.Interfaces
 {
-    public interface IUserService
+    public interface IUserService : IGenericService<Domain.Entities.User>
     {
-        Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<User?> GetUserByIdAsync(int id);
-        Task AddUserAsync(User user);
-        Task UpdateUserAsync(User user);
-        Task DeleteUserAsync(int id);
-
-        Task<Cart?> GetCartByUserIdAsync(int userId);
-        Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId);
+        Task<Domain.Entities.Cart?> GetCartByUserIdAsync(int userId);
+        Task<IEnumerable<Domain.Entities.Order>> GetOrdersByUserIdAsync(int userId);
     }
 }
+
+
 

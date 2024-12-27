@@ -84,7 +84,7 @@ namespace InternetShopApp.API.Controllers
             return Ok(carts);
         }
 
-        // Получить все корзины, содержащие указанный товар
+        // Get all carts containing a specified item
         [HttpGet("carts-by-product/{productId}")]
         public async Task<IActionResult> GetCartsByProduct(int productId)
         {

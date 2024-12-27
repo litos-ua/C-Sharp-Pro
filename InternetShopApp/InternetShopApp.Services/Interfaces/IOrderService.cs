@@ -1,7 +1,6 @@
 ﻿using InternetShopApp.Domain.Entities;
-using InternetShopApp.Services.Interfaces;
 
-namespace InternetShopApp.Services
+namespace InternetShopApp.Services.Interfaces
 {
     public interface IOrderService : IGenericService<Order>
     {
@@ -9,4 +8,5 @@ namespace InternetShopApp.Services
         Task<Order?> GetOrderWithItemsByIdAsync(int id);
     }
 }
+
 

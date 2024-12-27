@@ -1,52 +1,41 @@
 ﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Domain.Entities;
 using InternetShopApp.Services.Interfaces;
+using InternetShopApp.Services.Mapping;
 
 namespace InternetShopApp.Services
 {
-    public class UserService : IUserService
+    public class UserService : GenericService<Domain.Entities.User, Data.Entities.User>, IUserService
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository) : base(userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<Domain.Entities.Cart?> GetCartByUserIdAsync(int userId)
         {
-            return await _userRepository.GetAllAsync();
+            var cartData = await _userRepository.GetCartByUserIdAsync(userId);
+            return cartData != null ? CartMapper.MapToDomain(cartData) : null;
         }
 
-        public async Task<User?> GetUserByIdAsync(int id)
+        public async Task<IEnumerable<Domain.Entities.Order>> GetOrdersByUserIdAsync(int userId)
         {
-            return await _userRepository.GetByIdAsync(id);
+            var orderDataList = await _userRepository.GetOrdersByUserIdAsync(userId);
+            return orderDataList.Select(OrderMapper.MapToDomain);
         }
 
-        public async Task AddUserAsync(User user)
+        protected override Domain.Entities.User MapToDomain(Data.Entities.User dataEntity)
         {
-            await _userRepository.AddAsync(user);
+            return UserMapper.MapToDomain(dataEntity);
         }
 
-        public async Task UpdateUserAsync(User user)
+        protected override Data.Entities.User MapToData(Domain.Entities.User domainEntity)
         {
-            await _userRepository.UpdateAsync(user);
-        }
-
-        public async Task DeleteUserAsync(int id)
-        {
-            await _userRepository.DeleteAsync(id);
-        }
-
-        public async Task<Cart?> GetCartByUserIdAsync(int userId)
-        {
-            return await _userRepository.GetCartByUserIdAsync(userId);
-        }
-
-        public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId)
-        {
-            return await _userRepository.GetOrdersByUserIdAsync(userId);
+            return UserMapper.MapToData(domainEntity);
         }
     }
 }
+
+
 

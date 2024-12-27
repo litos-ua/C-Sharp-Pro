@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InternetShopApp.Domain.Entities;
-//using InternetShopApp.Data.Entities;
 using InternetShopApp.Services.Interfaces;
 
 namespace InternetShopApp.API.Controllers

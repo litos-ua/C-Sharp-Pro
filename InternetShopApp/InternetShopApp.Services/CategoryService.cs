@@ -1,9 +1,11 @@
 ﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Domain.Entities;
+using InternetShopApp.Services.Interfaces;
+using InternetShopApp.Services.Mapping;
+
 
 namespace InternetShopApp.Services
 {
-    public class CategoryService : GenericService<Category>, ICategoryService
+    public class CategoryService : GenericService<Domain.Entities.Category, Data.Entities.Category>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
 
@@ -12,14 +14,25 @@ namespace InternetShopApp.Services
             _categoryRepository = categoryRepository;
         }
 
-        //public async Task<IEnumerable<Category>> GetCategoriesWithProductsAsync()
-        //{
-        //    return await _categoryRepository.GetCategoriesWithProductsAsync();
-        //}
-        public async Task<Category?> GetCategoryWithProductsByIdAsync(int categoryId)
+        public async Task<Domain.Entities.Category?> GetCategoryWithProductsByIdAsync(int categoryId)
         {
-            return await _categoryRepository.GetCategoryWithProductsByIdAsync(categoryId);
+            var dataCategory = await _categoryRepository.GetCategoryWithProductsByIdAsync(categoryId);
+            return dataCategory == null ? null : CategoryMapper.MapToDomain(dataCategory);
+        }
+
+        protected override Domain.Entities.Category MapToDomain(Data.Entities.Category dataEntity)
+        {
+            return CategoryMapper.MapToDomain(dataEntity);
+        }
+
+        protected override Data.Entities.Category MapToData(Domain.Entities.Category domainEntity)
+        {
+            return CategoryMapper.MapToData(domainEntity);
         }
     }
 }
+
+
+
+
 

@@ -1,13 +1,11 @@
-﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Services.Interfaces;
-using InternetShopApp.Domain.Entities;
-//using InternetShopApp.Data.Entities;
+﻿using InternetShopApp.Services.Interfaces;
+using InternetShopApp.Data.Repositories.Interfaces;
+using InternetShopApp.Services.Mapping;
 
 namespace InternetShopApp.Services
 {
-    public class OrderItemService : GenericService<OrderItem>, IOrderItemService
+    public class OrderItemService : GenericService<Domain.Entities.OrderItem, Data.Entities.OrderItem>, IOrderItemService
     {
-
         private readonly IOrderItemRepository _repository;
         private readonly IProductRepository _productRepository;
 
@@ -19,8 +17,23 @@ namespace InternetShopApp.Services
             _productRepository = productRepository;
         }
 
+        public async Task<Domain.Entities.OrderItem> AddOrderItemAsync(Domain.Entities.OrderItem orderItem)
+        {
+            var product = await _productRepository.GetByIdAsync(orderItem.ProductId);
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {orderItem.ProductId} not found.");
+            }
 
-        public async Task<OrderItem> UpdateOrderItemAsync(OrderItem orderItem)
+            var dataOrderItem = OrderItemMapper.MapToData(orderItem);
+            dataOrderItem.Price = product.Price;
+            dataOrderItem.Total = product.Price * dataOrderItem.Quantity;
+
+            var savedOrderItem = await _repository.AddAsync(dataOrderItem);
+            return OrderItemMapper.MapToDomain(savedOrderItem);
+        }
+
+        public async Task<InternetShopApp.Domain.Entities.OrderItem> UpdateOrderItemAsync(Domain.Entities.OrderItem orderItem)
         {
             var existingOrderItem = await _repository.GetByIdAsync(orderItem.Id);
             if (existingOrderItem == null)
@@ -34,28 +47,23 @@ namespace InternetShopApp.Services
                 throw new KeyNotFoundException($"Product with ID {orderItem.ProductId} not found.");
             }
 
-            orderItem.Price = product.Price; 
-            orderItem.Total = product.Price * orderItem.Quantity; // Calculation Total
+            existingOrderItem.Price = product.Price;
+            existingOrderItem.Total = product.Price * orderItem.Quantity;
+            existingOrderItem.Quantity = orderItem.Quantity;
 
-            //await _repository.UpdateAsync(orderItem);
-            await _repository.EditOrderItemAsync(orderItem);
-
-            return orderItem;
+            var updatedOrderItem = await _repository.EditOrderItemAsync(existingOrderItem);
+            return OrderItemMapper.MapToDomain(updatedOrderItem);
         }
-        public async Task<OrderItem> AddOrderItemAsync(OrderItem orderItem)
+
+        protected override Domain.Entities.OrderItem MapToDomain(Data.Entities.OrderItem dataEntity)
         {
-            // Receiving a product to determine the price
-            var product = await _productRepository.GetByIdAsync(orderItem.ProductId);
-            if (product == null)
-            {
-                throw new KeyNotFoundException($"Product with ID {orderItem.ProductId} not found.");
-            }
+            return OrderItemMapper.MapToDomain(dataEntity);
+        }
 
-            orderItem.Price = product.Price;
-            orderItem.Total = product.Price * orderItem.Quantity;
-
-            return await _repository.AddAsync(orderItem);
+        protected override Data.Entities.OrderItem MapToData(Domain.Entities.OrderItem domainEntity)
+        {
+            return OrderItemMapper.MapToData(domainEntity);
         }
     }
-
 }
+

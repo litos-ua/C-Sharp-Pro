@@ -1,36 +1,42 @@
-﻿using InternetShopApp.Data.Repositories.Interfaces;
+﻿using System.Linq.Expressions;
+using InternetShopApp.Data.Repositories.Interfaces;
 using InternetShopApp.Services.Interfaces;
-using System.Linq.Expressions;
 
 namespace InternetShopApp.Services
 {
-    public class GenericService<T> : IGenericService<T> where T : class
+    public abstract class GenericService<TDomain, TData> : IGenericService<TDomain>
+        where TDomain : class
+        where TData : class
     {
-        private readonly IGenericRepository<T> _repository;
+        private readonly IGenericRepository<TData> _repository;
 
-        public GenericService(IGenericRepository<T> repository)
+        protected GenericService(IGenericRepository<TData> repository)
         {
             _repository = repository;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<TDomain>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var dataEntities = await _repository.GetAllAsync();
+            return dataEntities.Select(MapToDomain);
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<TDomain?> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var dataEntity = await _repository.GetByIdAsync(id);
+            return dataEntity == null ? null : MapToDomain(dataEntity);
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(TDomain entity)
         {
-            await _repository.AddAsync(entity);
+            var dataEntity = MapToData(entity);
+            await _repository.AddAsync(dataEntity);
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(TDomain entity)
         {
-            await _repository.UpdateAsync(entity);
+            var dataEntity = MapToData(entity);
+            await _repository.UpdateAsync(dataEntity);
         }
 
         public async Task DeleteAsync(int id)
@@ -38,10 +44,20 @@ namespace InternetShopApp.Services
             await _repository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>> predicate)
         {
-            return await _repository.FindAsync(predicate);
+            throw new NotImplementedException("Mapping predicates between domain and data is not supported.");
         }
+
+        
+        protected abstract TDomain MapToDomain(TData dataEntity);
+
+        
+        protected abstract TData MapToData(TDomain domainEntity);
     }
 }
+
+
+
+
 

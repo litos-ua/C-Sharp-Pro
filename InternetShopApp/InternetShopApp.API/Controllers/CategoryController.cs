@@ -1,4 +1,4 @@
-﻿using InternetShopApp.Services;
+﻿using InternetShopApp.Services.Interfaces;
 using InternetShopApp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,13 +31,6 @@ namespace InternetShopApp.API.Controllers
 
             return Ok(category);
         }
-
-        //[HttpGet("with-products")] // GET: api/Category/with-products
-        //public async Task<IActionResult> GetCategoriesWithProducts()
-        //{
-        //    var categories = await _categoryService.GetCategoriesWithProductsAsync();
-        //    return Ok(categories);
-        //}
 
         [HttpGet("{categoryId:int}/with-products")] // GET: api/Category/{categoryId}/with-products
         public async Task<IActionResult> GetCategoryWithProductsById(int categoryId)

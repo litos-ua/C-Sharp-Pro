@@ -1,5 +1,4 @@
 ﻿using InternetShopApp.Domain.Entities;
-//using InternetShopApp.Data.Entities;
 
 namespace InternetShopApp.Services.Interfaces
 {
@@ -8,5 +7,5 @@ namespace InternetShopApp.Services.Interfaces
         Task<OrderItem> AddOrderItemAsync(OrderItem orderItem);
         Task<OrderItem> UpdateOrderItemAsync(OrderItem orderItem);
     }
-
 }
+

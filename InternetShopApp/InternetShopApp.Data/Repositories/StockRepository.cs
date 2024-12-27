@@ -1,5 +1,5 @@
-﻿using InternetShopApp.Domain.Entities;
-//using InternetShopApp.Data.Entities;
+﻿//using InternetShopApp.Domain.Entities;
+using InternetShopApp.Data.Entities;
 using InternetShopApp.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

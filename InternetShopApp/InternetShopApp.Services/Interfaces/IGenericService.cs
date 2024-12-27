@@ -1,14 +1,19 @@
 ﻿using System.Linq.Expressions;
 
 namespace InternetShopApp.Services.Interfaces
+{
+    public interface IGenericService<TDomain> where TDomain : class
     {
-        public interface IGenericService<T> where T : class
-        {
-            Task<IEnumerable<T>> GetAllAsync();
-            Task<T> GetByIdAsync(int id);
-            Task AddAsync(T entity);
-            Task UpdateAsync(T entity);
-            Task DeleteAsync(int id);
-            Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
-        }
+        Task<IEnumerable<TDomain>> GetAllAsync();
+        Task<TDomain?> GetByIdAsync(int id);
+        Task AddAsync(TDomain entity);
+        Task UpdateAsync(TDomain entity);
+        Task DeleteAsync(int id);
+        Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>> predicate);
     }
+}
+
+
+
+
+

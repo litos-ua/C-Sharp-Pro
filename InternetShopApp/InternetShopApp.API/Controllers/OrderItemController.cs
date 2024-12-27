@@ -56,7 +56,6 @@ namespace InternetShopApp.API.Controllers
             if (id != orderItem.Id)
                 return BadRequest();
 
-            //await _orderItemService.UpdateAsync(orderItem);
             await _orderItemService.UpdateOrderItemAsync(orderItem);
             return NoContent();
         }

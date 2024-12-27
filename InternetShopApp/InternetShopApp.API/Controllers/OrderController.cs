@@ -1,4 +1,4 @@
-﻿using InternetShopApp.Services;
+﻿using InternetShopApp.Services.Interfaces;
 using InternetShopApp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 

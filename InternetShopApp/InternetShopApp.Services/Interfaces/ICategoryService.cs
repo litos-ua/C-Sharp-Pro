@@ -1,12 +1,14 @@
-﻿using InternetShopApp.Services.Interfaces;
-using InternetShopApp.Domain.Entities;
+﻿using InternetShopApp.Domain.Entities;
 
-namespace InternetShopApp.Services
+namespace InternetShopApp.Services.Interfaces
 {
     public interface ICategoryService : IGenericService<Category>
     {
-        // Task<IEnumerable<Category>> GetCategoriesWithProductsAsync();
         Task<Category?> GetCategoryWithProductsByIdAsync(int categoryId);
     }
 }
+
+
+
+
 

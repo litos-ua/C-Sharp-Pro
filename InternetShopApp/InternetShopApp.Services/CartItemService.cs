@@ -1,11 +1,10 @@
 ﻿using InternetShopApp.Data.Repositories.Interfaces;
-using InternetShopApp.Domain.Entities;
 using InternetShopApp.Services.Interfaces;
-//using InternetShopApp.Data.Entities;
+using InternetShopApp.Services.Mapping;
 
 namespace InternetShopApp.Services
 {
-    public class CartItemService : GenericService<CartItem>, ICartItemService
+    public class CartItemService : GenericService<InternetShopApp.Domain.Entities.CartItem, InternetShopApp.Data.Entities.CartItem>, ICartItemService
     {
         private readonly ICartItemRepository _cartItemRepository;
 
@@ -14,10 +13,20 @@ namespace InternetShopApp.Services
             _cartItemRepository = cartItemRepository;
         }
 
-        public async Task<IEnumerable<CartItem>> GetCartItemsByCartIdAsync(int cartId)
+        public async Task<IEnumerable<Domain.Entities.CartItem>> GetCartItemsByCartIdAsync(int cartId)
         {
-            return await _cartItemRepository.GetCartItemsByCartIdAsync(cartId);
+            var dataCartItems = await _cartItemRepository.GetCartItemsByCartIdAsync(cartId);
+            return dataCartItems.Select(CartItemMapper.MapToDomain);
+        }
+
+        protected override Domain.Entities.CartItem MapToDomain(Data.Entities.CartItem dataEntity)
+        {
+            return CartItemMapper.MapToDomain(dataEntity);
+        }
+
+        protected override Data.Entities.CartItem MapToData(Domain.Entities.CartItem domainEntity)
+        {
+            return CartItemMapper.MapToData(domainEntity);
         }
     }
-
 }

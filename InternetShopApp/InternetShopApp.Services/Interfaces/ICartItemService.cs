@@ -1,5 +1,5 @@
-﻿using InternetShopApp.Domain.Entities;
-//using InternetShopApp.Data.Entities;
+﻿
+using InternetShopApp.Domain.Entities;
 
 namespace InternetShopApp.Services.Interfaces
 {
@@ -8,3 +8,7 @@ namespace InternetShopApp.Services.Interfaces
         Task<IEnumerable<CartItem>> GetCartItemsByCartIdAsync(int cartId);
     }
 }
+
+
+
+
